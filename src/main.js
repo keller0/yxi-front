@@ -6,6 +6,7 @@ import App from './App'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueRouter from 'vue-router'
+
 import About from './components/About'
 import Yxi from './components/Yxi'
 
@@ -26,7 +27,10 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>',
   render: h => h(App)
+
 }).$mount('#app')
