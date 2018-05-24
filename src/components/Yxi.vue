@@ -36,7 +36,8 @@ import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/lib/codemirror.css'
 // import 'codemirror/keymap/emacs.js'
 
-const YXI_RUN_API = 'http://127.0.0.1:8080/v1'
+// const YXI_RUN_API = 'http://127.0.0.1:8080/v1'
+const YXI_RUN_API = 'http://r.yxi.io/v1'
 const code = '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
 
 export default {
@@ -80,9 +81,10 @@ export default {
         if (resp.status === 200) {
           this.restul += resp.data.stdout
           this.restul += resp.data.stderr
+          this.runing = false
         }
-        this.runing = false
       }).catch(error => {
+        this.runing = false
         if (error.response.status === 500) {
           this.error = error.response.data.error
         }
