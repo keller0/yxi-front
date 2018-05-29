@@ -16,7 +16,8 @@
     "element-ui": "^2.3.9",
     "vue": "^2.5.2",
     "vue-codemirror": "^4.0.5",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.0.18"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

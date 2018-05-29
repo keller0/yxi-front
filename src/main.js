@@ -2,19 +2,19 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
 import VueRouter from 'vue-router'
 
-import About from './components/About'
-import Yxi from './components/Yxi'
+import Home from './components/Home'
 
 Vue.use(VueRouter)
-Vue.use(ElementUI)
+Vue.use(Vuetify)
 
 const routes = [
-  {path: '/', component: Yxi},
-  {path: '/about', component: About}
+  {path: '/', component: Home}
 ]
 
 const router = new VueRouter({
@@ -22,7 +22,6 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
