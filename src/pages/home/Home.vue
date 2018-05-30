@@ -49,7 +49,7 @@
         <v-layout row justify-center>
           <!-- the editor -->
           <v-flex md10 offset-md1>
-            <Edit> </Edit>
+            <Edit :editerTheme="edittheme" > </Edit>
           </v-flex>
         </v-layout>
       </v-container>
@@ -66,7 +66,7 @@ export default {
   data: () => ({
     name: 'home',
     drawer: null,
-    // darkTheme: "blackboard",
+    edittheme: "blackboard",
     items: [
       { icon: 'trending_up', text: 'Popular' },
       { icon: 'public', text: 'Public' },
