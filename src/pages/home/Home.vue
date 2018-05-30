@@ -1,15 +1,16 @@
 <template>
   <v-app
     id="home"
+
   >
     <v-navigation-drawer
+      :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
       fixed
-      clipped
       app
     >
       <v-list dense>
-        <v-list-tile v-for="item in items" :key="item.text" @click="">
+        <v-list-tile v-for="item in items" :key="item.text" @click="goPage(item.text)">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -20,7 +21,7 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile @click="">
+        <v-list-tile @click="goPage('Settings')">
           <v-list-tile-action>
             <v-icon color="grey darken-1">settings</v-icon>
           </v-list-tile-action>
@@ -40,15 +41,16 @@
       <v-toolbar-title class="mr-5 align-center">
         <span class="title">YXI</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
 
     </v-toolbar>
-    <v-content>
-      <v-container>
-        <v-layout justify-center align-center>
-          <!-- the editor -->
-          <Edit/>
 
+    <v-content >
+      <v-container >
+        <v-layout row justify-center>
+          <!-- the editor -->
+          <v-flex md10 offset-md1>
+            <Edit> </Edit>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-content>
@@ -63,15 +65,21 @@ export default {
   },
   data: () => ({
     name: 'home',
-    drawer: true,
+    drawer: null,
+    // darkTheme: "blackboard",
     items: [
       { icon: 'trending_up', text: 'Popular' },
       { icon: 'public', text: 'Public' },
-      { icon: 'folder', text: 'Mine' }
+      { icon: 'folder', text: 'Mine' },
+      { icon: 'help', text: 'Help' }
     ]
   }),
   props: {
-    source: String
+    source: String,
+  },methods: {
+    goPage: function(a) {
+      console.log(a)
+    }
   }
 }
 </script>
