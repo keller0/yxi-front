@@ -28,72 +28,58 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
 
-const YXI_RUN_API = 'http://r.yxi.io/v1'
-// const YXI_RUN_API = 'http://127.0.0.1/v1'
+import { resultC } from '@/api/langC'
+
 const code = '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
 
 export default {
-  components: {
-    codemirror
-  },
-  data: function () {
-    return {
-      name:'Edit',
-      errShow: false,
-      runing: false,
-      error: '',
-      result: '',
-      code,
-      cmOption: {
-        tabSize: 4,
-        lineNumbers: true,
-        line: true,
-        mode: 'text/x-csrc'
-        // keyMap: 'emacs'
-      }
-    }
-  },
-  methods: {
-    runcode: function () {
-      this.result = ''
-      this.runing = true
-      axios({
-        method:'post',
-        url: YXI_RUN_API + '/c',
-        data: {
-          'files': [
-            {
-              'content': this.code,
-              'name': 'main.c'
+    components: {
+        codemirror
+    },
+    data: function() {
+        return {
+            name: 'Edit',
+            errShow: false,
+            runing: false,
+            error: '',
+            result: '',
+            code,
+            cmOption: {
+                tabSize: 4,
+                lineNumbers: true,
+                line: true,
+                mode: 'text/x-csrc'
+                // keyMap: 'emacs'
             }
-          ],
-          'stdin': '',
-          'argument': ''
-        },
-        headers:{
-          'Content-Type':'application/json',
-          'Api-Key':'sharedkey'
-          }
-      }).then(resp => {
-        if (resp.status === 200) {
-          this.result += resp.data.stdout
-          this.result += resp.data.stderr
         }
-      }).catch(error => {
-        if (error.response.status === 500) {
-          this.error = error.response.data.error
-        }else  if (error.response.status === 403) {
-          this.error = error.response.data
+    },
+    methods: {
+        async runcode() {
+            try {
+                const data = {
+                    files: [
+                        {
+                            content: this.code,
+                            name: 'main.c'
+                        }
+                    ],
+                    stdin: '',
+                    argument: ''
+                }
+                const res = await resultC(data)
+                this.result += res.stdout
+                this.result += res.stderr
+            } catch (error) {
+                this.errShow = true
+                this.error = error.message
+                console.error(error)
+            }
         }
-        this.errShow = true
-      })
     }
-  }
 }
 
 </script>
