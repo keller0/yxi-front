@@ -88,6 +88,7 @@ export default {
 			}
 		},
 		statusStartRun: function() {
+			this.result = ""
 			this.runBar = true
 			this.rshow = false
 		},

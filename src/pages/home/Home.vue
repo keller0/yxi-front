@@ -48,7 +48,7 @@
       <v-container >
         <v-layout row justify-center>
           <!-- the editor -->
-          <v-flex md10 offset-md1>
+          <v-flex md10 offset-md1 sm12>
             <Edit :editerTheme="edittheme" > </Edit>
           </v-flex>
         </v-layout>
