@@ -38,23 +38,17 @@
 
         <v-content >
             <v-container >
-                <v-layout row justify-center>
-                    <!-- the editor -->
-                    <v-flex md10 offset-md1 sm12>
-                        <Edit :editerTheme="edittheme" > </Edit>
-                    </v-flex>
-                </v-layout>
+                <router-view></router-view>
             </v-container>
         </v-content>
     </v-app>
 </template>
 
 <script>
-import Edit from '@/components/Editor'
+
 export default {
     name: 'Home',
     components: {
-        Edit
     },
     data() {
         return {

@@ -2,7 +2,7 @@
     <v-card width="100%">
         <v-card-title primary-title>
             <div>
-                <h3 class="headline">"Hello, world"</h3>
+                <v-text-field></v-text-field>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -20,7 +20,7 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
 
-const code = '#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}'
+const code = '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
 
 export default {
     name: 'Editor',
@@ -29,9 +29,11 @@ export default {
         runCode
     },
     props: [
+
     ],
     data: function() {
         return {
+            name: 'Edit',
             code,
             cmOption: {
                 tabSize: 4,
@@ -50,5 +52,9 @@ export default {
 </script>
 <style scoped>
 
+textarea {
+    width: 100%;
+    height: 100px;
+}
 
 </style>

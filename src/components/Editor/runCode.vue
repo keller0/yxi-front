@@ -35,8 +35,6 @@ export default {
         }
     },
     props: {
-        'rshow': String,
-        'errshow': Boolean,
         'code': String
     },
     methods: {
@@ -77,3 +75,12 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+textarea {
+    width: 100%;
+    height: 100px;
+}
+
+</style>
