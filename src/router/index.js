@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/pages/home/Home'
-import Pcode from '@/components/Pcode'
+import Popcode from '@/components/Code/Popcode'
+import Mycode from '@/components/Code/Mycode'
+import Pubcode from '@/components/Code/Pubcode'
 import Editor from '@/components/Editor'
 import editNew from '@/components/Editor/new'
 
@@ -19,11 +21,19 @@ const routerMap = [
             },
             {
                 path: 'public',
-                component: Pcode
+                component: Pubcode
+            },
+            {
+                path: 'popular',
+                component: Popcode
             },
             {
                 path: 'new',
                 component: editNew
+            },
+            {
+                path: 'mine',
+                component: Mycode
             }
         ]
     }

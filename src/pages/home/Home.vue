@@ -15,7 +15,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
 
-                <v-list-tile @click="goPage('Settings')">
+                <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">settings</v-icon>
                     </v-list-tile-action>
@@ -32,7 +32,8 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-icon class="mx-3"></v-icon>
             <v-toolbar-title class="mr-5 align-center">
-                <span class="title">YXI</span>
+                <!-- an icon ? -->
+                <span class="title" @click="goPage('')" style="cursor: pointer;">YXI</span>
             </v-toolbar-title>
         </v-toolbar>
 
@@ -68,8 +69,13 @@ export default {
     },
     methods: {
         goPage: function(a) {
+            this.$router.push('/' + a)
             console.log(a)
         }
     }
 }
 </script>
+
+<style scoped>
+
+</style>
