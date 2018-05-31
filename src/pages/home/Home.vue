@@ -14,7 +14,12 @@
                         <v-list-tile-title>{{ item.text }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon color="grey darken-1">help</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-title class="grey--text text--darken-1">Help</v-list-tile-title>
+                </v-list-tile>
                 <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">settings</v-icon>
@@ -59,8 +64,7 @@ export default {
             items: [
                 { icon: 'trending_up', text: 'Popular' },
                 { icon: 'public', text: 'Public' },
-                { icon: 'folder', text: 'Mine' },
-                { icon: 'help', text: 'Help' }
+                { icon: 'folder', text: 'Mine' }
             ]
         }
     },

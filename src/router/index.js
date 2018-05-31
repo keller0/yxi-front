@@ -34,7 +34,12 @@ const routerMap = [
             {
                 path: 'mine',
                 component: Mycode
+            },
+            {
+                path: 'help',
+                component: Mycode
             }
+
         ]
     }
 ]
