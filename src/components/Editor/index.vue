@@ -9,22 +9,7 @@
         <v-spacer></v-spacer>
         <v-card-text>
             <codemirror v-model="code" :options="cmOption" ></codemirror>
-            <v-progress-linear :indeterminate="runBar" :value="pecBar"></v-progress-linear>
-            <v-card-actions>
-                <v-btn color="blue" @click="runcode">Run</v-btn>
-                <v-spacer></v-spacer>
-                <v-btn icon @click.native="rshow = !rshow">
-                    <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </v-btn>
-            </v-card-actions>
-                <v-slide-y-transition>
-                    <v-card-text v-show="rshow">
-                    <v-alert v-model="errShow" type="error" dismissible>
-                        {{error}}
-                    </v-alert>
-                    <textarea v-model="result" placeholder="nothing..."></textarea>
-                </v-card-text>
-            </v-slide-y-transition>
+            <runCode :code="code"></runCode>
         </v-card-text>
     </v-card>
 </template>
@@ -34,15 +19,15 @@ import { codemirror } from 'vue-codemirror'
 import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
-
-import { codeRunResult } from '@/api/codeResult'
+import runCode from '@/components/Editor/runCode'
 
 const code = '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
 
 export default {
     name: 'Editor',
     components: {
-        codemirror
+        codemirror,
+        runCode
     },
     props: [
         'editerTheme',
@@ -52,13 +37,7 @@ export default {
     data: function() {
         return {
             name: 'Edit',
-            errShow: false,
-            rshow: false,
-            error: '',
-            result: '',
             code,
-            runBar: false,
-            pecBar: 0,
             cmOption: {
                 tabSize: 4,
                 lineNumbers: true,
@@ -69,40 +48,7 @@ export default {
         }
     },
     methods: {
-        async runcode() {
-            try {
-                this.statusStartRun()
-                const data = {
-                    files: [
-                        {
-                            content: this.code,
-                            name: 'main.c'
-                        }
-                    ],
-                    stdin: '',
-                    argument: ''
-                }
-                const res = await codeRunResult('/c', data)
-                this.result += res.stdout
-                this.result += res.stderr
-            } catch (error) {
-                this.errShow = true
-                this.error = error.message
-                console.error(error)
-            } finally {
-                this.statusStopRun()
-            }
-        },
-        statusStartRun: function() {
-            this.result = ''
-            this.runBar = true
-            this.rshow = false
-        },
-        statusStopRun: function() {
-            this.runBar = false
-            this.pecBar = 100
-            this.rshow = true
-        }
+
     }
 }
 
