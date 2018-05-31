@@ -2,7 +2,7 @@
     <v-card width="100%">
         <v-card-title primary-title>
             <div>
-                <h3 class="headline">"Hello, world"</h3>
+                <v-text-field></v-text-field>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -10,7 +10,6 @@
             <codemirror v-model="code" :options="cmOption" ></codemirror>
             <runCode :code="code"></runCode>
         </v-card-text>
-        <newButton></newButton>
     </v-card>
 </template>
 
@@ -20,19 +19,21 @@ import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
-import newButton from '@/components/newButton'
-const code = '#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}'
+
+const code = '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
+
 export default {
     name: 'Editor',
     components: {
         codemirror,
-        runCode,
-        newButton
+        runCode
     },
     props: [
+
     ],
     data: function() {
         return {
+            name: 'Edit',
             code,
             cmOption: {
                 tabSize: 4,
@@ -44,8 +45,16 @@ export default {
         }
     },
     methods: {
+
     }
 }
+
 </script>
 <style scoped>
+
+textarea {
+    width: 100%;
+    height: 100px;
+}
+
 </style>

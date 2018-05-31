@@ -14,8 +14,13 @@
                         <v-list-tile-title>{{ item.text }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-
-                <v-list-tile @click="goPage('Settings')">
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon color="grey darken-1">help</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-title class="grey--text text--darken-1">Help</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">settings</v-icon>
                     </v-list-tile-action>
@@ -32,29 +37,23 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-icon class="mx-3"></v-icon>
             <v-toolbar-title class="mr-5 align-center">
-                <span class="title">YXI</span>
+                <!-- an icon ? -->
+                <span class="title" @click="goPage('')" style="cursor: pointer;">YXI</span>
             </v-toolbar-title>
         </v-toolbar>
 
         <v-content >
             <v-container >
-                <v-layout row justify-center>
-                    <!-- the editor -->
-                    <v-flex md10 offset-md1 sm12>
-                        <Edit :editerTheme="edittheme" > </Edit>
-                    </v-flex>
-                </v-layout>
+                <router-view></router-view>
             </v-container>
         </v-content>
     </v-app>
 </template>
 
 <script>
-import Edit from '@/components/Editor'
 export default {
     name: 'Home',
     components: {
-        Edit
     },
     data() {
         return {
@@ -64,8 +63,7 @@ export default {
             items: [
                 { icon: 'trending_up', text: 'Popular' },
                 { icon: 'public', text: 'Public' },
-                { icon: 'folder', text: 'Mine' },
-                { icon: 'help', text: 'Help' }
+                { icon: 'folder', text: 'Mine' }
             ]
         }
     },
@@ -74,8 +72,12 @@ export default {
     },
     methods: {
         goPage: function(a) {
+            this.$router.push('/' + a)
             console.log(a)
         }
     }
 }
 </script>
+
+<style scoped>
+</style>
