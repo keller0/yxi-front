@@ -1,0 +1,7 @@
+/* Codemirror's linenumber */
+.CodeMirror-gutters {
+    z-index: 0;
+}
+.CodeMirror-gutter-wrapper {
+    z-index: 2;
+}
