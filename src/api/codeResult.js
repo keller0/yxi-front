@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
-// C 语言运行结果
-export function resultC(data) {
+// 代码运行结果
+export function codeRunResult(url, data) {
     return request({
-        url: '/c',
+        url,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
