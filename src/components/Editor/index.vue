@@ -21,9 +21,7 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
 import newButton from '@/components/newButton'
-
 const code = '#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}'
-
 export default {
     name: 'Editor',
     components: {
@@ -46,12 +44,8 @@ export default {
         }
     },
     methods: {
-
     }
 }
-
 </script>
 <style scoped>
-
-
 </style>

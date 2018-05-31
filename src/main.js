@@ -6,6 +6,7 @@ import router from './router'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import '@/assets/css/global.css'
 
 Vue.use(Vuetify)
 
