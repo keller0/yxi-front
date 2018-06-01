@@ -6,6 +6,12 @@
             fixed
             app>
             <v-list dense>
+                <v-list-tile v-show="!$vuetify.breakpoint.lgAndUp" @click.stop="drawer = !drawer">
+                    <v-list-tile-action>
+                        <v-icon color="grey darken-1">home</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-title class="grey--text text--darken-1">Home</v-list-tile-title>
+                </v-list-tile>
                 <v-list-tile v-for="item in items" :key="item.text" @click="goPage(item.text)">
                     <v-list-tile-action>
                         <v-icon>{{ item.icon }}</v-icon>
