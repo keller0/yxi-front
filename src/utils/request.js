@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const service = axios.create({
     // baseURL: 'http://127.0.0.1/v1',
-    baseURL: 'http://r.yxi.io/v1',
+    baseURL: 'https://r.yxi.io/v1',
     timeout: 10 * 1000,
     withCredentials: false
 })
