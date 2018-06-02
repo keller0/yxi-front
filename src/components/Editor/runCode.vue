@@ -2,7 +2,7 @@
     <div>
         <v-progress-linear :indeterminate="runBar" :value="pecBar"></v-progress-linear>
         <v-card-actions>
-            <v-btn color="blue" @click="runcode">Run</v-btn>
+            <v-btn color="primary" @click="runcode">Run</v-btn>
             <v-spacer></v-spacer>
             <v-btn icon @click.native="rshow = !rshow">
                 <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -80,5 +80,5 @@ export default {
 </script>
 
 <style>
-   
+
 </style>

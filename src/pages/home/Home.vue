@@ -6,7 +6,10 @@
             fixed
             app>
             <v-list dense>
-                <v-list-tile v-show="!$vuetify.breakpoint.lgAndUp" @click.stop="drawer = !drawer">
+                <v-list-tile 
+                    v-show="!$vuetify.breakpoint.lgAndUp" 
+                    @click="goHome"
+                    @click.stop="drawer = !drawer">
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">home</v-icon>
                     </v-list-tile-action>
@@ -48,13 +51,15 @@
             <v-icon class="mx-3"></v-icon>
             <v-toolbar-title class="mr-5 align-center">
                 <!-- an icon ? -->
-                <span class="title" @click="goPage('')" style="cursor: pointer;">YXI</span>
+                <span class="title" @click="goHome" style="cursor: pointer;">YXI</span>
             </v-toolbar-title>
         </v-toolbar>
 
         <v-content >
             <v-container >
-                <router-view></router-view>
+                <transition name="fade">
+                    <router-view></router-view>
+                </transition>
             </v-container>
         </v-content>
     </v-app>
@@ -78,12 +83,12 @@ export default {
             ]
         }
     },
-    mounted() {
-        console.log(this.$router.options.routes)
-    },
     methods: {
-        goPage: function(path) {
-            this.$router.push('/' + path)
+        goHome() {
+            this.$router.push('/')
+        },
+        goPage(path) {
+            this.$router.push(path)
         }
     }
 }
