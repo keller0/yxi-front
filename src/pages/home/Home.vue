@@ -12,14 +12,18 @@
                     </v-list-tile-action>
                     <v-list-tile-title class="grey--text text--darken-1">Home</v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-for="item in items" :key="item.text" @click="goPage(item.text)">
-                    <v-list-tile-action>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
+                <template v-for="(item) in $router.options.routes"  v-if="item.menu">
+                    <template v-for="child in item.children">
+                        <v-list-tile :key="child.path" @click="goPage(child.path)">
+                            <v-list-tile-action>
+                                <v-icon>{{ child.icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ child.name }}</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </template>
+                </template>
                 <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">help</v-icon>
@@ -59,7 +63,8 @@
 <script>
 export default {
     name: 'Home',
-    components: {
+    props: {
+        source: String
     },
     data() {
         return {
@@ -73,13 +78,12 @@ export default {
             ]
         }
     },
-    props: {
-        source: String
+    mounted() {
+        console.log(this.$router.options.routes)
     },
     methods: {
-        goPage: function(a) {
-            this.$router.push('/' + a)
-            console.log(a)
+        goPage: function(path) {
+            this.$router.push('/' + path)
         }
     }
 }

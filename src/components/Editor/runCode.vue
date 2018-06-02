@@ -13,7 +13,10 @@
                 <v-alert v-model="errShow" type="error" dismissible>
                     {{error}}
                 </v-alert>
-                <textarea v-model="result" placeholder="nothing..."></textarea>
+                <!-- <textarea v-model="result" placeholder="nothing..."></textarea> -->
+                <div>
+                    <span>{{ result }}</span>
+                </div>
             </v-card-text>
         </v-slide-y-transition>
     </div>
@@ -29,7 +32,7 @@ export default {
             errShow: false,
             rshow: false,
             error: '',
-            result: '',
+            result: 'nothing...',
             runBar: false,
             pecBar: 0
         }

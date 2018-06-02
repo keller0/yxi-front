@@ -14,32 +14,55 @@ const routerMap = [
     {
         path: '/',
         component: Home,
+        redirect: '/editor',
+        menu: true,
         children: [
-            {
-                path: '',
-                component: Editor
-            },
-            {
-                path: 'public',
-                component: Pubcode
-            },
-            {
-                path: 'popular',
-                component: Popcode
-            },
-            {
-                path: 'new',
-                component: editNew
-            },
-            {
-                path: 'mine',
-                component: Mycode
-            },
-            {
-                path: 'help',
-                component: Mycode
-            }
-
+            { path: '/public', component: Pubcode, name: 'Popular', icon: 'trending_up' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        redirect: '/editor',
+        menu: true,
+        children: [
+            { path: '/popular', component: Popcode, name: 'Public', icon: 'public' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        redirect: '/editor',
+        menu: true,
+        children: [
+            { path: '/mine', component: Mycode, name: 'Mine', icon: 'folder' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        redirect: '/editor',
+        menu: false,
+        children: [
+            { path: '/editor', component: Editor }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        redirect: '/editor',
+        menu: false,
+        children: [
+            { path: '/new', component: editNew }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        redirect: '/editor',
+        menu: false,
+        children: [
+            { path: '/help', component: Mycode }
         ]
     }
 ]
