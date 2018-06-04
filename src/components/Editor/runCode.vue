@@ -2,7 +2,7 @@
     <div>
         <v-progress-linear :indeterminate="runBar" :value="pecBar"></v-progress-linear>
         <v-card-actions>
-            <v-btn color="blue" @click="runcode">Run</v-btn>
+            <v-btn color="primary" @click="runcode">Run</v-btn>
             <v-spacer></v-spacer>
             <v-btn icon @click.native="rshow = !rshow">
                 <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -13,7 +13,10 @@
                 <v-alert v-model="errShow" type="error" dismissible>
                     {{error}}
                 </v-alert>
-                <textarea v-model="result" placeholder="nothing..."></textarea>
+                <!-- <textarea v-model="result" placeholder="nothing..."></textarea> -->
+                <div>
+                    <span>{{ result }}</span>
+                </div>
             </v-card-text>
         </v-slide-y-transition>
     </div>
@@ -29,7 +32,7 @@ export default {
             errShow: false,
             rshow: false,
             error: '',
-            result: '',
+            result: 'nothing...',
             runBar: false,
             pecBar: 0
         }
@@ -77,5 +80,5 @@ export default {
 </script>
 
 <style>
-   
+
 </style>

@@ -6,20 +6,25 @@
             fixed
             app>
             <v-list dense>
-                <v-list-tile v-show="!$vuetify.breakpoint.lgAndUp" @click.stop="drawer = !drawer">
+                <v-list-tile 
+                    v-show="!$vuetify.breakpoint.lgAndUp" 
+                    @click="goHome"
+                    @click.stop="drawer = !drawer">
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">home</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-title class="grey--text text--darken-1">Home</v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-for="item in items" :key="item.text" @click="goPage(item.text)">
+
+                 <v-list-tile v-for="menu in menus" :key="menu.path" @click="goPage(menu.path)">
                     <v-list-tile-action>
-                        <v-icon>{{ item.icon }}</v-icon>
+                        <v-icon>{{ menu.icon }}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+                        <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+                
                 <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">help</v-icon>
@@ -44,13 +49,15 @@
             <v-icon class="mx-3"></v-icon>
             <v-toolbar-title class="mr-5 align-center">
                 <!-- an icon ? -->
-                <span class="title" @click="goPage('')" style="cursor: pointer;">YXI</span>
+                <span class="title" @click="goHome" style="cursor: pointer;">YXI</span>
             </v-toolbar-title>
         </v-toolbar>
 
         <v-content >
             <v-container >
-                <router-view></router-view>
+                <transition name="fade">
+                    <router-view></router-view>
+                </transition>
             </v-container>
         </v-content>
     </v-app>
@@ -59,27 +66,27 @@
 <script>
 export default {
     name: 'Home',
-    components: {
+    props: {
+        source: String
     },
     data() {
         return {
             name: 'home',
             drawer: null,
             edittheme: 'blackboard',
-            items: [
-                { icon: 'trending_up', text: 'Popular' },
-                { icon: 'public', text: 'Public' },
-                { icon: 'folder', text: 'Mine' }
+            menus: [
+                { icon: 'trending_up', title: 'Popular', path: '/popular' },
+                { icon: 'public', title: 'Public', path: '/public' },
+                { icon: 'folder', title: 'Mine', path: '/mine' }
             ]
         }
     },
-    props: {
-        source: String
-    },
     methods: {
-        goPage: function(a) {
-            this.$router.push('/' + a)
-            console.log(a)
+        goHome() {
+            this.$router.push('/')
+        },
+        goPage(path) {
+            this.$router.push(path)
         }
     }
 }

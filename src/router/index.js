@@ -14,32 +14,14 @@ const routerMap = [
     {
         path: '/',
         component: Home,
+        redirect: '/editor',
         children: [
-            {
-                path: '',
-                component: Editor
-            },
-            {
-                path: 'public',
-                component: Pubcode
-            },
-            {
-                path: 'popular',
-                component: Popcode
-            },
-            {
-                path: 'new',
-                component: editNew
-            },
-            {
-                path: 'mine',
-                component: Mycode
-            },
-            {
-                path: 'help',
-                component: Mycode
-            }
-
+            { path: '/public', component: Pubcode },
+            { path: '/popular', component: Popcode },
+            { path: '/mine', component: Mycode },
+            { path: '/editor', component: Editor },
+            { path: '/new', component: editNew },
+            { path: '/help', component: Mycode }
         ]
     }
 ]
