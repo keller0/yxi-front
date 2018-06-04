@@ -15,18 +15,16 @@
                     </v-list-tile-action>
                     <v-list-tile-title class="grey--text text--darken-1">Home</v-list-tile-title>
                 </v-list-tile>
-                <template v-for="(item) in $router.options.routes"  v-if="item.menu">
-                    <template v-for="child in item.children">
-                        <v-list-tile :key="child.path" @click="goPage(child.path)">
-                            <v-list-tile-action>
-                                <v-icon>{{ child.icon }}</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{ child.name }}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                    </template>
-                </template>
+
+                 <v-list-tile v-for="menu in menus" :key="menu.path" @click="goPage(menu.path)">
+                    <v-list-tile-action>
+                        <v-icon>{{ menu.icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                
                 <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">help</v-icon>
@@ -76,10 +74,10 @@ export default {
             name: 'home',
             drawer: null,
             edittheme: 'blackboard',
-            items: [
-                { icon: 'trending_up', text: 'Popular' },
-                { icon: 'public', text: 'Public' },
-                { icon: 'folder', text: 'Mine' }
+            menus: [
+                { icon: 'trending_up', title: 'Popular', path: '/popular' },
+                { icon: 'public', title: 'Public', path: '/public' },
+                { icon: 'folder', title: 'Mine', path: '/mine' }
             ]
         }
     },
