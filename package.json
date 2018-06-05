@@ -13,7 +13,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "codemirror": "^5.37.0",
-    "element-ui": "^2.3.9",
     "eslint-plugin-html": "^4.0.3",
     "vue": "^2.5.2",
     "vue-codemirror": "^4.0.5",
