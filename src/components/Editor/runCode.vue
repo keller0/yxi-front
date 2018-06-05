@@ -38,7 +38,7 @@ export default {
         }
     },
     props: {
-        'code': String
+        code: String
     },
     methods: {
         async runcode() {
@@ -65,12 +65,12 @@ export default {
                 this.statusStopRun()
             }
         },
-        statusStartRun: function() {
+        statusStartRun() {
             this.result = ''
             this.runBar = true
             this.rshow = false
         },
-        statusStopRun: function() {
+        statusStopRun() {
             this.runBar = false
             this.pecBar = 100
             this.rshow = true
