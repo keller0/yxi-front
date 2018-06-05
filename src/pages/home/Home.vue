@@ -16,7 +16,7 @@
                     <v-list-tile-title class="grey--text text--darken-1">Home</v-list-tile-title>
                 </v-list-tile>
 
-                <v-list-tile v-for="menu in menus" :key="menu.path" @click="goPage(menu.path)">
+                 <v-list-tile v-for="menu in menus" :key="menu.path" @click="goPage(menu.path)">
                     <v-list-tile-action>
                         <v-icon>{{ menu.icon }}</v-icon>
                     </v-list-tile-action>
