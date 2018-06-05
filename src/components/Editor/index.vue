@@ -6,12 +6,11 @@
                 <v-select
                     v-model="select"
                     label="Select"
-                    item-text="type"
-                    item-value="value"
+                    item-text="blackboard"
+                    item-value="blackboard"
                     single-line
-                    return-object
                     :items="themes"
-                    @change="test">
+                    @change="onThemeChange">
                 </v-select>
             </div>
         </v-card-title>
@@ -25,6 +24,7 @@
 </template>
 
 <script>
+import theme from './theme'
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
@@ -48,23 +48,14 @@ export default {
                 mode: 'text/x-csrc',
                 theme: 'blackboard'
             },
-            select: { type: 'blackboard', value: 'blackboard.css' },
-            themes: [
-                { type: 'default', value: '' },
-                { type: 'blackboard', value: 'blackboard.css' },
-                { type: '3024-day', value: '3024-day.css' },
-                { type: '3024-night', value: '3024-night.css' },
-                { type: 'base16-dark', value: 'base16-dark.css' },
-                { type: 'base16-light', value: 'base16-light.css' },
-                { type: 'ambiance-mobile', value: 'ambiance-mobile.css' },
-                { type: 'ambiance', value: 'ambiance.css' }
-            ]
+            select: 'blackboard',
+            themes: theme
         }
     },
     methods: {
-        test(theme) {
-            import(`codemirror/theme/${theme.value}`)
-            this.cmOption.theme = theme.type
+        onThemeChange(theme) {
+            import(`codemirror/theme/${theme}.css`)
+            this.cmOption.theme = theme
         }
     }
 }
