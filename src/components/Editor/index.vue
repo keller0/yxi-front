@@ -3,15 +3,33 @@
         <v-card-title primary-title style="justify-content: space-between;">
             <h3 class="headline">"Hello, world"</h3>
             <div>
-                <v-select
-                    v-model="select"
-                    label="Select"
-                    item-text="blackboard"
-                    item-value="blackboard"
-                    single-line
-                    :items="themes"
-                    @change="onThemeChange">
-                </v-select>
+                <v-dialog v-model="themeSettiogDialog" persistent max-width="390">
+                    <v-btn slot="activator" flat color="purple" dark><v-icon dark>build</v-icon></v-btn>
+                    <v-card>
+                        <v-card-title>
+                            <span class="headline">Editor setting</span>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-container grid-list-md>
+                                <v-layout wrap>
+                                    <v-flex xs12 sm12>
+                                        <v-select
+                                            v-model="selectedTheme"
+                                            label="Theme"
+                                            :items="themes"
+                                            autocomplete
+                                            @change="onThemeChange">
+                                        </v-select>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="green darken-1" flat @click.native="themeSettiogDialog = false">Close</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -48,7 +66,8 @@ export default {
                 mode: 'text/x-csrc',
                 theme: 'blackboard'
             },
-            select: 'blackboard',
+            themeSettiogDialog: false,
+            selectedTheme: 'blackboard',
             themes: theme
         }
     },

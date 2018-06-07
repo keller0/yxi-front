@@ -6,8 +6,8 @@
             fixed
             app>
             <v-list dense>
-                <v-list-tile 
-                    v-show="!$vuetify.breakpoint.lgAndUp" 
+                <v-list-tile
+                    v-show="!$vuetify.breakpoint.lgAndUp"
                     @click="goHome"
                     @click.stop="drawer = !drawer">
                     <v-list-tile-action>
@@ -24,7 +24,7 @@
                         <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                
+
                 <v-list-tile>
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">help</v-icon>
@@ -39,7 +39,7 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        
+
         <v-toolbar
             color=""
             dense
@@ -74,7 +74,6 @@ export default {
         return {
             name: 'home',
             drawer: null,
-            edittheme: 'blackboard',
             menus: [
                 { icon: 'trending_up', title: 'Popular', path: '/popular' },
                 { icon: 'public', title: 'Public', path: '/public' },
