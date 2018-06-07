@@ -14,8 +14,8 @@ const routerMap = [
     {
         path: '/',
         component: Home,
-        redirect: '/editor',
         children: [
+            { path: '/', component: Editor },
             { path: '/public', component: Pubcode },
             { path: '/popular', component: Popcode },
             { path: '/mine', component: Mycode },
