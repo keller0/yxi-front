@@ -3,7 +3,7 @@
         <v-card-title primary-title style="justify-content: space-between;">
             <h3 class="headline">"Hello, world"</h3>
             <div>
-                <v-dialog v-model="themeSettiogDialog" persistent max-width="390">
+                <v-dialog v-model="themeSettiogDialog" max-width="390">
                     <v-btn slot="activator" flat color="purple" dark><v-icon dark>build</v-icon></v-btn>
                     <v-card>
                         <v-card-title>
