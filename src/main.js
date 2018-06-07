@@ -9,7 +9,12 @@ import 'vuetify/dist/vuetify.min.css'
 import '@/assets/css/index.scss'
 
 Vue.use(Vuetify)
-
+router.afterEach(function(to) {
+    if (window.ga) {
+        window.ga('set', 'page', to.fullPath)
+        window.ga('send', 'pageview')
+    }
+})
 new Vue({
     el: '#app',
     router,
