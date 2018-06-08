@@ -30,11 +30,10 @@ export default {
     ],
     data() {
         return {
-            name: 'pcode',
             headers: [
                 { text: 'Title', value: 'name', sortable: false, align: 'left' },
                 { text: 'description', value: 'description', sortable: false },
-                { text: 'language', value: 'lang', sortable: false },
+                { text: 'language', value: 'lang', sortable: true },
                 { text: 'Date', value: 'updateat', sortable: true },
                 { text: 'likes', value: 'likes', sortable: true },
                 { text: 'author', value: 'username', sortable: false }
