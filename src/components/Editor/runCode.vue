@@ -2,7 +2,11 @@
     <div>
         <v-progress-linear :indeterminate="runBar" :value="pecBar"></v-progress-linear>
         <v-card-actions>
-            <v-btn color="primary" @click="runcode">Run</v-btn>
+            <v-btn
+            color="primary"
+            :loading="loading"
+            :disabled="loading"
+            @click="runcode">Run</v-btn>
             <v-spacer></v-spacer>
             <v-btn icon @click.native="rshow = !rshow">
                 <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -34,7 +38,8 @@ export default {
             error: '',
             result: 'nothing...',
             runBar: false,
-            pecBar: 0
+            pecBar: 0,
+            loading: false
         }
     },
     props: {
@@ -69,11 +74,13 @@ export default {
             this.result = ''
             this.runBar = true
             this.rshow = false
+            this.loading = true
         },
         statusStopRun() {
             this.runBar = false
             this.pecBar = 100
             this.rshow = true
+            this.loading = false
         }
     }
 }
