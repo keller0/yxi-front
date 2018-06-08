@@ -8,10 +8,11 @@
   >
     <template slot="items" slot-scope="props">
       <td>{{ props.item.title }}</td>
-      <td class="text-xs-right">{{ props.item.lang }}</td>
-      <td class="text-xs-right">{{ props.item.updateat }}</td>
-      <td class="text-xs-right">{{ props.item.likes }}</td>
-      <td class="text-xs-right">{{ props.item.username }}</td>
+      <td>{{ props.item.description }}</td>
+      <td>{{ props.item.lang }}</td>
+      <td>{{ props.item.updateat }}</td>
+      <td>{{ props.item.likes }}</td>
+      <td>{{ props.item.username }}</td>
     </template>
   </v-data-table>
   <newButton></newButton>
@@ -31,16 +32,12 @@ export default {
         return {
             name: 'pcode',
             headers: [
-                {
-                    text: 'Title',
-                    align: 'left',
-                    sortable: false,
-                    value: 'name'
-                },
-                { text: 'language', value: 'lan', sortable: false },
-                { text: 'Date', value: 'date', sortable: true },
+                { text: 'Title', value: 'name', sortable: false, align: 'left' },
+                { text: 'description', value: 'description', sortable: false },
+                { text: 'language', value: 'lang', sortable: false },
+                { text: 'Date', value: 'updateat', sortable: true },
                 { text: 'likes', value: 'likes', sortable: true },
-                { text: 'author', value: 'fat', sortable: false }
+                { text: 'author', value: 'username', sortable: false }
             ]
         }
     }
