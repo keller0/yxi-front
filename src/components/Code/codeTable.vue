@@ -7,11 +7,11 @@
     class="elevation-1"
   >
     <template slot="items" slot-scope="props">
-      <td>{{ props.item.name }}</td>
-      <td class="text-xs-right">{{ props.item.lan }}</td>
-      <td class="text-xs-right">{{ props.item.date }}</td>
+      <td>{{ props.item.title }}</td>
+      <td class="text-xs-right">{{ props.item.lang }}</td>
+      <td class="text-xs-right">{{ props.item.updateat }}</td>
       <td class="text-xs-right">{{ props.item.likes }}</td>
-      <td class="text-xs-right">{{ props.item.author }}</td>
+      <td class="text-xs-right">{{ props.item.username }}</td>
     </template>
   </v-data-table>
   <newButton></newButton>

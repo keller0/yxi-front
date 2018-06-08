@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import { runcodeService } from '@/utils/request'
 
 // 代码运行结果
 export function codeRunResult(url, data) {
-    return request({
+    return runcodeService({
         url,
         method: 'POST',
         headers: {

@@ -4,31 +4,35 @@
 
 <script>
 import codetable from '@/components/Code/codeTable'
+import { getTopCode } from '@/api/getCode'
+
 export default {
     components: {
         codetable
     },
     data() {
         return {
-            name: 'popcode',
-            codes: [
-                {
-                    value: false,
-                    name: 'Hello World',
-                    lan: 'c',
-                    date: '2016-1-10',
-                    likes: 24,
-                    author: 'kkkk'
-                },
-                {
-                    value: false,
-                    name: 'Hello World',
-                    lan: 'c',
-                    date: '2019-1-10',
-                    likes: 20,
-                    author: 'kkkk'
-                }
-            ]
+            name: 'pubcode',
+            codes: []
+        }
+    },
+    created() {
+        this.getCode()
+    },
+    watch: {
+        '$route': 'getCode'
+    },
+    methods: {
+        async getCode() {
+            try {
+                const res = await getTopCode()
+                this.codes = res.codes
+            } catch (error) {
+                this.error = error.message
+                console.error(error)
+            } finally {
+                console.log('final')
+            }
         }
     }
 }

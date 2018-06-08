@@ -4,6 +4,7 @@
 
 <script>
 import codetable from '@/components/Code/codeTable'
+import { getPubCode } from '@/api/getCode'
 export default {
     components: {
         codetable
@@ -11,24 +12,26 @@ export default {
     data() {
         return {
             name: 'pubcode',
-            codes: [
-                {
-                    value: false,
-                    name: 'Hello World',
-                    lan: 'c',
-                    date: '2016-1-10',
-                    likes: 24,
-                    author: 'kkkk'
-                },
-                {
-                    value: false,
-                    name: 'Hello World',
-                    lan: 'c',
-                    date: '2019-1-10',
-                    likes: 20,
-                    author: 'kkkk'
-                }
-            ]
+            codes: []
+        }
+    },
+    created() {
+        this.getCode()
+    },
+    watch: {
+        '$route': 'getCode'
+    },
+    methods: {
+        async getCode() {
+            try {
+                const res = await getPubCode()
+                this.codes = res.codes
+            } catch (error) {
+                this.error = error.message
+                console.error(error)
+            } finally {
+                console.log('final')
+            }
         }
     }
 }
