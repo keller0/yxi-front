@@ -8,7 +8,6 @@ const theme = [
     'idea',
     'isotope',
     'lesser-dark',
-    'liquibyte',
     'lucario',
     'mdn-like',
     'midnight',

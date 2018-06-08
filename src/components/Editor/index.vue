@@ -2,8 +2,14 @@
     <v-card width="100%">
         <v-card-title primary-title style="justify-content: space-between;">
             <h3 class="headline">"Hello, world"</h3>
-            <div>
-                <v-dialog v-model="themeSettiogDialog" max-width="390">
+            <div class="text-xs-center">
+                <v-menu
+                :close-on-content-click="false"
+                :nudge-width="300"
+                v-model="themeSettiogMenu"
+                offset-x
+                xs12 sm12
+                >
                     <v-btn slot="activator" flat color="purple" dark><v-icon dark>build</v-icon></v-btn>
                     <v-card>
                         <v-card-title>
@@ -25,11 +31,11 @@
                             </v-container>
                         </v-card-text>
                         <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="green darken-1" flat @click.native="themeSettiogDialog = false">Close</v-btn>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" flat @click.native="themeSettiogMenu = false">Close</v-btn>
                         </v-card-actions>
                     </v-card>
-                </v-dialog>
+                </v-menu>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -66,7 +72,7 @@ export default {
                 mode: 'text/x-csrc',
                 theme: 'blackboard'
             },
-            themeSettiogDialog: false,
+            themeSettiogMenu: false,
             selectedTheme: 'blackboard',
             themes: theme
         }
