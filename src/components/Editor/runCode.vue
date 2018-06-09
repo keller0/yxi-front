@@ -18,7 +18,7 @@
                     {{error}}
                 </v-alert>
                 <!-- <textarea v-model="result" placeholder="nothing..."></textarea> -->
-                <div>
+                <div class="code-result">
                     <span>{{ result }}</span>
                 </div>
             </v-card-text>
@@ -86,6 +86,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.code-result {
+    overflow: auto;
+}
 </style>
