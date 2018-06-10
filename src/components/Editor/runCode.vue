@@ -43,7 +43,8 @@ export default {
         }
     },
     props: {
-        code: String
+        code: String,
+        lang: String
     },
     methods: {
         async runcode() {
@@ -59,7 +60,7 @@ export default {
                     stdin: '',
                     argument: ''
                 }
-                const res = await codeRunResult('/c', data)
+                const res = await codeRunResult('/' + this.lang, data)
                 this.result += res.stdout
                 this.result += res.stderr
             } catch (error) {

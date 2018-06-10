@@ -41,14 +41,14 @@
         <v-spacer></v-spacer>
         <v-card-text>
             <codemirror v-model="code" :options="cmOption" ></codemirror>
-            <runCode :code="code"></runCode>
+            <runCode :code="code" :lang="lang"></runCode>
         </v-card-text>
         <newButton></newButton>
     </v-card>
 </template>
 
 <script>
-import theme from './theme'
+import themes from './theme'
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
@@ -65,6 +65,7 @@ export default {
     data() {
         return {
             code: `#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}`,
+            lang: 'c',
             cmOption: {
                 tabSize: 4,
                 lineNumbers: true,
@@ -74,7 +75,7 @@ export default {
             },
             themeSettiogMenu: false,
             selectedTheme: 'blackboard',
-            themes: theme
+            themes
         }
     },
     methods: {
