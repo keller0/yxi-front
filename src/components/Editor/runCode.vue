@@ -17,8 +17,11 @@
                 <v-alert v-model="errShow" type="error" dismissible>
                     {{error}}
                 </v-alert>
+
                 <div>
-                    <pre>{{ result }}</pre>
+                    <pre class="code-result">
+                        {{ result }}
+                    </pre>
                 </div>
             </v-card-text>
         </v-slide-y-transition>
@@ -87,6 +90,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.code-result {
+    overflow: auto;
+}
 </style>
