@@ -26,7 +26,8 @@
 
                   <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click.native="goCodeNew">Submit</v-btn>
+                      <v-btn flat @click="newCodeDialog = false">Cancel</v-btn>
+                      <v-btn flat color="primary" @click.native="goCodeNew">Create</v-btn>
                   </v-card-actions>
               </v-card>
           </v-dialog>
