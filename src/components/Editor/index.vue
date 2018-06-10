@@ -3,39 +3,7 @@
         <v-card-title primary-title style="justify-content: space-between;">
             <h3 class="headline">"Hello, world"</h3>
             <div class="text-xs-center">
-                <v-menu
-                :close-on-content-click="false"
-                :nudge-width="300"
-                v-model="themeSettiogMenu"
-                offset-x
-                xs12 sm12
-                >
-                    <v-btn slot="activator" flat color="purple" dark><v-icon dark>build</v-icon></v-btn>
-                    <v-card>
-                        <v-card-title>
-                            <span class="headline">Editor setting</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-container grid-list-md>
-                                <v-layout wrap>
-                                    <v-flex xs12 sm12>
-                                        <v-select
-                                            v-model="selectedTheme"
-                                            label="Theme"
-                                            :items="themes"
-                                            autocomplete
-                                            @change="onThemeChange">
-                                        </v-select>
-                                    </v-flex>
-                                </v-layout>
-                            </v-container>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="green darken-1" flat @click.native="themeSettiogMenu = false">Close</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-menu>
+                <editorSettion v-on:listenSettingChange="onThemeChange"></editorSettion>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -55,12 +23,15 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
 import newButton from '@/components/newButton'
+import editorSettion from '@/components/Editor/editorSetting'
+
 export default {
     name: 'Editor',
     components: {
         codemirror,
         runCode,
-        newButton
+        newButton,
+        editorSettion
     },
     data() {
         return {

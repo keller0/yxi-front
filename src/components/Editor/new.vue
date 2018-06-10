@@ -1,8 +1,11 @@
 <template>
     <v-card width="100%">
-        <v-card-title primary-title>
+        <v-card-title primary-title style="justify-content: space-between;">
             <div>
                 <v-text-field></v-text-field>
+            </div>
+            <div class="text-xs-center">
+                <editorSettion v-on:listenSettingChange="onThemeChange"></editorSettion>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -20,12 +23,14 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
 import { SampleCode } from '@/utils/languages'
+import editorSettion from '@/components/Editor/editorSetting'
 
 export default {
     name: 'Editor',
     components: {
         codemirror,
-        runCode
+        runCode,
+        editorSettion
     },
     props: [
 
@@ -55,6 +60,10 @@ export default {
         setLanguage() {
             this.code = SampleCode[this.language]['code']
             this.filename = SampleCode[this.language]['filename']
+        },
+        onThemeChange(theme) {
+            import(`codemirror/theme/${theme}.css`)
+            this.cmOption.theme = theme
         }
     }
 }
