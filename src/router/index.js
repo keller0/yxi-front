@@ -21,7 +21,7 @@ const routerMap = [
             { path: '/public', component: Pubcode },
             { path: '/popular', component: Popcode },
             { path: '/mine', component: Mycode },
-            { path: '/new', component: editNew }
+            { path: '/new/:language', component: editNew }
         ]
     }
 ]
