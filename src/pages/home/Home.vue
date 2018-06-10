@@ -25,7 +25,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
 
-                <v-list-tile>
+                <v-list-tile @click="goPage('/help')">
                     <v-list-tile-action>
                         <v-icon color="grey darken-1">help</v-icon>
                     </v-list-tile-action>
@@ -73,7 +73,7 @@ export default {
     data() {
         return {
             name: 'home',
-            drawer: null,
+            drawer: false,
             menus: [
                 { icon: 'trending_up', title: 'Popular', path: '/popular' },
                 { icon: 'public', title: 'Public', path: '/public' },

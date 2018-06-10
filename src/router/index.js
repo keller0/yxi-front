@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/pages/home/Home'
+import Help from '@/pages/Help'
 import Popcode from '@/components/Code/Popcode'
 import Mycode from '@/components/Code/Mycode'
 import Pubcode from '@/components/Code/Pubcode'
@@ -16,12 +17,11 @@ const routerMap = [
         component: Home,
         children: [
             { path: '/', component: Editor },
+            { path: '/help', component: Help },
             { path: '/public', component: Pubcode },
             { path: '/popular', component: Popcode },
             { path: '/mine', component: Mycode },
-            { path: '/editor', component: Editor },
-            { path: '/new', component: editNew },
-            { path: '/help', component: Mycode }
+            { path: '/new', component: editNew }
         ]
     }
 ]
