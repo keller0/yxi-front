@@ -8,7 +8,7 @@
         <v-spacer></v-spacer>
         <v-card-text>
             <codemirror v-model="code" :options="cmOption" ></codemirror>
-            <runCode :code="code"></runCode>
+            <runCode :code="code" :lang="language" :filename="filename"></runCode>
         </v-card-text>
     </v-card>
 </template>
@@ -19,8 +19,7 @@ import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
-
-const code = '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
+import { SampleCode } from '@/utils/languages'
 
 export default {
     name: 'Editor',
@@ -34,7 +33,9 @@ export default {
     data: function() {
         return {
             name: 'Edit',
-            code,
+            language: this.$route.params.language,
+            code: '',
+            filename: '',
             cmOption: {
                 tabSize: 4,
                 lineNumbers: true,
@@ -44,8 +45,17 @@ export default {
             }
         }
     },
+    created() {
+        this.setLanguage()
+    },
+    watch: {
+        '$route': 'setLanguage'
+    },
     methods: {
-
+        setLanguage() {
+            this.code = SampleCode[this.language]['code']
+            this.filename = SampleCode[this.language]['filename']
+        }
     }
 }
 

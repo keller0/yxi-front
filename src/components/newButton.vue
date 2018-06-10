@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import { supportedLaguage } from '@/utils/code'
+  import { supportedLaguage } from '@/utils/languages'
   export default {
       data() {
           return {

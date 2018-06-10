@@ -17,9 +17,8 @@
                 <v-alert v-model="errShow" type="error" dismissible>
                     {{error}}
                 </v-alert>
-                <!-- <textarea v-model="result" placeholder="nothing..."></textarea> -->
                 <div>
-                    <span>{{ result }}</span>
+                    <pre>{{ result }}</pre>
                 </div>
             </v-card-text>
         </v-slide-y-transition>
@@ -44,7 +43,8 @@ export default {
     },
     props: {
         code: String,
-        lang: String
+        lang: String,
+        filename: String
     },
     methods: {
         async runcode() {
@@ -54,7 +54,7 @@ export default {
                     files: [
                         {
                             content: this.code,
-                            name: 'main.c'
+                            name: this.filename
                         }
                     ],
                     stdin: '',

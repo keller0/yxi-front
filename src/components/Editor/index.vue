@@ -41,7 +41,7 @@
         <v-spacer></v-spacer>
         <v-card-text>
             <codemirror v-model="code" :options="cmOption" ></codemirror>
-            <runCode :code="code" :lang="lang"></runCode>
+            <runCode :code="code" :lang="lang" :filename="filename"></runCode>
         </v-card-text>
         <newButton></newButton>
     </v-card>
@@ -66,6 +66,7 @@ export default {
         return {
             code: `#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}`,
             lang: 'c',
+            filename: 'main.c',
             cmOption: {
                 tabSize: 4,
                 lineNumbers: true,
