@@ -19,9 +19,7 @@
                 </v-alert>
 
                 <div>
-                    <pre class="code-result">
-                        {{ result }}
-                    </pre>
+                    <pre class="code-result">{{ result }}</pre>
                 </div>
             </v-card-text>
         </v-slide-y-transition>
