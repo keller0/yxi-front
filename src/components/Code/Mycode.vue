@@ -34,7 +34,7 @@
 
 <script>
 import newButton from '@/components/newButton'
-import { getTopCode } from '@/api/getCode'
+import { getOnesCode } from '@/api/getCode'
 export default {
     components: {
         newButton
@@ -68,7 +68,8 @@ export default {
     methods: {
         async getCode() {
             try {
-                const res = await getTopCode()
+                const res = await getOnesCode(13,
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mjg3NDIyNjMsImlkIjoxMywidXNlcm5hbWUiOiJjYWlqaWFxaTgifQ.CfZkwI2Ax4QgsXTiH3rwbqqAq-Y4LEZ91FqcgxiwmSY')
                 this.codes = res.codes
             } catch (error) {
                 this.error = error.message
