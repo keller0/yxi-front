@@ -22,6 +22,10 @@ const SampleCode = {
     'java': {
         'filename': 'Hi.java',
         'code': 'public class Hi {\n \tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello World\");\n\t}\n}'
+    },
+    'python': {
+        'filename': 'main.py',
+        'code': '#!/usr/bin/python\n\nprint(\'Hello World!\')'
     }
 }
 
