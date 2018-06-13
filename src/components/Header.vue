@@ -15,13 +15,9 @@
                 <v-btn flat @click="goPage('/mine')" v-if="logined">My Code</v-btn>
                 <v-menu offset-y>
                 <v-btn slot="activator"  flat v-if="!logined">Sign In/Up</v-btn>
-                <v-list>
-                  <v-list-tile >
-                    <v-btn flat v-if="!logined" @click="indialog=true">Sign In</v-btn>
-                  </v-list-tile>
-                  <v-list-tile >
-                    <v-btn flat v-if="!logined" @click="updialog=true">Sign Up</v-btn>
-                  </v-list-tile>
+                <v-list  class="text-xs-center">
+                    <v-list-tile v-if="!logined" @click="indialog=true">Sign In</v-list-tile>
+                    <v-list-tile v-if="!logined" @click="updialog=true">Sign Up</v-list-tile>
                 </v-list>
               </v-menu>
             </v-toolbar-items>
