@@ -23,17 +23,17 @@ var state = {
             theme: 'blackboard'
         },
         buffer: {
-            codeID: 0,
-            username: '',
-            title: '',
-            description: '',
-            language: '',
-            filename: '',
             content: '',
+            createat: '',
+            description: '',
+            filename: '',
+            id: 0,
+            lang: '',
             likes: 0,
             public: true,
-            createat: '',
+            title: '',
             updateat: '',
+            username: '',
             isNew: true
         }
     },

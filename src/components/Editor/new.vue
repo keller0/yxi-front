@@ -110,7 +110,7 @@ export default {
                 type: 'updateEditorBuffer',
                 content: SampleCode[this.language]['code'],
                 filename: SampleCode[this.language]['filename'],
-                language: this.$route.params.language
+                lang: this.$route.params.language
             })
         },
         setEditorMode() {

@@ -49,7 +49,7 @@ export default {
                 type: 'updateEditorBuffer',
                 content: SampleCode['c']['code'],
                 filename: SampleCode['c']['filename'],
-                language: 'c'
+                lang: 'c'
             })
         },
         setEditorMode() {

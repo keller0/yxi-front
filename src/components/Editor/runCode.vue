@@ -61,7 +61,7 @@ export default {
                     stdin: '',
                     argument: ''
                 }
-                const res = await codeRunResult('/' + this.editorBuffer.language, data)
+                const res = await codeRunResult('/' + this.editorBuffer.lang, data)
                 this.result += res.stdout
                 this.result += res.stderr
             } catch (error) {
