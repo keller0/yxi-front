@@ -3,9 +3,11 @@
   <v-data-table
     :headers="headers"
     :items="codes"
+    :loading="loading"
     hide-actions
     class="elevation-1"
   >
+    <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
     <template slot="items" slot-scope="props">
       <td>{{ props.item.title }}</td>
       <td>{{ props.item.description }}</td>
@@ -26,7 +28,8 @@ export default {
         newButton
     },
     props: [
-        'codes'
+        'codes',
+        'loading'
     ],
     data() {
         return {

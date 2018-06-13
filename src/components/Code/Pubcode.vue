@@ -1,5 +1,5 @@
 <template>
-    <codetable :codes="codes"></codetable>
+    <codetable :codes="codes" :loading="loading"></codetable>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
     },
     data() {
         return {
-            name: 'pubcode',
+            loading: true,
             codes: []
         }
     },
@@ -30,7 +30,7 @@ export default {
                 this.error = error.message
                 console.error(error)
             } finally {
-                console.log('final')
+                this.loading = false
             }
         }
     }
