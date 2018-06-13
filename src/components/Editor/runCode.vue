@@ -30,6 +30,11 @@
 import { codeRunResult } from '@/api/codeResult'
 
 export default {
+    computed: {
+        editorBuffer() {
+            return this.$store.state.editor.buffer
+        }
+    },
     data() {
         return {
             name: 'runCode',
@@ -42,26 +47,21 @@ export default {
             loading: false
         }
     },
-    props: {
-        code: String,
-        lang: String,
-        filename: String
-    },
     methods: {
         async runcode() {
             try {
                 this.statusStartRun()
-                const data = {
+                var data = {
                     files: [
                         {
-                            content: this.code,
-                            name: this.filename
+                            content: this.editorBuffer.content,
+                            name: this.editorBuffer.filename
                         }
                     ],
                     stdin: '',
                     argument: ''
                 }
-                const res = await codeRunResult('/' + this.lang, data)
+                const res = await codeRunResult('/' + this.editorBuffer.language, data)
                 this.result += res.stdout
                 this.result += res.stderr
             } catch (error) {

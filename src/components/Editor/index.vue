@@ -8,50 +8,50 @@
         </v-card-title>
         <v-spacer></v-spacer>
         <v-card-text>
-            <codemirror v-model="code" :options="globalEditorConfig" ></codemirror>
-            <runCode :code="code" :lang="lang" :filename="filename"></runCode>
+            <EditorBase></EditorBase>
+            <runCode></runCode>
         </v-card-text>
         <newButton></newButton>
     </v-card>
 </template>
-
 <script>
-import themes from './theme'
-import { codemirror } from 'vue-codemirror'
+
 import 'codemirror/mode/clike/clike.js'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
 import newButton from '@/components/newButton'
 import editorSettion from '@/components/Editor/editorSetting'
+import { SampleCode } from '@/utils/languages'
+import EditorBase from '@/components/Editor/base'
 
 export default {
     name: 'Editor',
     components: {
-        codemirror,
+        EditorBase,
         runCode,
         newButton,
         editorSettion
     },
     computed: {
-        globalEditorConfig() {
-            return this.$store.state.editor.config
-        }
+
     },
     created() {
         this.setEditorMode()
+        this.setEditorBuffer()
     },
     data() {
         return {
-            code: `#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}`,
-            lang: 'c',
-            filename: 'main.c',
-            themeSettiogMenu: false,
-            selectedTheme: 'blackboard',
-            themes
+
         }
     },
     methods: {
+        setEditorBuffer() {
+            this.$store.commit({
+                type: 'updateEditorBuffer',
+                content: SampleCode['c']['code'],
+                filename: SampleCode['c']['filename'],
+                language: 'c'
+            })
+        },
         setEditorMode() {
             this.$store.commit({
                 type: 'updateEditorMode',

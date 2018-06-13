@@ -51,6 +51,9 @@ const mutations = {
     },
     updateEditorMode(state, payload) {
         state.editor.config.mode = payload.mime
+    },
+    updateEditorBuffer(state, payload) {
+        state.editor.buffer = payload
     }
 }
 

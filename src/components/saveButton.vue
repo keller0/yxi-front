@@ -38,8 +38,12 @@ export default {
             saveError: ''
         }
     },
+    computed: {
+        editorBuffer() {
+            return this.$store.state.editor.buffer
+        }
+    },
     props: {
-        content: String,
         lang: String,
         filename: String,
         title: String,
@@ -54,7 +58,7 @@ export default {
                     'description': this.description,
                     'lang': this.lang,
                     'filename': this.filename,
-                    'content': this.content
+                    'content': this.editorBuffer.content
                 }
                 const response = await axios.post('https://api.yxi.io/v1/code', data)
                 // const response = await axios.post('http://localhost:8090/v1/code', data)

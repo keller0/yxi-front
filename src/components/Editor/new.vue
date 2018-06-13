@@ -3,6 +3,7 @@
         <v-card width="100%">
             <v-card-title>
                 <v-expansion-panel>
+                    <!-- file title and discription -->
                     <v-expansion-panel-content expand-icon="mdi-menu-down">
                         <div slot="header">{{title}}</div>
                         <v-card>
@@ -32,6 +33,7 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-card-title>
+            <!-- file name -->
             <v-container >
                 <v-layout row wrap>
                   <v-flex xs8 sm6>
@@ -49,32 +51,33 @@
                 </v-layout>
             </v-container>
             <v-card-text>
-                <codemirror v-model="code" :options="globalEditorConfig" ></codemirror>
-                <runCode :code="code" :lang="language" :filename="filename"></runCode>
+                <!-- file content -->
+                <EditorBase></EditorBase>
+                <runCode></runCode>
             </v-card-text>
-            <saveButton :content="code" :lang="language" :filename="filename" :title="title" :description="description" ></saveButton>
+            <saveButton :lang="language" :filename="filename" :title="title" :description="description" ></saveButton>
         </v-card>
     </div>
 </template>
 
 <script>
-import { codemirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import runCode from '@/components/Editor/runCode'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import editorSettion from '@/components/Editor/editorSetting'
 import saveButton from '@/components/saveButton'
+import EditorBase from '@/components/Editor/base'
 export default {
     name: 'Editor',
     components: {
-        codemirror,
+        EditorBase,
         runCode,
         editorSettion,
         saveButton
     },
     computed: {
-        globalEditorConfig() {
-            return this.$store.state.editor.config
+        editorBuffer() {
+            return this.$store.state.editor.buffer
         }
     },
     props: [
@@ -83,23 +86,32 @@ export default {
     data: function() {
         return {
             language: this.$route.params.language,
-            code: '',
-            filename: '',
+            filename: SampleCode[this.$route.params.language]['filename'],
             title: 'Untitled',
             description: ''
         }
     },
     created() {
-        this.setLanguage()
+        // create a new buffer so we need set something
+        this.setEditorBuffer()
         this.setEditorMode()
+        var theme = localStorage.getItem('editorTheme')
+        if (theme == null) {
+            theme = 'blackboard'
+        }
+        this.onThemeChange(theme)
     },
     watch: {
-        '$route': 'setLanguage'
+        '$route': 'setEditorBuffer'
     },
     methods: {
-        setLanguage() {
-            this.code = SampleCode[this.language]['code']
-            this.filename = SampleCode[this.language]['filename']
+        setEditorBuffer() {
+            this.$store.commit({
+                type: 'updateEditorBuffer',
+                content: SampleCode[this.language]['code'],
+                filename: SampleCode[this.language]['filename'],
+                language: this.$route.params.language
+            })
         },
         setEditorMode() {
             // impoer js done in CodeMirrorMode()
@@ -108,6 +120,9 @@ export default {
                 type: 'updateEditorMode',
                 mime: mime
             })
+        },
+        onThemeChange(theme) {
+            this.$store.commit('updateEditorTheme', theme)
         }
     }
 }
