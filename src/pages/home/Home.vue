@@ -1,22 +1,6 @@
 <template>
-    <v-app>
-        <v-toolbar
-            color="blue"
-            dense
-            fixed
-            app>
-            <v-toolbar-title class="">
-                <!-- an icon ? -->
-                <span class="title" @click="goHome" style="cursor: pointer;">YXI</span>
-            </v-toolbar-title>
-            <v-spacer class=""></v-spacer>
-            <v-toolbar-items >
-                <v-btn flat @click="goPage('/popular')"><v-icon left dark>trending_up</v-icon>Top</v-btn>
-                <v-btn flat @click="goPage('/public')"><v-icon left dark>public</v-icon>Pub</v-btn>
-                <v-btn flat @click="goPage('/mine')">My Code</v-btn>
-            </v-toolbar-items>
-        </v-toolbar>
-
+    <v-app :dark="dark">
+        <Header></Header>
         <v-content >
             <v-container >
                 <transition name="fade">
@@ -28,21 +12,25 @@
 </template>
 
 <script>
+import Header from '@/components/Header'
+
 export default {
     name: 'Home',
+    components: {
+        Header
+    },
     props: {
     },
     data() {
         return {
         }
     },
-    methods: {
-        goHome() {
-            this.$router.push('/')
-        },
-        goPage(path) {
-            this.$router.push(path)
+    computed: {
+        dark() {
+            return this.$store.state.config.dark
         }
+    },
+    methods: {
     }
 }
 </script>
