@@ -2,7 +2,7 @@
     <div>
         <v-card width="100%">
             <v-card-title>
-                <v-expansion-panel dark>
+                <v-expansion-panel>
                     <v-expansion-panel-content expand-icon="mdi-menu-down">
                         <div slot="header">{{title}}</div>
                         <v-card>
@@ -32,18 +32,18 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-card-title>
-             <v-container >
+            <v-container >
                 <v-layout row wrap>
-                  <v-flex xs12 sm6>
+                  <v-flex xs8 sm6>
                         <v-text-field v-model="filename" solo-inverted
                             :rules="[(v) => v.length <= 25 || 'Max 25 characters']"
                             :counter="25"
                             hint="Filename">
                         </v-text-field>
                   </v-flex>
-                  <v-flex sm5>
+                  <v-flex sm5 hidden-xs-only>
                   </v-flex>
-                  <v-flex sm1>
+                  <v-flex xs2 sm1>
                        <editorSettion v-on:listenSettingChange="onThemeChange"></editorSettion>
                   </v-flex>
                 </v-layout>
