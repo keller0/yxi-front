@@ -42,6 +42,13 @@ export default {
     name: 'editorSetting',
     components: {
     },
+    created() {
+        var theme = localStorage.getItem('editorTheme')
+        if (theme == null) {
+            theme = 'blackboard'
+        }
+        this.onThemeChange(theme)
+    },
     computed: {
         globalEditorTheme() {
             return this.$store.state.editor.config.theme

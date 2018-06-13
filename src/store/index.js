@@ -47,6 +47,7 @@ const mutations = {
     updateEditorTheme(state, t) {
         import(`codemirror/theme/${t}.css`)
         state.editor.config.theme = t
+        localStorage.setItem('editorTheme', t)
     },
     updateEditorMode(state, payload) {
         state.editor.config.mode = payload.mime
