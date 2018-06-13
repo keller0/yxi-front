@@ -1,8 +1,8 @@
 <template>
-    <v-menu
+    <v-dialog
     :close-on-content-click="false"
-    :nudge-width="300"
-    v-model="themeSettiogMenu"
+    max-width="400"
+    v-model="themeSettiogDialog"
     offset-x
     xs12 sm12
     >
@@ -28,10 +28,10 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="green darken-1" flat @click.native="themeSettiogMenu = false">Close</v-btn>
+                <v-btn color="green darken-1" flat @click.native="themeSettiogDialog = false">Close</v-btn>
             </v-card-actions>
         </v-card>
-    </v-menu>
+    </v-dialog>
 </template>
 
 
@@ -44,7 +44,7 @@ export default {
     },
     data() {
         return {
-            themeSettiogMenu: false,
+            themeSettiogDialog: false,
             selectedTheme: 'blackboard',
             themes
         }
