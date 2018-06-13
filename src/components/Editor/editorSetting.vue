@@ -16,7 +16,7 @@
                     <v-layout wrap>
                         <v-flex xs12 sm12>
                             <v-select
-                                v-model="selectedTheme"
+                                v-model="globalEditorTheme"
                                 label="Theme"
                                 :items="themes"
                                 autocomplete
@@ -42,16 +42,20 @@ export default {
     name: 'editorSetting',
     components: {
     },
+    computed: {
+        globalEditorTheme() {
+            return this.$store.state.editor.config.theme
+        }
+    },
     data() {
         return {
             themeSettiogDialog: false,
-            selectedTheme: 'blackboard',
             themes
         }
     },
     methods: {
         onThemeChange(theme) {
-            this.$emit('listenSettingChange', theme)
+            this.$store.commit('updateEditorTheme', theme)
         }
     }
 }

@@ -13,7 +13,11 @@ var state = {
     },
     editor: {
         config: {
-            theme: ''
+            tabSize: 4,
+            lineNumbers: true,
+            line: true,
+            mode: 'text/x-csrc',
+            theme: 'blackboard'
         },
         buffer: {
             codeID: 0,
@@ -36,7 +40,10 @@ var state = {
 }
 
 const mutations = {
-
+    updateEditorTheme(state, t) {
+        import(`codemirror/theme/${t}.css`)
+        state.editor.config.theme = t
+    }
 }
 
 const actions = {

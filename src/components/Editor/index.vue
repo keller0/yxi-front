@@ -8,7 +8,7 @@
         </v-card-title>
         <v-spacer></v-spacer>
         <v-card-text>
-            <codemirror v-model="code" :options="cmOption" ></codemirror>
+            <codemirror v-model="code" :options="globalEditorConfig" ></codemirror>
             <runCode :code="code" :lang="lang" :filename="filename"></runCode>
         </v-card-text>
         <newButton></newButton>
@@ -33,18 +33,16 @@ export default {
         newButton,
         editorSettion
     },
+    computed: {
+        globalEditorConfig() {
+            return this.$store.state.editor.config
+        }
+    },
     data() {
         return {
             code: `#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}`,
             lang: 'c',
             filename: 'main.c',
-            cmOption: {
-                tabSize: 4,
-                lineNumbers: true,
-                line: true,
-                mode: 'text/x-csrc',
-                theme: 'blackboard'
-            },
             themeSettiogMenu: false,
             selectedTheme: 'blackboard',
             themes

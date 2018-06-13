@@ -49,7 +49,7 @@
                 </v-layout>
             </v-container>
             <v-card-text>
-                <codemirror v-model="code" :options="cmOption" ></codemirror>
+                <codemirror v-model="code" :options="globalEditorConfig" ></codemirror>
                 <runCode :code="code" :lang="language" :filename="filename"></runCode>
             </v-card-text>
             <saveButton :content="code" :lang="language" :filename="filename" :title="title" :description="description" ></saveButton>
@@ -74,6 +74,11 @@ export default {
         editorSettion,
         saveButton
     },
+    computed: {
+        globalEditorConfig() {
+            return this.$store.state.editor.config
+        }
+    },
     props: [
 
     ],
@@ -83,14 +88,7 @@ export default {
             code: '',
             filename: '',
             title: 'Untitled',
-            description: '',
-            cmOption: {
-                tabSize: 4,
-                lineNumbers: true,
-                line: true,
-                mode: 'text/x-csrc',
-                theme: 'blackboard'
-            }
+            description: ''
         }
     },
     created() {
