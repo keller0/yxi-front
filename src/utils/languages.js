@@ -9,7 +9,7 @@ const supportedLaguage = [
 const SampleCode = {
     'c': {
         'filename': 'main.c',
-        'code': '#include<stdio.h>\n\nint main() {\n    printf("hello");\n}'
+        'code': '#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}'
     },
     'php': {
         'filename': 'main.php',
