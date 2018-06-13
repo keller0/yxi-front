@@ -14,29 +14,6 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-html {
-  /*禁止选中文字*/
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-
-  -webkit-user-select: none;
-  /* Chrome/Safari/Opera */
-
-  -khtml-user-select: none;
-  /* Konqueror */
-
-  -moz-user-select: none;
-  /* Firefox */
-
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-
-  user-select: none;
-  /* Non-prefixed version, currently
-not supported by any browser */
-
-}
-
 ::-webkit-scrollbar {  /* 滚动条整体部分 */
     width:5px;
     margin-right:2px
@@ -48,25 +25,25 @@ not supported by any browser */
 }
 
 /*内层轨道，滚动条中间部分 */
-::-webkit-scrollbar-track-piece {  
+::-webkit-scrollbar-track-piece {
     background-color: transparent;
 }
 
 /* 滑块 */
-::-webkit-scrollbar-thumb {  
+::-webkit-scrollbar-thumb {
     width: 5px;
     border-radius: 5px;
     background: rgba(203, 203, 203, .6);
 }
 
 /* 边角 */
-::-webkit-scrollbar-corner { 
+::-webkit-scrollbar-corner {
     width: 10px;
     background-color: #eee;
 }
 
 /* 鼠标移入滑块 */
-::-webkit-scrollbar-thumb:hover { 
+::-webkit-scrollbar-thumb:hover {
     background: #909090;
 }
 
@@ -74,6 +51,9 @@ not supported by any browser */
 .CodeMirror-gutters {
     z-index: 0;
 }
-.CodeMirror-gutter-wrapper {
-    z-index: 2;
+// .CodeMirror-gutter-wrapper {
+//     z-index: 2;
+// }
+.CodeMirror-sizer{
+  z-index: 1;
 }
