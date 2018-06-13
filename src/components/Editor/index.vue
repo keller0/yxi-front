@@ -3,7 +3,7 @@
         <v-card-title primary-title style="justify-content: space-between;">
             <h3 class="headline">"Hello, world"</h3>
             <div class="text-xs-center">
-                <editorSettion v-on:listenSettingChange="onThemeChange"></editorSettion>
+                <editorSettion></editorSettion>
             </div>
         </v-card-title>
         <v-spacer></v-spacer>
@@ -38,6 +38,9 @@ export default {
             return this.$store.state.editor.config
         }
     },
+    created() {
+        this.setEditorMode()
+    },
     data() {
         return {
             code: `#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}`,
@@ -49,9 +52,11 @@ export default {
         }
     },
     methods: {
-        onThemeChange(theme) {
-            import(`codemirror/theme/${theme}.css`)
-            this.cmOption.theme = theme
+        setEditorMode() {
+            this.$store.commit({
+                type: 'updateEditorMode',
+                mime: 'text/x-csrc'
+            })
         }
     }
 }

@@ -44,7 +44,7 @@
                   <v-flex sm5 hidden-xs-only>
                   </v-flex>
                   <v-flex xs2 sm1>
-                       <editorSettion v-on:listenSettingChange="onThemeChange"></editorSettion>
+                       <editorSettion></editorSettion>
                   </v-flex>
                 </v-layout>
             </v-container>
@@ -59,11 +59,9 @@
 
 <script>
 import { codemirror } from 'vue-codemirror'
-import 'codemirror/mode/clike/clike.js'
 import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/blackboard.css'
 import runCode from '@/components/Editor/runCode'
-import { SampleCode } from '@/utils/languages'
+import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import editorSettion from '@/components/Editor/editorSetting'
 import saveButton from '@/components/saveButton'
 export default {
@@ -93,6 +91,7 @@ export default {
     },
     created() {
         this.setLanguage()
+        this.setEditorMode()
     },
     watch: {
         '$route': 'setLanguage'
@@ -102,9 +101,13 @@ export default {
             this.code = SampleCode[this.language]['code']
             this.filename = SampleCode[this.language]['filename']
         },
-        onThemeChange(theme) {
-            import(`codemirror/theme/${theme}.css`)
-            this.cmOption.theme = theme
+        setEditorMode() {
+            // impoer js done in CodeMirrorMode()
+            var mime = CodeMirrorMode(this.language)
+            this.$store.commit({
+                type: 'updateEditorMode',
+                mime: mime
+            })
         }
     }
 }

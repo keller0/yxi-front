@@ -1,15 +1,15 @@
 const supportedLaguage = [
     'c',
+    'cpp',
     'php',
     'java',
-    'cpp',
     'python'
 ]
 
 const SampleCode = {
     'c': {
         'filename': 'main.c',
-        'code': '#include<stdio.h>\n\nint main()\n{\n  printf("Hello, World!\\n");\n}'
+        'code': '#include<stdio.h>\n\nint main()\n{\n    printf("Hello, World!\\n");\n}'
     },
     'php': {
         'filename': 'main.php',
@@ -29,8 +29,39 @@ const SampleCode = {
     }
 }
 
-const CodeMirrorMode = {
+function CodeMirrorMode(language) {
+    switch (language) {
+        case 'c':
+            return 'text/x-csrc'
+        case 'cpp':
+            return 'text/x-csrc'
+        case 'java':
+            return 'text/x-java'
+        case 'c#':
+            return 'text/x-csharp'
+        case 'objext-c':
+            return 'text/x-objectivec'
+        case 'scale':
+            return 'text/x-scala'
+        case 'squirrel':
+            return 'text/x-squirrel'
+        case 'lua':
+            return 'text/x-lua'
+        case 'php':
+            importModeJS(language)
+            return 'text/x-php'
+        case 'python':
+            importModeJS(language)
+            return 'text/x-python'
+        case 'go':
+            return 'text/x-go'
+        default:
+            return 'text/x-csrc'
+    }
+}
 
+function importModeJS(language) {
+    import(`codemirror/mode/${language}/${language}.js`)
 }
 
 export { supportedLaguage, SampleCode, CodeMirrorMode }

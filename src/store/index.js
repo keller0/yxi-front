@@ -14,7 +14,10 @@ var state = {
     editor: {
         config: {
             tabSize: 4,
+            indentUnit: 4,
             lineNumbers: true,
+            indentWithTabs: true,
+            smartIndent: true,
             line: true,
             mode: 'text/x-csrc',
             theme: 'blackboard'
@@ -24,13 +27,14 @@ var state = {
             username: '',
             title: '',
             description: '',
-            codeLang: '',
+            language: '',
             filename: '',
             content: '',
             likes: 0,
             public: true,
             createat: '',
-            updateat: ''
+            updateat: '',
+            isNew: true
         }
     },
     codes: {
@@ -43,6 +47,9 @@ const mutations = {
     updateEditorTheme(state, t) {
         import(`codemirror/theme/${t}.css`)
         state.editor.config.theme = t
+    },
+    updateEditorMode(state, payload) {
+        state.editor.config.mode = payload.mime
     }
 }
 
