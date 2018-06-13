@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -18,6 +19,7 @@ router.afterEach(function(to) {
 new Vue({
     el: '#app',
     router,
+    store,
     components: {
         App
     },
