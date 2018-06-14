@@ -23,7 +23,6 @@ import { SampleCode } from '@/utils/languages'
 import EditorBase from '@/components/Editor/base'
 
 export default {
-    name: 'Editor',
     components: {
         EditorBase,
         runCode,
