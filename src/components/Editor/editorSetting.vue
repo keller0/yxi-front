@@ -23,6 +23,14 @@
                                 @change="onThemeChange">
                             </v-select>
                         </v-flex>
+                        <v-flex xs12 sm12>
+                            <v-select
+                                v-model="globalEditorBufferLang"
+                                label="Mode"
+                                :items="modes"
+                                @change="onModeChange">
+                            </v-select>
+                        </v-flex>
                     </v-layout>
                 </v-container>
             </v-card-text>
@@ -37,7 +45,7 @@
 
 <script>
 import themes from './theme'
-
+import { CodeMirrorMode, supportedLaguage } from '@/utils/languages'
 export default {
     name: 'editorSetting',
     components: {
@@ -52,17 +60,28 @@ export default {
     computed: {
         globalEditorTheme() {
             return this.$store.state.editor.config.theme
+        },
+        globalEditorBufferLang() {
+            return this.$store.state.editor.buffer.lang
         }
     },
     data() {
         return {
             themeSettiogDialog: false,
-            themes
+            themes,
+            modes: supportedLaguage
         }
     },
     methods: {
         onThemeChange(theme) {
             this.$store.commit('updateEditorTheme', theme)
+        },
+        onModeChange(lang) {
+            var mime = CodeMirrorMode(lang)
+            this.$store.commit({
+                type: 'updateEditorMode',
+                mime: mime
+            })
         }
     }
 }

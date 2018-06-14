@@ -48,20 +48,14 @@ function CodeMirrorMode(language) {
         case 'lua':
             return 'text/x-lua'
         case 'php':
-            importModeJS(language)
             return 'text/x-php'
         case 'python':
-            importModeJS(language)
             return 'text/x-python'
         case 'go':
             return 'text/x-go'
         default:
             return 'text/x-csrc'
     }
-}
-
-function importModeJS(language) {
-    import(`codemirror/mode/${language}/${language}.js`)
 }
 
 export { supportedLaguage, SampleCode, CodeMirrorMode }

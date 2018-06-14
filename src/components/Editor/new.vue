@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import 'codemirror/lib/codemirror.css'
+
 import runCode from '@/components/Editor/runCode'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import editorSettion from '@/components/Editor/editorSetting'
@@ -95,11 +95,6 @@ export default {
         // create a new buffer so we need set something
         this.setEditorBuffer()
         this.setEditorMode()
-        var theme = localStorage.getItem('editorTheme')
-        if (theme == null) {
-            theme = 'blackboard'
-        }
-        this.onThemeChange(theme)
     },
     watch: {
         '$route': 'setEditorBuffer'
@@ -114,15 +109,12 @@ export default {
             })
         },
         setEditorMode() {
-            // impoer js done in CodeMirrorMode()
             var mime = CodeMirrorMode(this.language)
             this.$store.commit({
                 type: 'updateEditorMode',
-                mime: mime
+                mime: mime,
+                lang: this.language
             })
-        },
-        onThemeChange(theme) {
-            this.$store.commit('updateEditorTheme', theme)
         }
     }
 }

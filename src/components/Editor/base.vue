@@ -22,7 +22,7 @@ export default {
         }
     },
     created() {
-        console.log(this.globalEditorConfig)
+
     },
     data() {
         return {

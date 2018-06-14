@@ -16,7 +16,6 @@
 </template>
 <script>
 
-import 'codemirror/mode/clike/clike.js'
 import runCode from '@/components/Editor/runCode'
 import newButton from '@/components/newButton'
 import editorSettion from '@/components/Editor/editorSetting'
@@ -55,7 +54,8 @@ export default {
         setEditorMode() {
             this.$store.commit({
                 type: 'updateEditorMode',
-                mime: 'text/x-csrc'
+                mime: 'text/x-csrc',
+                lang: 'c'
             })
         }
     }

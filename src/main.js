@@ -8,6 +8,10 @@ import store from './store'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@/assets/css/index.scss'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/mode/clike/clike.js'
+import 'codemirror/mode/php/php.js'
+import 'codemirror/mode/python/python.js'
 
 Vue.use(Vuetify)
 router.afterEach(function(to) {
