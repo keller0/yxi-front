@@ -57,6 +57,9 @@ const mutations = {
     },
     updateEditorBuffer(state, payload) {
         state.editor.buffer = payload
+    },
+    updateEditorBufferContent(state, payload) {
+        state.editor.buffer.content = payload.content
     }
 }
 

@@ -62,7 +62,6 @@ export default {
                 }
                 const response = await axios.post('https://api.yxi.io/v1/code', data)
                 // const response = await axios.post('http://localhost:8090/v1/code', data)
-                console.log(response)
                 if (response.status === 200) {
                     this.saveResult = 'Save succeed.'
                 } else {

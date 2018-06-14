@@ -9,7 +9,9 @@
   >
     <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
     <template slot="items" slot-scope="props">
-      <td>{{ props.item.title }}</td>
+      <td @click="openCode(props.item)" style="color:red;cursor: pointer">
+           {{ props.item.title }}
+      </td>
       <td>{{ props.item.description }}</td>
       <td>{{ props.item.lang }}</td>
       <td>{{ props.item.updateat }}</td>
@@ -41,6 +43,12 @@ export default {
                 { text: 'likes', value: 'likes', sortable: true },
                 { text: 'author', value: 'username', sortable: false }
             ]
+        }
+    },
+    methods: {
+        openCode(p) {
+            this.$store.commit('updateEditorBuffer', p)
+            this.$router.push('/code/' + p.id)
         }
     }
 }
