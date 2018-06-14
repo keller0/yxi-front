@@ -25,7 +25,7 @@
                         </v-flex>
                         <v-flex xs12 sm12>
                             <v-select
-                                v-model="globalEditorBufferLang"
+                                v-model="mode"
                                 label="Mode"
                                 :items="modes"
                                 @change="onModeChange">
@@ -60,15 +60,14 @@ export default {
     computed: {
         globalEditorTheme() {
             return this.$store.state.editor.config.theme
-        },
-        globalEditorBufferLang() {
-            return this.$store.state.editor.buffer.lang
         }
     },
     data() {
         return {
             themeSettiogDialog: false,
             themes,
+            // set mode depend buffer's language
+            mode: this.$store.state.editor.buffer.lang,
             modes: supportedLaguage
         }
     },
