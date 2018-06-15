@@ -45,9 +45,12 @@ export default {
         setEditorBuffer() {
             this.$store.commit({
                 type: 'updateEditorBuffer',
-                content: SampleCode['c']['code'],
-                filename: SampleCode['c']['filename'],
-                lang: 'c'
+                'code': {
+                    content: SampleCode['c']['code'],
+                    filename: SampleCode['c']['filename'],
+                    lang: 'c',
+                    description: ''
+                }
             })
         },
         setEditorMode() {

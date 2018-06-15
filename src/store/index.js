@@ -33,8 +33,7 @@ var state = {
             public: true,
             title: '',
             updateat: '',
-            username: '',
-            isNew: true
+            username: ''
         }
     },
     codes: {
@@ -53,7 +52,8 @@ const mutations = {
         state.editor.config.mode = payload.mime
     },
     updateEditorBuffer(state, payload) {
-        state.editor.buffer = payload
+        state.editor.buffer = payload.code
+        localStorage.setItem('editorBuffer', JSON.stringify(payload.code))
     },
     updateEditorBufferContent(state, payload) {
         state.editor.buffer.content = payload.content

@@ -5,12 +5,12 @@
                 <v-expansion-panel>
                     <!-- file title and discription -->
                     <v-expansion-panel-content expand-icon="mdi-menu-down">
-                        <div slot="header">{{title}}</div>
+                        <div slot="header">{{editorBuffer.title}}</div>
                         <v-card>
                             <v-container fluid>
                                 <v-layout row>
                                     <v-flex xs5>
-                                        <v-text-field v-model="title"
+                                        <v-text-field v-model="editorBuffer.title"
                                         :rules="[(v) => v.length <= 25 || 'Max 25 characters']"
                                         :counter="25"
                                         label="Title"></v-text-field>
@@ -19,7 +19,7 @@
                                 <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field
-                                          v-model="description"
+                                          v-model="editorBuffer.description"
                                           name="input-7-1"
                                           label="Description"
                                           multi-line
@@ -37,7 +37,7 @@
             <v-container >
                 <v-layout row wrap>
                   <v-flex xs8 sm6>
-                        <v-text-field v-model="filename" solo-inverted
+                        <v-text-field v-model="editorBuffer.filename" solo-inverted
                             :rules="[(v) => v.length <= 25 || 'Max 25 characters']"
                             :counter="25"
                             hint="Filename">
@@ -55,7 +55,7 @@
                 <EditorBase></EditorBase>
                 <runCode></runCode>
             </v-card-text>
-            <saveButton :lang="language" :filename="filename" :title="title" :description="description" ></saveButton>
+            <!-- <saveButton :lang="language" :filename="filename" :title="title" :description="description" ></saveButton> -->
         </v-card>
     </div>
 </template>
@@ -84,10 +84,8 @@ export default {
     ],
     data: function() {
         return {
-            language: this.$route.params.language,
-            filename: SampleCode[this.$route.params.language]['filename'],
-            title: 'Untitled',
-            description: ''
+            language: this.$route.params.language
+
         }
     },
     created() {
@@ -102,17 +100,21 @@ export default {
         setEditorBuffer() {
             this.$store.commit({
                 type: 'updateEditorBuffer',
-                content: SampleCode[this.language]['code'],
-                filename: SampleCode[this.language]['filename'],
-                lang: this.$route.params.language
+                'code': {
+                    content: SampleCode[this.language]['code'],
+                    filename: SampleCode[this.language]['filename'],
+                    lang: this.language,
+                    title: 'Untitiled',
+                    description: ''
+                }
+
             })
         },
         setEditorMode() {
             var mime = CodeMirrorMode(this.language)
             this.$store.commit({
                 type: 'updateEditorMode',
-                mime: mime,
-                lang: this.language
+                mime: mime
             })
         }
     }

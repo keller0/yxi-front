@@ -84,30 +84,27 @@ export default {
     ],
     data: function() {
         return {
-            language: this.$route.params.id,
-            filename: 'a',
-            title: 'Untitled',
-            description: ''
         }
     },
     mounted() {
 
     },
     created() {
-        this.getCodeContent()
+        this.getCodeContent('/')
     },
     watch: {
         '$route': 'getCodeContent'
     },
     methods: {
-        async getCodeContent() {
+        async getCodeContent(part) {
             try {
                 const resp = await axios.get('https://api.yxi.io/v1/code/content/' + this.$route.params.id)
+                // const resp = await axios.get('http://localhost:8090/v1/code/' + this.$route.params.id + part)
                 if (resp.status === 200) {
                     // update store status
                     this.$store.commit({
-                        type: 'updateEditorBufferContent',
-                        content: resp.data.content
+                        type: 'updateEditorBuffer',
+                        code: resp.data.code
                     })
                 }
             } catch (error) {
