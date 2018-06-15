@@ -41,9 +41,15 @@
                             </v-flex>
                           </v-layout>
                         </v-container>
+                        <v-alert :value="showError" outline color="error" icon="warning">
+                            {{errMsg}}
+                        </v-alert>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn block color="primary" flat @click="register">Sign Up for free</v-btn>
+                        <v-btn block color="primary" flat @click="register"
+                        :loading="loading"
+                        :disabled="loading"
+                        >Sign Up for free</v-btn>
                     </v-card-actions>
                   </v-card>
           </v-dialog>
@@ -63,18 +69,29 @@
                           </v-flex>
                         </v-layout>
                       </v-container>
+                      <v-alert :value="showError" outline color="error" icon="warning">
+                          {{errMsg}}
+                      </v-alert>
                   </v-card-text>
                   <v-card-actions>
-                      <v-btn block color="primary" flat @click="login">SignIn</v-btn>
+                      <v-btn block color="primary" flat @click="login"
+                      :loading="loading"
+                      :disabled="loading"
+                      >SignIn</v-btn>
                   </v-card-actions>
               </v-card>
           </v-dialog>
-
+          <v-snackbar :timeout="3000" :top=true :right=true v-model="snackbar">
+          {{ infoMsg }}
+          <v-btn flat color="green" @click.native="snackbar = false">Close</v-btn>
+          </v-snackbar>
         </v-toolbar>
+
 </template>
 
 <script>
-
+import { userLogin, userRegister } from '@/api/user'
+import jwt from 'jsonwebtoken'
 export default {
     name: 'Header',
     components: {
@@ -86,6 +103,12 @@ export default {
         return {
             indialog: false,
             updialog: false,
+            loading: false,
+            showError: false,
+            showInfo: false,
+            snackbar: false,
+            infoMsg: '',
+            errMsg: '',
             rname: '',
             remail: '',
             rpass: '',
@@ -102,11 +125,79 @@ export default {
         goPage(path) {
             this.$router.push(path)
         },
-        register() {
-            console.log(this.rname, this.remail, this.rpass)
+        async login() {
+            this.loading = true
+            this.showError = false
+            try {
+                const res = await userLogin(this.lname, this.lpass)
+                var decoded = jwt.decode(res.token, { complete: true })
+                this.$store.commit({
+                    type: 'userLogin',
+                    id: decoded.payload.id,
+                    token: res.token
+                })
+                this.closeForm()
+                this.snackbar = true
+                this.infoMsg = '欢迎回来'
+            } catch (error) {
+                switch (error.response.status) {
+                    case 400:
+                        this.errMsg = '登录失败，请确认您的账户密码输入正确。'
+                        break
+                    case 401:
+                        this.errMsg = '登录失败，用户密码错误'
+                        break
+                    case 404:
+                        this.errMsg = '登录失败，用户不存在。'
+                        break
+                    case 500:
+                        this.errMsg = '服务器问题'
+                        break
+                    default:
+                        this.errMsg = '服务器问题'
+                        break
+                }
+                this.showError = true
+                this.loading = false
+            } finally {
+                console.log('finally')
+            }
         },
-        login() {
-            console.log(this.lname, this.lpass)
+        async register() {
+            this.loading = true
+            this.showError = false
+            try {
+                await userRegister(this.remail, this.rname, this.rpass)
+                // const res = await userRegister(this.remail, this.rname, this.rpass)
+                this.closeForm()
+                this.snackbar = true
+                this.infoMsg = '注册成功'
+            } catch (error) {
+                // 200 400 409 500
+                switch (error.response.status) {
+                    case 400:
+                        this.errMsg = '注册失败，请确认您输入的内容正确。'
+                        break
+                    case 409:
+                        this.errMsg = '注册失败，用户名或密码已经存在'
+                        break
+                    case 500:
+                        this.errMsg = '服务器问题'
+                        break
+                    default:
+                        this.errMsg = '服务器问题'
+                        break
+                }
+                this.showError = true
+                this.loading = false
+            } finally {
+                console.log('finally')
+            }
+        },
+        closeForm() {
+            this.updialog = false
+            this.indialog = false
+            this.loading = false
         }
     }
 }

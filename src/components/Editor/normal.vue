@@ -98,7 +98,7 @@ export default {
     methods: {
         async getCodeContent(part) {
             try {
-                const resp = await axios.get('https://api.yxi.io/v1/code/content/' + this.$route.params.id)
+                const resp = await axios.get('https://api.yxi.io/v1/code/' + this.$route.params.id + part)
                 // const resp = await axios.get('http://localhost:8090/v1/code/' + this.$route.params.id + part)
                 if (resp.status === 200) {
                     // update store status

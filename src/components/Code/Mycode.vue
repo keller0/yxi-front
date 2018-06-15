@@ -7,7 +7,9 @@
         class="elevation-1"
         >
             <template slot="items" slot-scope="props">
-                <td>{{ props.item.title }}</td>
+                <td @click="openCode(props.item.id)" style="color:red;cursor: pointer">
+                  {{ props.item.title }}
+                  </td>
                 <td>{{ props.item.description }}</td>
                 <td>{{ props.item.lang }}</td>
                 <td>{{ props.item.updateat }}</td>
@@ -66,10 +68,14 @@ export default {
         '$route': 'getCode'
     },
     methods: {
+        openCode(id) {
+            this.$router.push('/code/' + id)
+        },
         async getCode() {
             try {
-                const res = await getOnesCode(13,
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1Mjg3NDIyNjMsImlkIjoxMywidXNlcm5hbWUiOiJjYWlqaWFxaTgifQ.CfZkwI2Ax4QgsXTiH3rwbqqAq-Y4LEZ91FqcgxiwmSY')
+                var token = this.$store.state.user.token
+                var userid = this.$store.state.user.id
+                const res = await getOnesCode(userid, token)
                 this.codes = res.codes
             } catch (error) {
                 this.error = error.message
