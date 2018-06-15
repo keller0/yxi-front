@@ -44,20 +44,16 @@ export default {
         }
     },
     props: {
-        lang: String,
-        filename: String,
-        title: String,
-        description: String
     },
     methods: {
         async saveCodeAno() {
             try {
                 this.statusUpload()
                 var data = {
-                    'title': this.title,
-                    'description': this.description,
-                    'lang': this.lang,
-                    'filename': this.filename,
+                    'title': this.editorBuffer.title,
+                    'description': this.editorBuffer.description,
+                    'lang': this.editorBuffer.lang,
+                    'filename': this.editorBuffer.filename,
                     'content': this.editorBuffer.content
                 }
                 const response = await axios.post('https://api.yxi.io/v1/code', data)
