@@ -45,9 +45,6 @@ var state = {
 
 const mutations = {
     updateEditorTheme(state, t) {
-        if (t === state.editor.config.theme) {
-            return
-        }
         import(`codemirror/theme/${t}.css`)
         state.editor.config.theme = t
         localStorage.setItem('editorTheme', t)
