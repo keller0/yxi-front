@@ -36,7 +36,7 @@
 
 <script>
 import newButton from '@/components/newButton'
-import { getOnesCodeList } from '@/api/getCode'
+import { getOnesCodeList } from '@/api/code'
 export default {
     components: {
         newButton

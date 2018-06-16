@@ -37,4 +37,15 @@ function getCode(codeid, part, token) {
     })
 }
 
-export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode }
+function saveCode(data, token) {
+    return apiService({
+        url: 'code',
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        data
+    })
+}
+
+export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, saveCode }

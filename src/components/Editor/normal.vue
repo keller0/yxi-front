@@ -68,7 +68,7 @@
 import runCode from '@/components/Editor/runCode'
 import editorSettion from '@/components/Editor/editorSetting'
 import EditorBase from '@/components/Editor/base'
-import { getCode } from '@/api/getCode'
+import { getCode } from '@/api/code'
 
 export default {
     name: 'EditorOpen',

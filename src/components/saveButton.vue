@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { saveCode } from '@/api/code'
 export default {
     data() {
         return {
@@ -56,16 +56,21 @@ export default {
                     'filename': this.editorBuffer.filename,
                     'content': this.editorBuffer.content
                 }
-                const response = await axios.post('https://api.yxi.io/v1/code', data)
-                // const response = await axios.post('http://localhost:8090/v1/code', data)
-                if (response.status === 200) {
-                    this.saveResult = 'Save succeed.'
-                } else {
-                    this.saveResult = 'Save failed.'
-                }
+                await saveCode(data, '')
+                this.saveResult = '发布成功'
             } catch (error) {
-                this.saveError = error
-                console.error(error)
+                switch (error.response.status) {
+                    case 400:
+                        this.saveError = '请求错误'
+                        break
+                    case 500:
+                        this.saveError = '服务器问题( ⊙ o ⊙ )！'
+                        break
+                    default:
+                        this.saveError = '服务器问题( ⊙ o ⊙ )！'
+                        break
+                }
+                // console.error(error.response.status)
             } finally {
                 this.statusUploadDone()
             }

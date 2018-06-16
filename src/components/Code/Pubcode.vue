@@ -4,7 +4,7 @@
 
 <script>
 import codetable from '@/components/Code/codeTable'
-import { getCodeList } from '@/api/getCode'
+import { getCodeList } from '@/api/code'
 export default {
     components: {
         codetable
