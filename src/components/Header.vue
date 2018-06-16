@@ -12,12 +12,17 @@
             <v-toolbar-items >
                 <v-btn flat @click="goPage('/popular')"><v-icon left dark>trending_up</v-icon>Top</v-btn>
                 <v-btn flat @click="goPage('/public')"><v-icon left dark>public</v-icon>Pub</v-btn>
-                <v-btn flat @click="goPage('/mine')" v-if="logined">My Code</v-btn>
+
                 <v-menu offset-y>
-                <v-btn slot="activator"  flat v-if="!logined">Sign In/Up</v-btn>
-                <v-list  class="text-xs-center">
-                    <v-list-tile v-if="!logined" @click="indialog=true">Sign In</v-list-tile>
-                    <v-list-tile v-if="!logined" @click="updialog=true">Sign Up</v-list-tile>
+                <v-btn slot="activator" flat v-if="!logined">Sign In/Up</v-btn>
+                <v-list  class="text-xs-center" v-if="!logined">
+                    <v-list-tile @click="indialog=true">Sign In</v-list-tile>
+                    <v-list-tile @click="updialog=true">Sign Up</v-list-tile>
+                </v-list>
+                <v-btn slot="activator" flat v-if="logined">{{loginedUser}}</v-btn>
+                <v-list class="text-xs-center" v-if="logined">
+                    <v-list-tile @click="goPage('/mine')" >My code</v-list-tile>
+                    <v-list-tile @click="logout()">Log out</v-list-tile>
                 </v-list>
               </v-menu>
             </v-toolbar-items>
@@ -52,7 +57,7 @@
                         >Sign Up for free</v-btn>
                     </v-card-actions>
                   </v-card>
-          </v-dialog>
+            </v-dialog>
           <v-dialog v-model="indialog"  max-width="500">
               <v-card>
                   <v-card-title>
@@ -119,6 +124,9 @@ export default {
     computed: {
         logined() {
             return this.$store.state.user.logined
+        },
+        loginedUser() {
+            return this.$store.state.user.name
         }
     },
     methods: {
@@ -134,6 +142,8 @@ export default {
                 this.$store.commit({
                     type: 'userLogin',
                     id: decoded.payload.id,
+                    name: decoded.payload.username,
+                    run_token: decoded.payload.runtoken,
                     token: res.token
                 })
                 this.closeForm()
@@ -193,6 +203,9 @@ export default {
             } finally {
                 console.log('finally')
             }
+        },
+        logout() {
+            this.$store.commit('userLogout')
         },
         closeForm() {
             this.updialog = false

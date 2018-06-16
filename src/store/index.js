@@ -9,7 +9,9 @@ var state = {
     },
     user: {
         logined: false,
+        name: '',
         id: 0,
+        run_token: '',
         token: ''
     },
     editor: {
@@ -54,7 +56,7 @@ const mutations = {
     },
     updateEditorBuffer(state, payload) {
         state.editor.buffer = payload.code
-        localStorage.setItem('editorBuffer', JSON.stringify(payload.code))
+        // localStorage.setItem('editorBuffer', JSON.stringify(payload.code))
     },
     updateEditorBufferContent(state, payload) {
         state.editor.buffer.content = payload.content
@@ -63,10 +65,15 @@ const mutations = {
         state.user.logined = true
         state.user.token = payload.token
         state.user.id = payload.id
+        state.user.name = payload.name
+        state.user.run_token = payload.run_token
     },
     userLogout(state) {
         state.user.logined = false
         state.user.token = ''
+        state.user.id = 0
+        state.user.name = ''
+        state.user.run_token = ''
     }
 }
 
