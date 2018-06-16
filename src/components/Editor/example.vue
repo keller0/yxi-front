@@ -49,7 +49,8 @@ export default {
                     content: SampleCode['c']['code'],
                     filename: SampleCode['c']['filename'],
                     lang: 'c',
-                    description: ''
+                    description: '',
+                    title: 'Hello!!'
                 }
             })
         },

@@ -1,8 +1,8 @@
-import { getCodeService } from '@/utils/request'
+import { apiService } from '@/api/request'
 
 // get public code
 function getCode(type) {
-    return getCodeService({
+    return apiService({
         url: 'code?type=' + type,
         method: 'GET'
     })
@@ -10,7 +10,7 @@ function getCode(type) {
 
 // get ones code
 function getOnesCode(userid, token) {
-    return getCodeService({
+    return apiService({
         url: 'user/' + userid + '/code?type=all',
         method: 'GET',
         contenttype: 'text/plain',
@@ -21,7 +21,7 @@ function getOnesCode(userid, token) {
 }
 
 function getOnesPublicCode(userid) {
-    return getCodeService({
+    return apiService({
         url: 'user/' + userid + '/code?type=public',
         method: 'GET'
     })
