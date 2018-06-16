@@ -16,8 +16,8 @@
                 <v-menu offset-y>
                 <v-btn slot="activator" flat v-if="!logined">Sign In/Up</v-btn>
                 <v-list  class="text-xs-center" v-if="!logined">
-                    <v-list-tile @click="indialog=true">Sign In</v-list-tile>
-                    <v-list-tile @click="updialog=true">Sign Up</v-list-tile>
+                    <v-list-tile @click="openDialog('in')">Sign In</v-list-tile>
+                    <v-list-tile @click="openDialog('up')">Sign Up</v-list-tile>
                 </v-list>
                 <v-btn slot="activator" flat v-if="logined">{{loginedUser}}</v-btn>
                 <v-list class="text-xs-center" v-if="logined">
@@ -133,6 +133,14 @@ export default {
         goPage(path) {
             this.$router.push(path)
         },
+        openDialog(d) {
+            this.showError = false
+            if (d === 'in') {
+                this.indialog = true
+            } else {
+                this.updialog = true
+            }
+        },
         async login() {
             this.loading = true
             this.showError = false
@@ -189,7 +197,7 @@ export default {
                         this.errMsg = '注册失败，请确认您输入的内容正确。'
                         break
                     case 409:
-                        this.errMsg = '注册失败，用户名或密码已经存在'
+                        this.errMsg = '注册失败，用户名或邮箱已经存在'
                         break
                     case 500:
                         this.errMsg = '服务器问题'
