@@ -1,7 +1,7 @@
 import { apiService } from '@/api/request'
 
 // get public code
-function getCode(type) {
+function getCodeList(type) {
     return apiService({
         url: 'code?type=' + type,
         method: 'GET'
@@ -9,7 +9,7 @@ function getCode(type) {
 }
 
 // get ones code
-function getOnesCode(userid, token) {
+function getOnesCodeList(userid, token) {
     return apiService({
         url: 'user/' + userid + '/code?type=all',
         method: 'GET',
@@ -20,11 +20,21 @@ function getOnesCode(userid, token) {
     })
 }
 
-function getOnesPublicCode(userid) {
+function getOnesPublicCodeList(userid) {
     return apiService({
         url: 'user/' + userid + '/code?type=public',
         method: 'GET'
     })
 }
 
-export { getCode, getOnesCode, getOnesPublicCode }
+function getCode(codeid, part, token) {
+    return apiService({
+        url: 'code/' + codeid + part,
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
+export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode }

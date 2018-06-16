@@ -36,7 +36,7 @@
 
 <script>
 import newButton from '@/components/newButton'
-import { getOnesCode } from '@/api/getCode'
+import { getOnesCodeList } from '@/api/getCode'
 export default {
     components: {
         newButton
@@ -75,7 +75,7 @@ export default {
             try {
                 var token = this.$store.state.user.token
                 var userid = this.$store.state.user.id
-                const res = await getOnesCode(userid, token)
+                const res = await getOnesCodeList(userid, token)
                 this.codes = res.codes
             } catch (error) {
                 this.error = error.message

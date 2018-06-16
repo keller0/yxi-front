@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card width="100%">
+        <v-card width="100%" v-if="!showError">
             <v-card-title>
                 <v-expansion-panel>
                     <!-- file title and discription -->
@@ -55,7 +55,11 @@
                 <EditorBase></EditorBase>
                 <runCode></runCode>
             </v-card-text>
+
         </v-card>
+        <v-alert :value="showError" outline color="error" icon="warning">
+            {{errMsg}} Go back to <router-link to="/">Home</router-link>
+        </v-alert>
     </div>
 </template>
 
@@ -64,7 +68,7 @@
 import runCode from '@/components/Editor/runCode'
 import editorSettion from '@/components/Editor/editorSetting'
 import EditorBase from '@/components/Editor/base'
-import axios from 'axios'
+import { getCode } from '@/api/getCode'
 
 export default {
     name: 'EditorOpen',
@@ -84,6 +88,8 @@ export default {
     ],
     data: function() {
         return {
+            showError: false,
+            errMsg: ''
         }
     },
     mounted() {
@@ -98,17 +104,29 @@ export default {
     methods: {
         async getCodeContent(part) {
             try {
-                const resp = await axios.get('https://api.yxi.io/v1/code/' + this.$route.params.id + part)
-                // const resp = await axios.get('http://localhost:8090/v1/code/' + this.$route.params.id + part)
-                if (resp.status === 200) {
-                    // update store status
-                    this.$store.commit({
-                        type: 'updateEditorBuffer',
-                        code: resp.data.code
-                    })
-                }
+                var token = this.$store.state.user.token
+                const resp = await getCode(this.$route.params.id, part, token)
+                // update store status
+                this.$store.commit({
+                    type: 'updateEditorBuffer',
+                    code: resp.code
+                })
             } catch (error) {
-                console.log('error:' + error)
+                switch (error.response.status) {
+                    case 403:
+                        this.errMsg = '请求的资源需要权限认证'
+
+                        break
+                    case 404:
+                        this.errMsg = '请求的数据不存在'
+                        break
+                    default:
+                        this.errMsg = '服务器问题( ⊙ o ⊙ )！'
+                        break
+                }
+                this.showError = true
+            } finally {
+                console.log('normalcode')
             }
         }
     }

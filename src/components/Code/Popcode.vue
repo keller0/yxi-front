@@ -4,7 +4,7 @@
 
 <script>
 import codetable from '@/components/Code/codeTable'
-import { getCode } from '@/api/getCode'
+import { getCodeList } from '@/api/getCode'
 
 export default {
     components: {
@@ -25,7 +25,7 @@ export default {
     methods: {
         async getCode() {
             try {
-                const res = await getCode('popular')
+                const res = await getCodeList('popular')
                 this.codes = res.codes
             } catch (error) {
                 this.error = error.message
