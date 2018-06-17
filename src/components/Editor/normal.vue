@@ -58,7 +58,7 @@
 
         </v-card>
         <v-alert :value="showError" outline color="error" icon="warning">
-            {{errMsg}} Go back to <router-link to="/">Home</router-link>
+            {{errMsg}} Go back to <router-link to="/">Home</router-link>, or Login.
         </v-alert>
         <likeButton></likeButton>
     </div>

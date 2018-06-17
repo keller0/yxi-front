@@ -74,6 +74,8 @@ const mutations = {
         state.user.id = 0
         state.user.name = ''
         state.user.run_token = ''
+        state.user.token_exp = 0
+        localStorage.setItem('userinfo', '{}')
     }
 }
 

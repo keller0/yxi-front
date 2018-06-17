@@ -145,7 +145,7 @@ export default {
                 type: 'userLogin',
                 id: userinfo.id,
                 name: userinfo.name,
-                run_token: userinfo.runt_oken,
+                run_token: userinfo.runt_token,
                 token_exp: userinfo.token_exp,
                 token: userinfo.token
             })
