@@ -48,4 +48,14 @@ function saveCode(data, token) {
     })
 }
 
-export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, saveCode }
+function likeCode(codeid, token) {
+    return apiService({
+        url: 'likes/' + codeid,
+        method: 'PUT',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
+export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, saveCode, likeCode }

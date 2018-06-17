@@ -60,6 +60,7 @@
         <v-alert :value="showError" outline color="error" icon="warning">
             {{errMsg}} Go back to <router-link to="/">Home</router-link>
         </v-alert>
+        <likeButton></likeButton>
     </div>
 </template>
 
@@ -68,6 +69,7 @@
 import runCode from '@/components/Editor/runCode'
 import editorSettion from '@/components/Editor/editorSetting'
 import EditorBase from '@/components/Editor/base'
+import likeButton from '@/components/Button/like'
 import { getCode } from '@/api/code'
 
 export default {
@@ -75,8 +77,8 @@ export default {
     components: {
         EditorBase,
         runCode,
-        editorSettion
-        // saveButton
+        editorSettion,
+        likeButton
     },
     computed: {
         editorBuffer() {
