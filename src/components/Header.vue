@@ -121,9 +121,12 @@ export default {
             lpass: ''
         }
     },
+    created() {
+        this.loadUserInfo()
+    },
     computed: {
         logined() {
-            return this.$store.state.user.logined
+            return this.$store.state.user.token_exp > Date.now() / 1000
         },
         loginedUser() {
             return this.$store.state.user.name
@@ -132,6 +135,20 @@ export default {
     methods: {
         goPage(path) {
             this.$router.push(path)
+        },
+        loadUserInfo() {
+            const userinfo = JSON.parse(localStorage.getItem('userinfo'))
+            if (Object.keys(userinfo).length === 0 && userinfo.constructor === Object) {
+                return
+            }
+            this.$store.commit({
+                type: 'userLogin',
+                id: userinfo.id,
+                name: userinfo.name,
+                run_token: userinfo.runt_oken,
+                token_exp: userinfo.token_exp,
+                token: userinfo.token
+            })
         },
         openDialog(d) {
             this.showError = false
@@ -152,6 +169,7 @@ export default {
                     id: decoded.payload.id,
                     name: decoded.payload.username,
                     run_token: decoded.payload.runtoken,
+                    token_exp: decoded.payload.exp,
                     token: res.token
                 })
                 this.closeForm()

@@ -8,11 +8,11 @@ var state = {
         dark: false
     },
     user: {
-        logined: false,
         name: '',
         id: 0,
         run_token: '',
-        token: ''
+        token: '',
+        token_exp: ''
     },
     editor: {
         config: {
@@ -62,14 +62,14 @@ const mutations = {
         state.editor.buffer.content = payload.content
     },
     userLogin(state, payload) {
-        state.user.logined = true
         state.user.token = payload.token
         state.user.id = payload.id
         state.user.name = payload.name
         state.user.run_token = payload.run_token
+        state.user.token_exp = payload.token_exp
+        localStorage.setItem('userinfo', JSON.stringify(state.user))
     },
     userLogout(state) {
-        state.user.logined = false
         state.user.token = ''
         state.user.id = 0
         state.user.name = ''
