@@ -15,6 +15,24 @@
                                         :counter="25"
                                         label="Title"></v-text-field>
                                     </v-flex>
+                                     <v-flex xs1>
+                                    </v-flex>
+                                    <v-flex xs2>
+                                        <v-switch
+                                            @click="tagglePub"
+                                            :label="`${s1[isPublic]}`"
+                                            :disabled="!isMyCode"
+                                            v-model="isPublic"
+                                        ></v-switch>
+                                    </v-flex>
+                                    <v-flex xs2>
+                                        <v-switch
+                                            @click="taggleAno"
+                                            :label="`Anonymous:${isAnonymous}`"
+                                            :disabled="!isMyCode"
+                                            v-model="isAnonymous"
+                                        ></v-switch>
+                                    </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
@@ -60,7 +78,8 @@
         <v-alert :value="showError" outline color="error" icon="warning">
             {{errMsg}} Go back to <router-link to="/">Home</router-link>, or Login.
         </v-alert>
-        <likeButton></likeButton>
+        <likeButton v-if="!isMyCode"></likeButton>
+        <updateButton v-if="isMyCode" :anonymous="isAnonymous" :public="isPublic"></updateButton>
     </div>
 </template>
 
@@ -70,6 +89,7 @@ import runCode from '@/components/Editor/runCode'
 import editorSettion from '@/components/Editor/editorSetting'
 import EditorBase from '@/components/Editor/base'
 import likeButton from '@/components/Button/like'
+import updateButton from '@/components/Button/update'
 import { getCode } from '@/api/code'
 
 export default {
@@ -78,11 +98,19 @@ export default {
         EditorBase,
         runCode,
         editorSettion,
-        likeButton
+        likeButton,
+        updateButton
     },
     computed: {
         editorBuffer() {
             return this.$store.state.editor.buffer
+        },
+        logined() {
+            return this.$store.getters.isLogined
+        },
+        isMyCode() {
+            return this.$store.getters.isLogined &&
+            this.$store.state.editor.buffer.username === this.$store.state.user.name
         }
     },
     props: [
@@ -91,7 +119,13 @@ export default {
     data: function() {
         return {
             showError: false,
-            errMsg: ''
+            errMsg: '',
+            s1: {
+                true: 'Public',
+                false: 'Private'
+            },
+            isAnonymous: false,
+            isPublic: true
         }
     },
     mounted() {
@@ -113,6 +147,9 @@ export default {
                     type: 'updateEditorBuffer',
                     code: resp.code
                 })
+                this.isAnonymous = this.editorBuffer.username === 'anonymous'
+                this.isPublic = this.editorBuffer.public
+                console.log(this.isAnonymous, this.isPublic)
             } catch (error) {
                 switch (error.response.status) {
                     case 403:
@@ -128,7 +165,19 @@ export default {
                 }
                 this.showError = true
             } finally {
-                console.log('normalcode')
+                console.log('getcode')
+            }
+        },
+        tagglePub() {
+            // change from public to private
+            if (this.isPublic) {
+                this.isAnonymous = false
+            }
+        },
+        taggleAno() {
+            // change from anonymous to nonanonymous
+            if (!this.isAnonymous) {
+                this.isPublic = true
             }
         }
     }

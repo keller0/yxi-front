@@ -48,6 +48,17 @@ function createCode(data, token) {
     })
 }
 
+function updateCode(data, token) {
+    return apiService({
+        url: 'code',
+        method: 'PUT',
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        data
+    })
+}
+
 function likeCode(codeid, token) {
     return apiService({
         url: 'likes/' + codeid,
@@ -58,4 +69,4 @@ function likeCode(codeid, token) {
     })
 }
 
-export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, createCode, likeCode }
+export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, createCode, likeCode, updateCode }
