@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import newButton from '@/components/newButton'
+import newButton from '@/components/Button/new'
 import { getOnesCodeList } from '@/api/code'
 export default {
     components: {

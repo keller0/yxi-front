@@ -17,7 +17,7 @@
 <script>
 
 import runCode from '@/components/Editor/runCode'
-import newButton from '@/components/newButton'
+import newButton from '@/components/Button/new'
 import editorSettion from '@/components/Editor/editorSetting'
 import { SampleCode } from '@/utils/languages'
 import EditorBase from '@/components/Editor/base'

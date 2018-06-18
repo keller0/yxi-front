@@ -55,7 +55,7 @@
                 <EditorBase></EditorBase>
                 <runCode></runCode>
             </v-card-text>
-            <saveButton></saveButton>
+            <publishButton></publishButton>
         </v-card>
     </div>
 </template>
@@ -65,14 +65,14 @@
 import runCode from '@/components/Editor/runCode'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import editorSettion from '@/components/Editor/editorSetting'
-import saveButton from '@/components/saveButton'
+import publishButton from '@/components/Button/publish'
 import EditorBase from '@/components/Editor/base'
 export default {
     components: {
         EditorBase,
         runCode,
         editorSettion,
-        saveButton
+        publishButton
     },
     computed: {
         editorBuffer() {

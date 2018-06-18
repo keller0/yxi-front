@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-btn
-              color="pink"
+              color="indigo"
               dark
               middle
               fixed

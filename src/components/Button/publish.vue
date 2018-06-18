@@ -21,7 +21,7 @@
               :loading="loading"
               @click.native.stop="saveCodeAno"
             >
-              <v-icon>backup</v-icon>
+              <v-icon>send</v-icon>
           </v-btn>
     </div>
 

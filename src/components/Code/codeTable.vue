@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import newButton from '@/components/newButton'
+import newButton from '@/components/Button/new'
 export default {
     components: {
         newButton
