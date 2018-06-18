@@ -10,11 +10,11 @@
                 <td @click="openCode(props.item.id)" style="color:red;cursor: pointer">
                   {{ props.item.title }}
                   </td>
-                <td>{{ props.item.description }}</td>
-                <td>{{ props.item.lang }}</td>
-                <td>{{ props.item.updateat }}</td>
-                <td>{{ props.item.likes }}</td>
-                <td>{{ props.item.public }}</td>
+                <td class="hidden-md-and-down">{{ props.item.description }}</td>
+                <td class="hidden-md-and-down">{{ props.item.lang }}</td>
+                <td class="hidden-md-and-down">{{ props.item.updateat }}</td>
+                <td class="hidden-md-and-down">{{ props.item.likes }}</td>
+                <td class="hidden-md-and-down">{{ props.item.public }}</td>
                 <td>
                   <v-menu bottom left>
                   <v-btn slot="activator" icon >
@@ -51,11 +51,11 @@ export default {
             ],
             headers: [
                 { text: 'Title', value: 'name', sortable: false, align: 'left' },
-                { text: 'description', value: 'description', sortable: false },
-                { text: 'language', value: 'lang', sortable: true },
-                { text: 'Date', value: 'updateat', sortable: true },
-                { text: 'likes', value: 'likes', sortable: true },
-                { text: 'public', value: 'public', sortable: false },
+                { text: 'description', value: 'description', sortable: false, class: 'hidden-md-and-down' },
+                { text: 'language', value: 'lang', sortable: false, class: 'hidden-md-and-down' },
+                { text: 'Date', value: 'updateat', sortable: false, class: 'hidden-md-and-down' },
+                { text: 'likes', value: 'likes', sortable: false, class: 'hidden-md-and-down' },
+                { text: 'public', value: 'public', sortable: false, class: 'hidden-md-and-down' },
                 { text: 'options', value: '', sortable: false }
             ]
 

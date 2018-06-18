@@ -12,11 +12,11 @@
       <td @click="openCode(props.item.id)" style="color:red;cursor: pointer">
            {{ props.item.title }}
       </td>
-      <td>{{ props.item.description }}</td>
+      <td class="hidden-md-and-down">{{ props.item.description }}</td>
       <td>{{ props.item.lang }}</td>
-      <td>{{ props.item.updateat }}</td>
+      <td class="hidden-md-and-down">{{ props.item.updateat }}</td>
       <td>{{ props.item.likes }}</td>
-      <td>{{ props.item.username }}</td>
+      <td class="hidden-md-and-down">{{ props.item.username }}</td>
     </template>
   </v-data-table>
   <newButton></newButton>
@@ -37,11 +37,11 @@ export default {
         return {
             headers: [
                 { text: 'Title', value: 'name', sortable: false, align: 'left' },
-                { text: 'description', value: 'description', sortable: false },
-                { text: 'language', value: 'lang', sortable: true },
-                { text: 'Date', value: 'updateat', sortable: true },
-                { text: 'likes', value: 'likes', sortable: true },
-                { text: 'author', value: 'username', sortable: false }
+                { text: 'description', value: 'description', sortable: false, class: 'hidden-md-and-down' },
+                { text: 'language', value: 'lang', sortable: false },
+                { text: 'Date', value: 'updateat', sortable: false, class: 'hidden-md-and-down' },
+                { text: 'likes', value: 'likes', sortable: false },
+                { text: 'author', value: 'username', sortable: false, class: 'hidden-md-and-down' }
             ]
         }
     },
