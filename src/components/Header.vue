@@ -10,19 +10,21 @@
             </v-toolbar-title>
             <v-spacer hidden-xs-only></v-spacer>
             <v-toolbar-items >
-                <v-btn flat @click="goPage('/popular')"><v-icon left dark>trending_up</v-icon>Top</v-btn>
-                <v-btn flat @click="goPage('/public')"><v-icon left dark>public</v-icon>Pub</v-btn>
+                <v-btn flat @click="goPage('/popular')"><v-icon left dark class="hidden-md-and-down">trending_up</v-icon>Top</v-btn>
+                <v-btn flat @click="goPage('/public')"><v-icon left dark class="hidden-md-and-down">public</v-icon>Pub</v-btn>
 
                 <v-menu offset-y>
                 <v-btn slot="activator" flat v-if="!logined">Sign In/Up</v-btn>
                 <v-list  class="text-xs-center" v-if="!logined">
                     <v-list-tile @click="openDialog('in')">Sign In</v-list-tile>
                     <v-list-tile @click="openDialog('up')">Sign Up</v-list-tile>
+                     <v-list-tile @click="goPage('/help')">Help</v-list-tile>
                 </v-list>
                 <v-btn slot="activator" flat v-if="logined">{{loginedUser}}</v-btn>
                 <v-list class="text-xs-center" v-if="logined">
-                    <v-list-tile @click="goPage('/mine')" >My code</v-list-tile>
+                    <v-list-tile @click="goPage('/mine')">My code</v-list-tile>
                     <v-list-tile @click="logout()">Log out</v-list-tile>
+                    <v-list-tile @click="goPage('/help')">Help</v-list-tile>
                 </v-list>
               </v-menu>
             </v-toolbar-items>
