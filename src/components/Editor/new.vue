@@ -154,12 +154,14 @@ export default {
             }
         },
         tagglePub() {
-            if (this.isPublic && this.isAnonymous) {
+            // change from public to private
+            if (this.isPublic) {
                 this.isAnonymous = false
             }
         },
         taggleAno() {
-            if (!this.isAnonymous && !this.isPublic) {
+            // change from anonymous to nonanonymous
+            if (!this.isAnonymous) {
                 this.isPublic = true
             }
         }
