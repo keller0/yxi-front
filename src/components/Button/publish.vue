@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { saveCode } from '@/api/code'
+import { createCode } from '@/api/code'
 export default {
     data() {
         return {
@@ -44,6 +44,8 @@ export default {
         }
     },
     props: {
+        anonymous: Boolean,
+        public: Boolean
     },
     methods: {
         async saveCodeAno() {
@@ -54,9 +56,14 @@ export default {
                     'description': this.editorBuffer.description,
                     'lang': this.editorBuffer.lang,
                     'filename': this.editorBuffer.filename,
-                    'content': this.editorBuffer.content
+                    'content': this.editorBuffer.content,
+                    'public': this.public
                 }
-                await saveCode(data, '')
+                var token = ''
+                if (!this.anonymous) {
+                    token = this.$store.state.user.token
+                }
+                await createCode(data, token)
                 this.saveResult = '发布成功'
             } catch (error) {
                 switch (error.response.status) {

@@ -85,7 +85,9 @@ const actions = {
 
 // getters are functions
 const getters = {
-
+    isLogined: state => {
+        return state.user.token_exp > Date.now() / 1000
+    }
 }
 
 export default new Vuex.Store({

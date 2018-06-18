@@ -126,7 +126,7 @@ export default {
     },
     computed: {
         logined() {
-            return this.$store.state.user.token_exp > Date.now() / 1000
+            return this.$store.getters.isLogined
         },
         loginedUser() {
             return this.$store.state.user.name

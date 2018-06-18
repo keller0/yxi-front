@@ -37,7 +37,7 @@ function getCode(codeid, part, token) {
     })
 }
 
-function saveCode(data, token) {
+function createCode(data, token) {
     return apiService({
         url: 'code',
         method: 'POST',
@@ -58,4 +58,4 @@ function likeCode(codeid, token) {
     })
 }
 
-export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, saveCode, likeCode }
+export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, createCode, likeCode }

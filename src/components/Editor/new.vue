@@ -15,6 +15,24 @@
                                         :counter="25"
                                         label="Title"></v-text-field>
                                     </v-flex>
+                                    <v-flex xs1>
+                                    </v-flex>
+                                    <v-flex xs2>
+                                        <v-switch
+                                            @click="tagglePub"
+                                            :label="`${s1[isPublic]}`"
+                                            :disabled="!logined"
+                                            v-model="isPublic"
+                                        ></v-switch>
+                                    </v-flex>
+                                    <v-flex xs2>
+                                        <v-switch
+                                            @click="taggleAno"
+                                            :label="`Anonymous:${isAnonymous}`"
+                                            :disabled="!logined"
+                                            v-model="isAnonymous"
+                                        ></v-switch>
+                                    </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
@@ -55,7 +73,7 @@
                 <EditorBase></EditorBase>
                 <runCode></runCode>
             </v-card-text>
-            <publishButton></publishButton>
+            <publishButton :anonymous="isAnonymous" :public="isPublic"></publishButton>
         </v-card>
     </div>
 </template>
@@ -77,21 +95,30 @@ export default {
     computed: {
         editorBuffer() {
             return this.$store.state.editor.buffer
+        },
+        logined() {
+            return this.$store.getters.isLogined
         }
     },
     props: [
 
     ],
-    data: function() {
+    data() {
         return {
-            language: this.$route.params.language
-
+            language: this.$route.params.language,
+            s1: {
+                true: 'Public',
+                false: 'Private'
+            },
+            isAnonymous: true,
+            isPublic: false
         }
     },
     created() {
         // create a new buffer so we need set something
         this.setEditorBuffer()
         this.setEditorMode()
+        this.setSwitchs()
     },
     watch: {
         '$route': 'setEditorBuffer'
@@ -116,6 +143,25 @@ export default {
                 type: 'updateEditorMode',
                 mime: mime
             })
+        },
+        setSwitchs() {
+            if (this.logined) {
+                this.isAnonymous = false
+                this.isPublic = true
+            } else {
+                this.isAnonymous = true
+                this.isPublic = true
+            }
+        },
+        tagglePub() {
+            if (this.isPublic && this.isAnonymous) {
+                this.isAnonymous = false
+            }
+        },
+        taggleAno() {
+            if (!this.isAnonymous && !this.isPublic) {
+                this.isPublic = true
+            }
         }
     }
 }
