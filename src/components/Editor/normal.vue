@@ -4,7 +4,7 @@
             <v-card-title>
                 <v-expansion-panel>
                     <!-- file title and discription -->
-                    <v-expansion-panel-content expand-icon="mdi-menu-down">
+                    <v-expansion-panel-content>
                         <div slot="header">{{editorBuffer.title}}</div>
                         <v-card>
                             <v-container fluid>
@@ -104,9 +104,6 @@ export default {
     computed: {
         editorBuffer() {
             return this.$store.state.editor.buffer
-        },
-        logined() {
-            return this.$store.getters.isLogined
         },
         isMyCode() {
             return this.$store.getters.isLogined &&

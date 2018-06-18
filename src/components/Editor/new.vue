@@ -4,7 +4,7 @@
             <v-card-title>
                 <v-expansion-panel>
                     <!-- file title and discription -->
-                    <v-expansion-panel-content expand-icon="mdi-menu-down">
+                    <v-expansion-panel-content>
                         <div slot="header">{{editorBuffer.title}}</div>
                         <v-card>
                             <v-container fluid>
