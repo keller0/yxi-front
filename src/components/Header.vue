@@ -35,18 +35,20 @@
                     </v-card-title>
                     <v-card-text>
                         <v-container grid-list-md>
+                          <v-form v-model="rvalid">
                           <v-layout wrap>
                             <v-flex xs12 sm6 md6>
-                              <v-text-field v-model="rname" label="Chose a username" required></v-text-field>
+                              <v-text-field v-model="rname" :rules="nameRules" label="Chose a username" required></v-text-field>
                             </v-flex>
 
                             <v-flex xs12 sm6 md6>
-                              <v-text-field v-model="remail" label="Email" type="email" required></v-text-field>
+                              <v-text-field v-model="remail" :rules="emailRules" label="Email" type="email" required></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm12 md12>
-                              <v-text-field v-model="rpass" label="Password" type="password" required></v-text-field>
+                              <v-text-field v-model="rpass" :rules="passwordRules" label="Password" type="password" required></v-text-field>
                             </v-flex>
                           </v-layout>
+                          </v-form>
                         </v-container>
                         <v-alert :value="showError" outline color="error" icon="warning">
                             {{errMsg}}
@@ -55,7 +57,7 @@
                     <v-card-actions>
                         <v-btn block color="primary" flat @click="register"
                         :loading="loading"
-                        :disabled="loading"
+                        :disabled="loading || !rvalid"
                         >Sign Up for free</v-btn>
                     </v-card-actions>
                   </v-card>
@@ -120,7 +122,21 @@ export default {
             remail: '',
             rpass: '',
             lname: '',
-            lpass: ''
+            lpass: '',
+            rvalid: false,
+            passwordRules: [
+                v => !!v || 'Password is required',
+                v => v.length > 8 || 'Password must be more than 8 characters'
+            ],
+            nameRules: [
+                v => !!v || 'Name is required',
+                v => v.length <= 10 || 'Name must be less than 10 characters',
+                v => /^[a-zA-Z0-9]+$/.test(v) || 'Name must be valid'
+            ],
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+            ]
         }
     },
     created() {
@@ -207,7 +223,6 @@ export default {
             this.showError = false
             try {
                 await userRegister(this.remail, this.rname, this.rpass)
-                // const res = await userRegister(this.remail, this.rname, this.rpass)
                 this.closeForm()
                 this.snackbar = true
                 this.infoMsg = '注册成功'
