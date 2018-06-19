@@ -139,10 +139,11 @@ export default {
             this.$router.push(path)
         },
         loadUserInfo() {
-            const userinfo = JSON.parse(localStorage.getItem('userinfo'))
-            if (Object.keys(userinfo).length === 0 && userinfo.constructor === Object) {
+            const info = localStorage.getItem('userinfo')
+            if (info == null) {
                 return
             }
+            const userinfo = JSON.parse(info)
             this.$store.commit({
                 type: 'userLogin',
                 id: userinfo.id,
