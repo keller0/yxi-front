@@ -17,7 +17,7 @@ const SampleCode = {
     },
     'cpp': {
         'filename': 'main.cpp',
-        'code': '#include <iostream>\n\nint main() {\n    std::cout << "Hello, World.";\n}'
+        'code': '#include <iostream>\n\nint main()\n{\n    std::cout << "Hello, World!\\n";\n}'
     },
     'java': {
         'filename': 'Hi.java',
