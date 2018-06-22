@@ -1,6 +1,6 @@
 <template>
         <v-toolbar
-            color="blue"
+            color="gray"
             dense
             fixed
             app>

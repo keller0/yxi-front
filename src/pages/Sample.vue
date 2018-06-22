@@ -2,22 +2,19 @@
     <v-app :dark="dark">
         <Header></Header>
         <v-content >
-          <welcome></welcome>
-            <Example></Example>
+            <v-container >
+                <router-view></router-view>
+            </v-container>
         </v-content>
     </v-app>
 </template>
 
 <script>
 import Header from '@/components/Header'
-import Welcome from '@/components/Welcome'
-import Example from '@/components/Editor/example'
+
 export default {
-    name: 'Home',
     components: {
-        Header,
-        Welcome,
-        Example
+        Header
     },
     props: {
     },

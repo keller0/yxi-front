@@ -26,7 +26,7 @@
                         <v-flex xs12 sm12>
                             <v-select
                                 v-model="globalBufferMode"
-                                label="Mode"
+                                label="Highlight Mode"
                                 :items="modes"
                                 @change="onModeChange">
                             </v-select>

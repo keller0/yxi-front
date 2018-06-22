@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/pages/Home'
+import Sample from '@/pages/Sample'
 import Help from '@/pages/Help'
 import Popcode from '@/components/Code/Popcode'
 import Mycode from '@/components/Code/Mycode'
 import Pubcode from '@/components/Code/Pubcode'
-import Example from '@/components/Editor/example'
+
 import EditorNew from '@/components/Editor/new'
 import EditorOpen from '@/components/Editor/normal'
 
@@ -15,9 +16,12 @@ Vue.use(Router)
 const routerMap = [
     {
         path: '/',
-        component: Home,
+        component: Home
+    },
+    {
+        path: '/',
+        component: Sample,
         children: [
-            { path: '/', component: Example },
             { path: '/help', component: Help },
             { path: '/public', component: Pubcode },
             { path: '/popular', component: Popcode },
