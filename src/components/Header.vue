@@ -1,6 +1,5 @@
 <template>
         <v-toolbar
-            color="gray"
             dense
             fixed
             app>
@@ -10,8 +9,8 @@
             </v-toolbar-title>
             <v-spacer hidden-xs-only></v-spacer>
             <v-toolbar-items >
-                <v-btn flat @click="goPage('/popular')"><v-icon left dark class="hidden-md-and-down">trending_up</v-icon>Top</v-btn>
-                <v-btn flat @click="goPage('/public')"><v-icon left dark class="hidden-md-and-down">public</v-icon>Pub</v-btn>
+                <v-btn flat @click="goPage('/popular')"><v-icon left dark>trending_up</v-icon><span class="hidden-md-and-down">Top</span></v-btn>
+                <v-btn flat @click="goPage('/public')"><v-icon left dark>public</v-icon><span class="hidden-md-and-down">Public</span></v-btn>
 
                 <v-menu offset-y>
                 <v-btn slot="activator" flat v-if="!logined">Sign In/Up</v-btn>
