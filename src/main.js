@@ -7,6 +7,7 @@ import store from './store'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import i18n from './lang'
 import 'codemirror/lib/codemirror.css'
 import '@/assets/css/index.scss'
 import 'codemirror/mode/clike/clike.js'
@@ -23,6 +24,7 @@ router.afterEach(function(to) {
 new Vue({
     el: '#app',
     router,
+    i18n,
     store,
     components: {
         App
@@ -30,4 +32,4 @@ new Vue({
     template: '<App/>',
     render: h => h(App)
 
-}).$mount('#app')
+})

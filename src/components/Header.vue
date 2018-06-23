@@ -9,23 +9,31 @@
             </v-toolbar-title>
             <v-spacer hidden-xs-only></v-spacer>
             <v-toolbar-items >
-                <v-btn flat @click="goPage('/popular')"><v-icon left dark>trending_up</v-icon><span class="hidden-md-and-down">Top</span></v-btn>
-                <v-btn flat @click="goPage('/public')"><v-icon left dark>public</v-icon><span class="hidden-md-and-down">Public</span></v-btn>
+                <v-menu offset-y>
+                    <v-btn slot="activator" flat color="blue"><v-icon>language</v-icon></v-btn>
+                    <v-list  class="text-xs-center">
+                        <v-list-tile @click="changeLanguage('zh')">简体中文</v-list-tile>
+                        <v-list-tile @click="changeLanguage('en')">English</v-list-tile>
+                    </v-list>
+                </v-menu>
+                
+                <v-btn flat @click="goPage('/popular')"><v-icon left dark>trending_up</v-icon><span class="hidden-md-and-down">{{$t('navbar.top')}}</span></v-btn>
+                <v-btn flat @click="goPage('/public')"><v-icon left dark>public</v-icon><span class="hidden-md-and-down">{{$t('navbar.public')}}</span></v-btn>
 
                 <v-menu offset-y>
-                <v-btn slot="activator" flat v-if="!logined">Sign In/Up</v-btn>
-                <v-list  class="text-xs-center" v-if="!logined">
-                    <v-list-tile @click="openDialog('in')">Sign In</v-list-tile>
-                    <v-list-tile @click="openDialog('up')">Sign Up</v-list-tile>
-                     <v-list-tile @click="goPage('/help')">Help</v-list-tile>
-                </v-list>
-                <v-btn slot="activator" flat v-if="logined">{{loginedUser}}</v-btn>
-                <v-list class="text-xs-center" v-if="logined">
-                    <v-list-tile @click="goPage('/mine')">My code</v-list-tile>
-                    <v-list-tile @click="logout()">Log out</v-list-tile>
-                    <v-list-tile @click="goPage('/help')">Help</v-list-tile>
-                </v-list>
-              </v-menu>
+                    <v-btn slot="activator" flat v-if="!logined">{{$t('navbar.status')}}</v-btn>
+                    <v-list  class="text-xs-center" v-if="!logined">
+                        <v-list-tile @click="openDialog('in')">{{$t('user.signIn')}}</v-list-tile>
+                        <v-list-tile @click="openDialog('up')">{{$t('user.signUp')}}</v-list-tile>
+                        <v-list-tile @click="goPage('/help')">{{$t('user.help')}}</v-list-tile>
+                    </v-list>
+                    <v-btn slot="activator" flat v-if="logined">{{loginedUser}}</v-btn>
+                    <v-list class="text-xs-center" v-if="logined">
+                        <v-list-tile @click="goPage('/mine')">{{$t('user.myCode')}}</v-list-tile>
+                        <v-list-tile @click="logout()">{{$t('user.logOut')}}</v-list-tile>
+                        <v-list-tile @click="goPage('/help')">{{$t('user.help')}}</v-list-tile>
+                    </v-list>
+                </v-menu>
             </v-toolbar-items>
             <v-dialog v-model="updialog"  max-width="500">
                 <v-card>
@@ -254,6 +262,9 @@ export default {
             this.updialog = false
             this.indialog = false
             this.loading = false
+        },
+        changeLanguage(lang) {
+            this.$i18n.locale = lang
         }
     }
 }
