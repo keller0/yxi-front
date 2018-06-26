@@ -14,6 +14,18 @@ var state = {
         token: '',
         token_exp: ''
     },
+    dialog: {
+        singin: {
+            show: false
+        },
+        singup: {
+            show: false
+        }
+    },
+    notify: {
+        show: false,
+        msg: ''
+    },
     editor: {
         config: {
             tabSize: 4,
@@ -76,6 +88,22 @@ const mutations = {
         state.user.run_token = ''
         state.user.token_exp = 0
         localStorage.setItem('userinfo', '{}')
+    },
+    taggleDialog(state, payload) {
+        switch (payload.name) {
+            case 'singin':
+                state.dialog.singin.show = payload.show
+                break
+            case 'singup':
+                state.dialog.singup.show = payload.show
+                break
+            default:
+                return
+        }
+    },
+    taggleNotify(state, payload) {
+        state.notify.show = payload.show
+        state.notify.msg = payload.msg
     }
 }
 
