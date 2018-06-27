@@ -146,7 +146,6 @@ export default {
                 })
                 this.isAnonymous = this.editorBuffer.username === 'anonymous'
                 this.isPublic = this.editorBuffer.public
-                console.log(this.isAnonymous, this.isPublic)
             } catch (error) {
                 switch (error.response.status) {
                     case 403:
