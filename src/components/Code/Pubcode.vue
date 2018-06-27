@@ -1,13 +1,13 @@
 <template>
-    <codetable :codes="codes" :loading="loading"></codetable>
+   <codelist :codes="codes" :loading="loading"></codelist>
 </template>
 
 <script>
-import codetable from '@/components/Code/codeTable'
+import codelist from '@/components/Code/codeList'
 import { getCodeList } from '@/api/code'
 export default {
     components: {
-        codetable
+        codelist
     },
     data() {
         return {

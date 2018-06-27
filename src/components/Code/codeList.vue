@@ -1,0 +1,54 @@
+<template>
+  <v-layout row>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+    <v-list two-line>
+        <v-progress-linear v-show="loading" :indeterminate="true" ></v-progress-linear>
+        <template v-for="(code, index) in codes">
+          <v-list-tile :key="code.id" @click="openCode(code.id)">
+             <v-list-tile-action>
+             <img :src="langSrc(code.lang)" width="40px">
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="code.title"></v-list-tile-title>
+              <v-list-tile-sub-title>-- {{code.username}} at {{code.createat}}</v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+                <v-list-tile-action-text>{{ code.likes }} likes</v-list-tile-action-text>
+            </v-list-tile-action>
+          </v-list-tile>
+          <v-divider :key="index"></v-divider>
+        </template>
+    </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+        }
+    },
+    props: [
+        'codes',
+        'loading'
+    ],
+    created() {
+
+    },
+    watch: {
+
+    },
+    methods: {
+        openCode(id) {
+            this.$router.push('/code/' + id)
+        },
+        langSrc(l) {
+            return '/static/' + l + '.svg'
+        }
+
+    }
+}
+</script>
