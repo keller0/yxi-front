@@ -1,9 +1,9 @@
 import { apiService } from '@/api/request'
 
 // get public code
-function getCodeList(type) {
+function getCodeList(type, offset) {
     return apiService({
-        url: 'code?type=' + type,
+        url: 'code?type=' + type + '&off=' + offset,
         method: 'GET'
     })
 }
@@ -69,4 +69,12 @@ function likeCode(codeid, token) {
     })
 }
 
-export { getCodeList, getOnesCodeList, getOnesPublicCodeList, getCode, createCode, likeCode, updateCode }
+export {
+    getCodeList,
+    getOnesCodeList,
+    getOnesPublicCodeList,
+    getCode,
+    createCode,
+    likeCode,
+    updateCode
+}

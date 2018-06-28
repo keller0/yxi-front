@@ -56,7 +56,7 @@ export default {
     methods: {
         async getCode() {
             try {
-                const res = await getCodeList(this.type)
+                const res = await getCodeList(this.type, '0')
                 this.codes = res.codes
             } catch (error) {
                 this.error = error.message
@@ -71,8 +71,17 @@ export default {
         langSrc(l) {
             return '/static/' + l + '.svg'
         },
-        loadMore() {
-
+        async loadMore() {
+            var len = this.codes.length
+            try {
+                const res = await getCodeList(this.type, len)
+                this.codes = this.codes.concat(res.codes)
+            } catch (error) {
+                this.error = error.message
+                console.error(error)
+            } finally {
+                this.loading = false
+            }
         }
 
     }
