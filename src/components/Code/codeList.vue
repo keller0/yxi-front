@@ -22,11 +22,16 @@
     </v-list>
       </v-card>
     </v-flex>
+    <new-button></new-button>
   </v-layout>
 </template>
 
 <script>
+import newButton from '@/components/Button/new'
 export default {
+    components: {
+        newButton
+    },
     data() {
         return {
         }
