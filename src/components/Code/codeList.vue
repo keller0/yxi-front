@@ -20,7 +20,7 @@
               </template>
           </v-list>
           <template>
-              <v-btn block :loading="loading">Load more</v-btn>
+              <v-btn block :loading="loading" @click="loadMore">Load more</v-btn>
           </template>
       </v-card>
     </v-flex>
@@ -30,33 +30,49 @@
 
 <script>
 import newButton from '@/components/Button/new'
+import { getCodeList } from '@/api/code'
 export default {
     components: {
         newButton
     },
     data() {
         return {
+            loading: true,
+            codes: []
         }
     },
     computed: {
 
     },
     props: [
-        'codes',
-        'loading'
+        'type'
     ],
     created() {
-
+        this.getCode()
     },
     watch: {
-
+        '$route': 'getCode'
     },
     methods: {
+        async getCode() {
+            try {
+                const res = await getCodeList(this.type)
+                this.codes = res.codes
+            } catch (error) {
+                this.error = error.message
+                console.error(error)
+            } finally {
+                this.loading = false
+            }
+        },
         openCode(id) {
             this.$router.push('/code/' + id)
         },
         langSrc(l) {
             return '/static/' + l + '.svg'
+        },
+        loadMore() {
+
         }
 
     }
