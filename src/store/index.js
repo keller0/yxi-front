@@ -70,6 +70,9 @@ const mutations = {
         state.editor.buffer = payload.code
         // localStorage.setItem('editorBuffer', JSON.stringify(payload.code))
     },
+    updateEditorLM(state, payload) {
+        state.editor.config.lineNumbers = payload.lm
+    },
     updateEditorBufferContent(state, payload) {
         state.editor.buffer.content = payload.content
     },
