@@ -72,6 +72,7 @@ export default {
             return '/static/' + l + '.svg'
         },
         async loadMore() {
+            this.loading = true
             var len = this.codes.length
             try {
                 const res = await getCodeList(this.type, len)
