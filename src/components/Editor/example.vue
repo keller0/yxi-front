@@ -62,10 +62,8 @@ export default {
             this.language = lang
             this.setEditorBuffer()
             this.setEditorMode()
-            console.log(lang)
         },
         setEditorBuffer() {
-            console.log('set editor buffer')
             this.$store.commit({
                 type: 'updateEditorBuffer',
                 'code': {

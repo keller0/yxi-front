@@ -21,7 +21,7 @@
                                         v-model="globalEditorTheme"
                                         label="Theme"
                                         :items="themes"
-                                        @change="onThemeChange">
+                                        >
                                     </v-select>
                                 </v-flex>
                                 <v-flex xs12 sm12>
@@ -29,8 +29,15 @@
                                         v-model="globalBufferMode"
                                         label="Highlight Mode"
                                         :items="modes"
-                                        @change="onModeChange">
+                                        >
                                     </v-select>
+                                </v-flex>
+                                <v-flex xs12 sm12>
+                                     <v-switch
+                                        v-model="globalBufferLM"
+                                        label="Line Number"
+                                        hide-details
+                                      ></v-switch>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -58,14 +65,41 @@ export default {
         if (theme == null) {
             theme = 'blackboard'
         }
-        this.onThemeChange(theme)
+        this.$store.commit('updateEditorTheme', theme)
     },
     computed: {
-        globalEditorTheme() {
-            return this.$store.state.editor.config.theme
+        globalEditorTheme: {
+            get: function() {
+                return this.$store.state.editor.config.theme
+            },
+            set: function(theme) {
+                this.$store.commit('updateEditorTheme', theme)
+            }
         },
-        globalBufferMode() {
-            return this.$store.state.editor.buffer.lang
+        globalBufferMode: {
+            get: function() {
+                return this.$store.state.editor.buffer.lang
+            },
+            set: function(lang) {
+                var mime = CodeMirrorMode(lang)
+                this.$store.commit({
+                    type: 'updateEditorMode',
+                    mime: mime
+                })
+            }
+
+        },
+        globalBufferLM: {
+            get: function() {
+                return this.$store.state.editor.config.lineNumbers
+            },
+            set: function(t) {
+                this.$store.commit({
+                    type: 'updateEditorLM',
+                    lm: t
+                })
+            }
+
         }
     },
     data() {
@@ -76,16 +110,7 @@ export default {
         }
     },
     methods: {
-        onThemeChange(theme) {
-            this.$store.commit('updateEditorTheme', theme)
-        },
-        onModeChange(lang) {
-            var mime = CodeMirrorMode(lang)
-            this.$store.commit({
-                type: 'updateEditorMode',
-                mime: mime
-            })
-        }
+
     }
 }
 </script>
