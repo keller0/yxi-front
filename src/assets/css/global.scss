@@ -47,16 +47,6 @@ body {
     background: #909090;
 }
 
-/* Codemirror's linenumber */
-.CodeMirror-gutters {
-    z-index: 0;
-}
-// .CodeMirror-gutter-wrapper {
-//     z-index: 2;
-// }
-.CodeMirror-sizer{
-  z-index: 1;
-}
 
 .toolbar--fixed {
     z-index: 999;
