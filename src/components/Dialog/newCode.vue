@@ -46,6 +46,11 @@ export default {
     },
     methods: {
         goCodeNew() {
+            this.$store.commit({
+                type: 'taggleDialog',
+                name: 'newCode',
+                show: false
+            })
             this.$router.push('/new/' + this.selectedLanguage)
         },
         closeDialog(d) {
