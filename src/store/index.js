@@ -20,6 +20,9 @@ var state = {
         },
         singup: {
             show: false
+        },
+        newCode: {
+            show: false
         }
     },
     notify: {
@@ -99,6 +102,9 @@ const mutations = {
                 break
             case 'singup':
                 state.dialog.singup.show = payload.show
+                break
+            case 'newCode':
+                state.dialog.newCode.show = payload.show
                 break
             default:
                 return
