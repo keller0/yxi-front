@@ -26,7 +26,6 @@ export default {
     computed: {
         openDialog: {
             get: function() {
-                console.log('as')
                 return this.$store.state.dialog.newCode.show
             },
             set: function() {
