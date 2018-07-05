@@ -8,47 +8,33 @@
               bottom
               right
               fab
-              @click.native.stop="newCodeDialog = !newCodeDialog"
+              @click="openDialog('newCode')"
             >
               <v-icon>add</v-icon>
           </v-btn>
-          <v-dialog v-model="newCodeDialog" max-width="500px">
-              <v-card>
-                  <v-card-text>
-                      <v-select
-                        v-model="selectedLanguage"
-                        :items="languges"
-                        :rules="[v => !!v || 'Item is required']"
-                        label="Language"
-                        required
-                      ></v-select>
-                  </v-card-text>
-
-                  <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn flat @click="newCodeDialog = false">Cancel</v-btn>
-                      <v-btn flat color="primary" @click.native="goCodeNew">Create</v-btn>
-                  </v-card-actions>
-              </v-card>
-          </v-dialog>
+          <NewCode></NewCode>
     </div>
 
 </template>
 
 <script>
-  import { supportedLaguage } from '@/utils/languages'
+  import NewCode from '@/components/Dialog/newCode'
   export default {
+      components: {
+          NewCode
+      },
       data() {
           return {
-              name: 'newButton',
-              newCodeDialog: false,
-              selectedLanguage: 'c',
-              languges: supportedLaguage
+
           }
       },
       methods: {
-          goCodeNew() {
-              this.$router.push('/new/' + this.selectedLanguage)
+          openDialog(d) {
+              this.$store.commit({
+                  type: 'taggleDialog',
+                  name: d,
+                  show: true
+              })
           }
       }
   }
