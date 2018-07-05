@@ -15,7 +15,7 @@
                       <H2><span class="red--text">...</span></H2>
                       <H2><span class="red--text">..</span></H2>
                       <H2><span class="red--text">.</span></H2>
-                      <h2>Click <span class="blue--text">+</span> to start your journey.</h2>
+                      <h2>Click <span class="blue--text" @click="openDialog('newCode')" style="cursor:pointer">+</span> to start your journey.</h2>
                   </v-layout>
               </v-container>
             </v-jumbotron>
@@ -50,6 +50,13 @@ export default {
         }
     },
     methods: {
+        openDialog(d) {
+            this.$store.commit({
+                type: 'taggleDialog',
+                name: d,
+                show: true
+            })
+        }
     }
 }
 </script>

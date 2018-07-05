@@ -7,7 +7,7 @@
       <v-layout column align-right justify-center>
       <h1 class="white--text">How long does it take you to <span class="green--text">run a piece of code</span>?</h1>
       <h1 class="white--text">More then <span class="red--text">10 seconds</span>?</h1>
-      <h1 class="white--text">Join us now, <span class="blue--text">CREATE/RUN/SHARE</span> your code in the blink of an eye.</h1>
+      <h1 class="white--text">Join us now, <span class="blue--text" @click="openDialog('newCode')" style="cursor:pointer">CREATE/RUN/SHARE</span> your code in the blink of an eye.</h1>
     </v-layout>
     </v-container>
   </v-jumbotron>
@@ -31,6 +31,13 @@ export default {
         }
     },
     methods: {
+        openDialog(d) {
+            this.$store.commit({
+                type: 'taggleDialog',
+                name: d,
+                show: true
+            })
+        }
     }
 }
 </script>
