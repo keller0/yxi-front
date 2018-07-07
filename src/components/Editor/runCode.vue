@@ -7,6 +7,7 @@
             :loading="loading"
             :disabled="loading"
             @click="runcode">Run</v-btn>
+            <v-chip v-show="status != ''" color="red" text-color="white">{{error}}</v-chip>
             <v-spacer></v-spacer>
             <v-btn icon @click.native="rshow = !rshow">
                 <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -14,10 +15,6 @@
         </v-card-actions>
         <v-slide-y-transition>
                 <v-card-text v-show="rshow">
-                <v-alert v-model="errShow" type="error" dismissible>
-                    {{error}}
-                </v-alert>
-
                 <div>
                     <pre class="code-result">{{ result }}</pre>
                 </div>
@@ -27,7 +24,7 @@
 </template>
 
 <script>
-import { codeRunResult } from '@/api/codeResult'
+import { codeRunResult } from '@/api/runCode'
 
 export default {
     computed: {
@@ -37,8 +34,7 @@ export default {
     },
     data() {
         return {
-            name: 'runCode',
-            errShow: false,
+            status: '',
             rshow: false,
             error: '',
             result: 'nothing...',
@@ -59,20 +55,25 @@ export default {
                         }
                     ],
                     stdin: '',
-                    argument: ''
+                    argument: {
+                        compile: [],
+                        run: []
+                    }
                 }
-                const res = await codeRunResult('/' + this.editorBuffer.lang, data)
-                this.result += res.stdout
-                this.result += res.stderr
+                const res = await codeRunResult('/run/' + this.editorBuffer.lang, data)
+                this.result += res.userResult.stdout
+                this.result += res.userResult.stderr
+                this.status = res.userResult.exiterror
+                this.error = res.taskError
             } catch (error) {
-                this.errShow = true
-                this.error = error.message
                 console.error(error)
             } finally {
                 this.statusStopRun()
             }
         },
         statusStartRun() {
+            this.error = ''
+            this.status = ''
             this.result = ''
             this.runBar = true
             this.rshow = false

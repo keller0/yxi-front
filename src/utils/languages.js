@@ -3,7 +3,8 @@ const supportedLaguage = [
     'cpp',
     'php',
     'java',
-    'python'
+    'python',
+    'go'
 ]
 
 const SampleCode = {
@@ -26,6 +27,10 @@ const SampleCode = {
     'python': {
         'filename': 'main.py',
         'code': '#!/usr/bin/python\n\nprint(\'Hello World!\')'
+    },
+    'go': {
+        'filename': 'main.go',
+        'code': 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, 世界!")\n}'
     }
 }
 
