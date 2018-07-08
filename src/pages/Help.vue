@@ -32,7 +32,7 @@
                   },
                   {
                       q: 'What language can I run on yxi.io ?',
-                      a: 'For now, we support C, C++, PHP, Java, Python, Bash.'
+                      a: 'For now, we support Bash, C, C++, Go, Java, PHP, Python.'
                   },
                   {
                       q: 'Limits about code snippets ?',

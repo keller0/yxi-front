@@ -13,6 +13,7 @@ import 'codemirror/mode/clike/clike.js'
 import 'codemirror/mode/php/php.js'
 import 'codemirror/mode/python/python.js'
 import 'codemirror/mode/go/go.js'
+import 'codemirror/mode/shell/shell.js'
 
 Vue.use(Vuetify)
 router.afterEach(function(to) {
