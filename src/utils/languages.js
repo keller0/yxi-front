@@ -5,7 +5,8 @@ const supportedLaguage = [
     'go',
     'java',
     'php',
-    'python'
+    'python',
+    'scala'
 ]
 
 const SampleCode = {
@@ -36,6 +37,10 @@ const SampleCode = {
     'python': {
         'filename': 'main.py',
         'code': '#!/usr/bin/python\n\nprint(\'Hello World!\')'
+    },
+    'scala': {
+        'filename': 'Hi.scala',
+        'code': 'object Hi {\n    def main(args: Array[String]) {\n        println(\"Hello, world!\")\n    }\n}'
     }
 
 }
@@ -54,7 +59,7 @@ function CodeMirrorMode(language) {
             return 'text/x-csharp'
         case 'objext-c':
             return 'text/x-objectivec'
-        case 'scale':
+        case 'scala':
             return 'text/x-scala'
         case 'squirrel':
             return 'text/x-squirrel'
