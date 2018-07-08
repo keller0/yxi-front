@@ -4,10 +4,10 @@ const supportedLaguage = [
     'cpp',
     'go',
     'java',
+    'perl',
     'php',
     'python',
-    'scala',
-    'perl'
+    'scala'
 ]
 
 const SampleCode = {
