@@ -6,7 +6,8 @@ const supportedLaguage = [
     'java',
     'php',
     'python',
-    'scala'
+    'scala',
+    'perl'
 ]
 
 const SampleCode = {
@@ -41,6 +42,10 @@ const SampleCode = {
     'scala': {
         'filename': 'Hi.scala',
         'code': 'object Hi {\n    def main(args: Array[String]) {\n        println(\"Hello, world!\")\n    }\n}'
+    },
+    'perl': {
+        'filename': 'Hi.pl',
+        'code': '#!/usr/bin/perl\n\nuse strict;\nuse warnings;\n\nprint \"Hello, World!\\n\";'
     }
 
 }
@@ -71,6 +76,8 @@ function CodeMirrorMode(language) {
             return 'text/x-python'
         case 'go':
             return 'text/x-go'
+        case 'perl':
+            return 'text/x-perl'
         default:
             return 'text/x-csrc'
     }
