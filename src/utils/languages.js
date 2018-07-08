@@ -7,6 +7,7 @@ const supportedLaguage = [
     'perl',
     'php',
     'python',
+    'ruby',
     'scala'
 ]
 
@@ -46,6 +47,10 @@ const SampleCode = {
     'perl': {
         'filename': 'Hi.pl',
         'code': '#!/usr/bin/perl\n\nuse strict;\nuse warnings;\n\nprint \"Hello, World!\\n\";'
+    },
+    'ruby': {
+        'filename': 'Hi.rb',
+        'code': "#!/usr/bin/env ruby\n\nputs 'Hello world'"
     }
 
 }
@@ -78,6 +83,8 @@ function CodeMirrorMode(language) {
             return 'text/x-go'
         case 'perl':
             return 'text/x-perl'
+        case 'ruby':
+            return 'text/x-ruby'
         default:
             return 'text/x-csrc'
     }
