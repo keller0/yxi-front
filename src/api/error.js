@@ -12,11 +12,11 @@ const errorMsg = {
     '4091': 'Email Already Exist', // 邮箱地址已经存在了
     '4092': 'Already Liked', // 已经点过赞了
     '4010': 'Wrong Password', // 密码错误
-    '4040': 'UserNotExist', // 用户不存在
-    '4041': 'CodeNotExist', // 代码不存在
+    '4011': 'You need login to like code', // 对代码点赞需要登录
+    '4040': 'User Not Exist', // 用户不存在
+    '4041': 'Code Not Exist', // 代码不存在
     '4030': 'Get Code Not Allowed', // 没有权限获取代码
     '4031': 'Update Code Not Allowed', // 没有权限更新代码
-    '4032': 'Like Code Not Allowed', // 对代码点赞需要登录
 
     '5001': 'ServerErr Register Failed', // 注册失败 服务器错误
     '5002': 'ServerErr Create Code Failed', // 创建代码失败 服务器错误

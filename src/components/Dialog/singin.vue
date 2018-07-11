@@ -15,7 +15,7 @@
                     </v-flex>
                   </v-layout>
                 </v-container>
-                <v-alert :value="showError" outline color="error" icon="warning">
+                <v-alert :value="errMsg != ''" outline color="error" icon="warning">
                     {{errMsg}}
                 </v-alert>
             </v-card-text>
@@ -32,6 +32,7 @@
 <script>
 import { userLogin } from '@/api/user'
 import jwt from 'jsonwebtoken'
+import { errorMsg } from '@/api/error'
 
 export default {
     computed: {
@@ -52,7 +53,6 @@ export default {
         return {
             lname: '',
             lpass: '',
-            showError: false,
             errMsg: '',
             loading: false
         }
@@ -60,7 +60,7 @@ export default {
     methods: {
         async login() {
             this.loading = true
-            this.showError = false
+            this.errMsg = ''
             try {
                 const res = await userLogin(this.lname, this.lpass)
                 var decoded = jwt.decode(res.token, { complete: true })
@@ -74,24 +74,7 @@ export default {
                 })
                 this.closeForm()
             } catch (error) {
-                switch (error.response.status) {
-                    case 400:
-                        this.errMsg = '登录失败，请确认您的账户密码输入正确。'
-                        break
-                    case 401:
-                        this.errMsg = '登录失败，用户密码错误'
-                        break
-                    case 404:
-                        this.errMsg = '登录失败，用户不存在。'
-                        break
-                    case 500:
-                        this.errMsg = '服务器问题'
-                        break
-                    default:
-                        this.errMsg = '服务器问题'
-                        break
-                }
-                this.showError = true
+                this.errMsg = errorMsg[error.response.data.errNumber]
                 this.loading = false
             } finally {
                 console.log('finally')

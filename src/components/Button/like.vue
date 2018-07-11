@@ -28,6 +28,8 @@
 
 <script>
 import { likeCode } from '@/api/code'
+import { errorMsg } from '@/api/error'
+
 export default {
     data() {
         return {
@@ -48,27 +50,15 @@ export default {
             try {
                 this.statusUpload()
                 await likeCode(this.$store.state.editor.buffer.id, this.$store.state.user.token)
-                this.likeResult = '点赞成功'
+                this.likeResult = 'Like code succeed'
             } catch (error) {
-                //  200 401 404 409 500
                 switch (error.response.status) {
                     case 401:
-                        this.likeResult = '登录之后才可以点赞哦'
-                        break
-                    case 404:
-                        this.likeResult = '点赞对象不存在'
-                        break
-                    case 409:
-                        this.likeResult = '您已经赞过了'
-                        break
-                    case 500:
-                        this.likeResult = '服务器问题( ⊙ o ⊙ )！'
+                        this.likeResult = 'You need login first'
                         break
                     default:
-                        this.likeResult = '服务器问题( ⊙ o ⊙ )！'
-                        break
+                        this.likeResult = errorMsg[error.response.data.errNumber]
                 }
-                // console.error(error.response.status)
             } finally {
                 this.statusUploadDone()
             }

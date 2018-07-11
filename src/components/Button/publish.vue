@@ -29,6 +29,8 @@
 
 <script>
 import { createCode } from '@/api/code'
+import { errorMsg } from '@/api/error'
+
 export default {
     data() {
         return {
@@ -64,20 +66,9 @@ export default {
                     token = this.$store.state.user.token
                 }
                 await createCode(data, token)
-                this.saveResult = '发布成功'
+                this.saveResult = 'Upload succeed'
             } catch (error) {
-                switch (error.response.status) {
-                    case 400:
-                        this.saveError = '请求错误'
-                        break
-                    case 500:
-                        this.saveError = '服务器问题( ⊙ o ⊙ )！'
-                        break
-                    default:
-                        this.saveError = '服务器问题( ⊙ o ⊙ )！'
-                        break
-                }
-                // console.error(error.response.status)
+                this.saveError = errorMsg[error.response.data.errNumber]
             } finally {
                 this.statusUploadDone()
             }

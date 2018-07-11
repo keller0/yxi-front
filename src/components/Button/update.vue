@@ -29,6 +29,7 @@
 
 <script>
 import { updateCode } from '@/api/code'
+import { errorMsg } from '@/api/error'
 export default {
     data() {
         return {
@@ -66,27 +67,9 @@ export default {
                 }
                 var token = this.$store.state.user.token
                 await updateCode(data, token)
-                this.saveResult = '更新成功'
+                this.saveResult = 'Update succeed'
             } catch (error) {
-                // 200 400 401 403 404
-                switch (error.response.status) {
-                    case 400:
-                        this.saveError = '请求错误'
-                        break
-                    case 401:
-                        this.saveError = '请先登录'
-                        break
-                    case 403:
-                        this.saveError = '没有更新权限'
-                        break
-                    case 404:
-                        this.saveError = '缺少更新对象'
-                        break
-                    default:
-                        this.saveError = '服务器问题( ⊙ o ⊙ )！'
-                        break
-                }
-                // console.error(error.response.status)
+                this.saveError = errorMsg[error.response.data.errNumber]
             } finally {
                 this.statusUploadDone()
             }

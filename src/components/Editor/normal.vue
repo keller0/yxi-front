@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card width="100%" v-if="!showError">
+        <v-card width="100%" v-if="errMsg == ''">
             <v-card-title>
                 <v-expansion-panel>
                     <!-- file title and discription -->
@@ -75,8 +75,8 @@
             </v-card-text>
 
         </v-card>
-        <v-alert :value="showError" outline color="error" icon="warning">
-            {{errMsg}} Go back to <router-link to="/">Home</router-link>, or Login.
+        <v-alert :value="errMsg != ''" outline color="error" icon="warning">
+            {{errMsg}}, Go back to <router-link to="/">Home</router-link>, or Login.
         </v-alert>
         <likeButton v-if="!isMyCode"></likeButton>
         <updateButton v-if="isMyCode" :anonymous="isAnonymous" :public="isPublic"></updateButton>
@@ -91,6 +91,7 @@ import EditorBase from '@/components/Editor/base'
 import likeButton from '@/components/Button/like'
 import updateButton from '@/components/Button/update'
 import { getCode } from '@/api/code'
+import { errorMsg } from '@/api/error'
 
 export default {
     name: 'EditorOpen',
@@ -115,7 +116,6 @@ export default {
     ],
     data: function() {
         return {
-            showError: false,
             errMsg: '',
             s1: {
                 true: 'Public',
@@ -136,6 +136,7 @@ export default {
     },
     methods: {
         async getCodeContent(part) {
+            this.errMsg = ''
             try {
                 var token = this.$store.state.user.token
                 const resp = await getCode(this.$route.params.id, part, token)
@@ -147,19 +148,7 @@ export default {
                 this.isAnonymous = this.editorBuffer.username === 'anonymous'
                 this.isPublic = this.editorBuffer.public
             } catch (error) {
-                switch (error.response.status) {
-                    case 403:
-                        this.errMsg = '请求的资源需要权限认证'
-
-                        break
-                    case 404:
-                        this.errMsg = '请求的数据不存在'
-                        break
-                    default:
-                        this.errMsg = '服务器问题( ⊙ o ⊙ )！'
-                        break
-                }
-                this.showError = true
+                this.errMsg = errorMsg[error.response.data.errNumber]
             } finally {
                 console.log('getcode')
             }

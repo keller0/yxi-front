@@ -21,7 +21,7 @@
                   </v-layout>
                   </v-form>
                 </v-container>
-                <v-alert :value="showError" outline color="error" icon="warning">
+                <v-alert :value="errMsg != ''" outline color="error" icon="warning">
                     {{errMsg}}
                 </v-alert>
             </v-card-text>
@@ -37,6 +37,8 @@
 
 <script>
 import { userRegister } from '@/api/user'
+import { errorMsg } from '@/api/error'
+
 export default {
     computed: {
         openDialog: {
@@ -58,7 +60,6 @@ export default {
             remail: '',
             rpass: '',
             rvalid: false,
-            showError: false,
             errMsg: '',
             loading: false,
             passwordRules: [
@@ -79,27 +80,12 @@ export default {
     methods: {
         async register() {
             this.loading = true
-            this.showError = false
+            this.errMsg = ''
             try {
                 await userRegister(this.remail, this.rname, this.rpass)
                 this.closeForm()
             } catch (error) {
-                // 200 400 409 500
-                switch (error.response.status) {
-                    case 400:
-                        this.errMsg = '注册失败，请确认您输入的内容正确。'
-                        break
-                    case 409:
-                        this.errMsg = '注册失败，用户名或邮箱已经存在'
-                        break
-                    case 500:
-                        this.errMsg = '服务器问题'
-                        break
-                    default:
-                        this.errMsg = '服务器问题'
-                        break
-                }
-                this.showError = true
+                this.errMsg = errorMsg[error.response.data.errNumber]
                 this.loading = false
             } finally {
                 console.log('finally')
