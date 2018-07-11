@@ -6,7 +6,6 @@ const errorMsg = {
     '4004': 'Username is too long', // 用户名太长了
     '4005': 'Language not support', // 语言不支持
     '4006': 'Payload not valid', // 代码格式错误
-    '4007': 'Run code error', // 运行代码错误
     '4080': 'Time out', // 代码超时
     '4090': 'User Already Exist', // 用户已经存在了
     '4091': 'Email Already Exist', // 邮箱地址已经存在了
@@ -21,7 +20,8 @@ const errorMsg = {
     '5001': 'ServerErr Register Failed', // 注册失败 服务器错误
     '5002': 'ServerErr Create Code Failed', // 创建代码失败 服务器错误
     '5003': 'ServerErr Get Code Failed', // 获取代码失败
-    '5004': 'ServerErr Like Code Failed' // 点赞失败
+    '5004': 'ServerErr Like Code Failed', // 点赞失败
+    '5005': 'Run code error' // 运行代码错误
 }
 
 export { errorMsg }
