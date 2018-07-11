@@ -64,7 +64,8 @@ export default {
                 this.result += res.userResult.stdout
                 this.result += res.userResult.stderr
                 this.status = res.userResult.exiterror
-                this.error = res.taskError
+                this.error = res.taskError === '' ? res.userResult.exiterror : res.taskError
+                console.log(this.error)
             } catch (error) {
                 this.status = error.response.status
                 this.error = errorMsg[error.response.data.errNumber]
