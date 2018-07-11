@@ -6,7 +6,7 @@
               <template v-for="(code, index) in codes">
                 <v-list-tile :key="code.id" @click="openCode(code.id)">
                   <v-list-tile-action>
-                  <img :src="langSrc(code.lang)" width="40px">
+                  <img :src="langSrc(code.lang)" width="40px" height="40px">
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title v-html="code.title"></v-list-tile-title>

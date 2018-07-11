@@ -32,11 +32,11 @@
                   },
                   {
                       q: 'What language can I run on yxi.io ?',
-                      a: 'For now, we support Bash, C, C++, Go, Java, PHP, Python.'
+                      a: 'For now, we support Bash, C, C++, Go, Java, PHP, Python, Scala, Perl, Ruby.'
                   },
                   {
                       q: 'Limits about code snippets ?',
-                      a: 'You could run snippets one at a time. Max file size = 1M, Max compile/run time = 5s.'
+                      a: 'You could run snippets one at a time. Max file size = 10K, Max memory usage 50M, Max compile+run time = 10s.'
                   }
               ]
           }
