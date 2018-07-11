@@ -7,8 +7,7 @@ const supportedLaguage = [
     'perl',
     'php',
     'python',
-    'ruby',
-    'scala'
+    'ruby'
 ]
 
 const SampleCode = {
@@ -39,10 +38,6 @@ const SampleCode = {
     'python': {
         'filename': 'main.py',
         'code': '#!/usr/bin/python\n\nprint(\'Hello World!\')'
-    },
-    'scala': {
-        'filename': 'Hi.scala',
-        'code': 'object Hi {\n    def main(args: Array[String]) {\n        println(\"Hello, world!\")\n    }\n}'
     },
     'perl': {
         'filename': 'Hi.pl',
