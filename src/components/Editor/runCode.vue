@@ -25,7 +25,7 @@
 
 <script>
 import { codeRunResult } from '@/api/runCode'
-
+import { errorMsg } from '@/api/error'
 export default {
     computed: {
         editorBuffer() {
@@ -66,7 +66,8 @@ export default {
                 this.status = res.userResult.exiterror
                 this.error = res.taskError
             } catch (error) {
-                console.error(error)
+                this.status = error.response.status
+                this.error = errorMsg[error.response.data.errNumber]
             } finally {
                 this.statusStopRun()
             }

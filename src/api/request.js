@@ -5,7 +5,7 @@ const APIBaseURL = 'https://api.yxi.io/v1'
 
 const apiService = axios.create({
     baseURL: APIBaseURL,
-    timeout: 10 * 1000,
+    timeout: 15 * 1000,
     withCredentials: false
 })
 
