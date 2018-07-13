@@ -3,6 +3,7 @@ const supportedLaguage = [
     'c',
     'cpp',
     'go',
+    'haskell',
     'java',
     'perl',
     'php',
@@ -26,6 +27,10 @@ const SampleCode = {
     'go': {
         'filename': 'main.go',
         'code': 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, 世界!")\n}'
+    },
+    'haskell': {
+        'filename': 'Hi.hs',
+        'code': 'main = putStrLn "Hello, World!"'
     },
     'java': {
         'filename': 'Hi.java',
@@ -58,30 +63,12 @@ function CodeMirrorMode(language) {
             return 'text/x-csrc'
         case 'cpp':
             return 'text/x-csrc'
-        case 'java':
-            return 'text/x-java'
         case 'c#':
             return 'text/x-csharp'
         case 'objext-c':
             return 'text/x-objectivec'
-        case 'scala':
-            return 'text/x-scala'
-        case 'squirrel':
-            return 'text/x-squirrel'
-        case 'lua':
-            return 'text/x-lua'
-        case 'php':
-            return 'text/x-php'
-        case 'python':
-            return 'text/x-python'
-        case 'go':
-            return 'text/x-go'
-        case 'perl':
-            return 'text/x-perl'
-        case 'ruby':
-            return 'text/x-ruby'
         default:
-            return 'text/x-csrc'
+            return 'text/x-' + language
     }
 }
 

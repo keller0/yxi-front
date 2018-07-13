@@ -16,6 +16,7 @@ import 'codemirror/mode/go/go.js'
 import 'codemirror/mode/shell/shell.js'
 import 'codemirror/mode/perl/perl.js'
 import 'codemirror/mode/ruby/ruby.js'
+import 'codemirror/mode/haskell/haskell.js'
 
 Vue.use(Vuetify)
 router.afterEach(function(to) {
