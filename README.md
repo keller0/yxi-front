@@ -1,7 +1,7 @@
-# Yxi.io
+# Frontend for [yxi.io](https://yxi.io)
 
-> Frontend for yxi
-
+## What's yxi.io
+  yxi let you create and run code snppets.
 ## Build Setup
 
 ``` bash
