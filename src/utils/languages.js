@@ -8,7 +8,8 @@ const supportedLaguage = [
     'perl',
     'php',
     'python',
-    'ruby'
+    'ruby',
+    'rust'
 ]
 
 const SampleCode = {
@@ -38,11 +39,11 @@ const SampleCode = {
     },
     'php': {
         'filename': 'main.php',
-        'code': '<?php\n    echo"Hello, Word";'
+        'code': '<?php\n    echo"Hello, World!";'
     },
     'python': {
         'filename': 'main.py',
-        'code': '#!/usr/bin/python\n\nprint(\'Hello World!\')'
+        'code': '#!/usr/bin/python\n\nprint(\'Hello, World!\')'
     },
     'perl': {
         'filename': 'Hi.pl',
@@ -50,7 +51,11 @@ const SampleCode = {
     },
     'ruby': {
         'filename': 'Hi.rb',
-        'code': "#!/usr/bin/env ruby\n\nputs 'Hello world'"
+        'code': "#!/usr/bin/env ruby\n\nputs 'Hello, World!'"
+    },
+    'rust': {
+        'filename': 'Hi.rs',
+        'code': 'fn main() {\n     println!("Hello, World!");\n}'
     }
 
 }
@@ -67,6 +72,8 @@ function CodeMirrorMode(language) {
             return 'text/x-csharp'
         case 'objext-c':
             return 'text/x-objectivec'
+        case 'rust':
+            return 'text/x-rustsrc'
         default:
             return 'text/x-' + language
     }
