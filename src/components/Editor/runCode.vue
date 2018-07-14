@@ -7,7 +7,7 @@
             :loading="loading"
             :disabled="loading"
             @click="runcode">Run</v-btn>
-            <v-chip v-show="status != ''" color="red" text-color="white">{{error}}</v-chip>
+            <v-chip v-show="error != ''" color="red" text-color="white">{{error}}</v-chip>
             <v-spacer></v-spacer>
             <v-btn icon @click.native="rshow = !rshow">
                 <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -34,7 +34,6 @@ export default {
     },
     data() {
         return {
-            status: '',
             rshow: false,
             error: '',
             result: 'nothing...',
@@ -63,10 +62,8 @@ export default {
                 const res = await codeRunResult('/run/' + this.editorBuffer.lang, data)
                 this.result += res.userResult.stdout
                 this.result += res.userResult.stderr
-                this.status = res.userResult.exiterror
                 this.error = res.taskError === '' ? res.userResult.exiterror : res.taskError
             } catch (error) {
-                this.status = error.response.status
                 this.error = errorMsg[error.response.data.errNumber]
             } finally {
                 this.statusStopRun()
@@ -74,7 +71,6 @@ export default {
         },
         statusStartRun() {
             this.error = ''
-            this.status = ''
             this.result = ''
             this.runBar = true
             this.rshow = false
