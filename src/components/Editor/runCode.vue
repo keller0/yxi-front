@@ -60,8 +60,10 @@ export default {
                     }
                 }
                 const res = await codeRunResult('/run/' + this.editorBuffer.lang, data)
-                this.result += res.userResult.stdout
-                this.result += res.userResult.stderr
+                if (res.userResult != null) {
+                    this.result += res.userResult.stdout
+                    this.result += res.userResult.stderr
+                }
                 this.error = res.taskError === '' ? res.userResult.exiterror : res.taskError
             } catch (error) {
                 this.error = errorMsg[error.response.data.errNumber]
