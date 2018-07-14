@@ -10,7 +10,7 @@
                   </v-list-tile-action>
                   <v-list-tile-content>
                     <v-list-tile-title v-html="code.title"></v-list-tile-title>
-                    <v-list-tile-sub-title>-- {{code.username}} at {{code.createat}}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{code.username}} at {{huTime(code.createat)}}</v-list-tile-sub-title>
                   </v-list-tile-content>
                   <v-list-tile-action>
                       <v-list-tile-action-text>{{ code.likes }} likes</v-list-tile-action-text>
@@ -31,6 +31,7 @@
 <script>
 import newButton from '@/components/Button/new'
 import { getCodeList } from '@/api/code'
+import moment from 'moment-timezone'
 export default {
     components: {
         newButton
@@ -54,6 +55,12 @@ export default {
         '$route': 'getCode'
     },
     methods: {
+        huTime(s) {
+            var localTZ = moment.tz.guess()
+            var t = moment.utc(s)
+            var l = t.tz(localTZ).fromNow()
+            return l
+        },
         async getCode() {
             try {
                 const res = await getCodeList(this.type, '0')
