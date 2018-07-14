@@ -6,6 +6,7 @@ const errorMsg = {
     '4004': 'Username is too long', // 用户名太长了
     '4005': 'Language not support', // 语言不支持
     '4006': 'Payload not valid', // 代码格式错误
+    '4007': 'Too much output', // 代码输出太多
     '4080': 'Time out', // 代码超时
     '4090': 'User Already Exist', // 用户已经存在了
     '4091': 'Email Already Exist', // 邮箱地址已经存在了
