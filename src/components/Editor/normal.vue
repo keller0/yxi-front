@@ -94,7 +94,6 @@ import { getCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
 
 export default {
-    name: 'EditorOpen',
     components: {
         EditorBase,
         runCode,

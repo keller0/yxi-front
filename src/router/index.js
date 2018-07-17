@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/pages/Home'
 import Sample from '@/pages/Sample'
+import Code from '@/pages/Code'
 import Help from '@/pages/Help'
 import Mycode from '@/components/Code/Mycode'
 import codeList from '@/components/Code/codeList'
@@ -24,11 +25,19 @@ const routerMap = [
             { path: '/help', component: Help },
             { path: '/public', component: codeList, props: { type: 'public' }},
             { path: '/popular', component: codeList, props: { type: 'popular' }},
-            { path: '/mine', component: Mycode },
-            { path: '/new/:language', component: EditorNew },
-            { path: '/code/:id', component: EditorOpen }
+            { path: '/mine', component: Mycode }
+
+        ]
+    },
+    {
+        path: '/',
+        component: Code,
+        children: [
+            { path: '/code/:id', component: EditorOpen },
+            { path: '/new/:language', component: EditorNew }
         ]
     }
+
 ]
 
 const router = new Router({
