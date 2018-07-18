@@ -1,14 +1,5 @@
 <template>
     <div>
-       <v-dialog v-model="notifyDialog" persistent max-width="290">
-      <v-card>
-        <v-card-title class="headline">{{likeResult}}</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click.native="notifyDialog = false">OK</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
         <v-btn
               color="pink"
               dark
@@ -23,18 +14,17 @@
               <v-icon>favorite</v-icon>
           </v-btn>
     </div>
-
 </template>
 
 <script>
 import { likeCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
+import notifyStore from '@/store/notify'
 
 export default {
     data() {
         return {
             loading: false,
-            notifyDialog: false,
             likeResult: ''
         }
     },
@@ -51,6 +41,10 @@ export default {
                 this.statusUpload()
                 await likeCode(this.$store.state.editor.buffer.id, this.$store.state.user.token)
                 this.likeResult = 'Like code succeed'
+                this.$store.commit({
+                    type: 'updateEditorBufferLikes',
+                    number: 1
+                })
             } catch (error) {
                 switch (error.response.status) {
                     case 401:
@@ -67,8 +61,12 @@ export default {
             this.loading = true
         },
         statusUploadDone() {
-            this.notifyDialog = true
             this.loading = false
+            notifyStore.commit({
+                type: 'taggleNotify',
+                msg: this.likeResult,
+                show: true
+            })
         }
     }
 }

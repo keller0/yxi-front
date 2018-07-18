@@ -29,10 +29,7 @@
             </v-toolbar-items>
           <singupDialog></singupDialog>
           <singinDialog></singinDialog>
-          <v-snackbar :timeout="3000" :top=true :right=true v-model="snackbar">
-          {{ infoMsg }}
-          <v-btn flat color="green" @click.native="snackbar = false">Close</v-btn>
-          </v-snackbar>
+
         </v-toolbar>
 
 </template>
@@ -52,9 +49,6 @@ export default {
     },
     data() {
         return {
-            // TODO: get data from store
-            snackbar: false,
-            infoMsg: ''
         }
     },
     created() {

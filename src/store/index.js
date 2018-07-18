@@ -82,6 +82,9 @@ const mutations = {
     updateEditorBufferContent(state, payload) {
         state.editor.buffer.content = payload.content
     },
+    updateEditorBufferLikes(state, payload) {
+        state.editor.buffer.likes += payload.number
+    },
     userLogin(state, payload) {
         state.user.token = payload.token
         state.user.id = payload.id

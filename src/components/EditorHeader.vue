@@ -1,4 +1,5 @@
 <template>
+    <div>
         <v-toolbar
             dense
             fixed
@@ -12,9 +13,11 @@
                 <v-btn flat @click="LikeCode()"><v-icon left dark>favorite</v-icon><span class="hidden-md-and-down">{{currentBuffer.likes}}</span></v-btn>
                 <v-btn flat @click="closeCode()"><v-icon left dark>close</v-icon><span class="hidden-md-and-down">Close</span></v-btn>
             </v-toolbar-items>
-          <singupDialog></singupDialog>
-          <singinDialog></singinDialog>
         </v-toolbar>
+        <singupDialog></singupDialog>
+        <singinDialog></singinDialog>
+        <notify></notify>
+    </div>
 
 </template>
 
@@ -24,17 +27,21 @@ import singupDialog from '@/components/Dialog/singup'
 import singinDialog from '@/components/Dialog/singin'
 import { likeCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
+import notifyStore from '@/store/notify'
+import notify from '@/components/Notify'
 
 export default {
     name: 'Header',
     components: {
         singupDialog,
-        singinDialog
+        singinDialog,
+        notify
     },
     props: {
     },
     data() {
         return {
+            likeResult: ''
         }
     },
     created() {
@@ -46,9 +53,6 @@ export default {
         }
     },
     methods: {
-        goPage(path) {
-            this.$router.push(path)
-        },
         closeCode() {
             try {
                 this.$router.go(-1)
@@ -56,9 +60,6 @@ export default {
                 console.log(error)
                 this.$router.push('public')
             }
-        },
-        langSrc(l) {
-            return '/static/' + l + '.svg'
         },
         loadUserInfo() {
             const info = localStorage.getItem('userinfo')
@@ -75,18 +76,14 @@ export default {
                 token: userinfo.token
             })
         },
-        openDialog(d) {
-            this.$store.commit({
-                type: 'taggleDialog',
-                name: d,
-                show: true
-            })
-        },
         async LikeCode() {
             try {
-                this.statusUpload()
                 await likeCode(this.$store.state.editor.buffer.id, this.$store.state.user.token)
                 this.likeResult = 'Like code succeed'
+                this.$store.commit({
+                    type: 'updateEditorBufferLikes',
+                    number: 1
+                })
             } catch (error) {
                 switch (error.response.status) {
                     case 401:
@@ -96,8 +93,15 @@ export default {
                         this.likeResult = errorMsg[error.response.data.errNumber]
                 }
             } finally {
-                this.statusUploadDone()
+                this.showMsg()
             }
+        },
+        showMsg() {
+            notifyStore.commit({
+                type: 'taggleNotify',
+                msg: this.likeResult,
+                show: true
+            })
         }
     }
 }
