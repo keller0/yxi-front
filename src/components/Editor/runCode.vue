@@ -9,6 +9,7 @@
             @click="runcode">Run</v-btn>
             <v-chip v-show="error != ''" color="red" text-color="white">{{error}}</v-chip>
             <v-spacer></v-spacer>
+            <editorSettion></editorSettion>
             <v-btn icon @click.native="rshow = !rshow">
                 <v-icon>{{ rshow ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
             </v-btn>
@@ -26,7 +27,11 @@
 <script>
 import { codeRunResult } from '@/api/runCode'
 import { errorMsg } from '@/api/error'
+import editorSettion from '@/components/Button/editorSetting'
 export default {
+    components: {
+        editorSettion
+    },
     computed: {
         editorBuffer() {
             return this.$store.state.editor.buffer

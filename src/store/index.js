@@ -23,6 +23,9 @@ var state = {
         },
         newCode: {
             show: false
+        },
+        editorSetting: {
+            show: false
         }
     },
     notify: {
@@ -105,6 +108,9 @@ const mutations = {
                 break
             case 'newCode':
                 state.dialog.newCode.show = payload.show
+                break
+            case 'editorSetting':
+                state.dialog.editorSetting.show = payload.show
                 break
             default:
                 return

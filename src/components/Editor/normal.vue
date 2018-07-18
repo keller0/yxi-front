@@ -61,11 +61,6 @@
                             hint="Filename">
                         </v-text-field>
                   </v-flex>
-                  <v-flex sm5 hidden-xs-only>
-                  </v-flex>
-                  <v-flex xs2 sm1>
-                       <editorSettion></editorSettion>
-                  </v-flex>
                 </v-layout>
             </v-container>
             <v-card-text>
@@ -86,7 +81,6 @@
 <script>
 
 import runCode from '@/components/Editor/runCode'
-import editorSettion from '@/components/Editor/editorSetting'
 import EditorBase from '@/components/Editor/base'
 import likeButton from '@/components/Button/like'
 import updateButton from '@/components/Button/update'
@@ -97,7 +91,6 @@ export default {
     components: {
         EditorBase,
         runCode,
-        editorSettion,
         likeButton,
         updateButton
     },

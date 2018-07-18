@@ -61,11 +61,6 @@
                             hint="Filename">
                         </v-text-field>
                   </v-flex>
-                  <v-flex sm5 hidden-xs-only>
-                  </v-flex>
-                  <v-flex xs2 sm1>
-                       <editorSettion></editorSettion>
-                  </v-flex>
                 </v-layout>
             </v-container>
             <v-card-text>
@@ -82,14 +77,12 @@
 
 import runCode from '@/components/Editor/runCode'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
-import editorSettion from '@/components/Editor/editorSetting'
 import publishButton from '@/components/Button/publish'
 import EditorBase from '@/components/Editor/base'
 export default {
     components: {
         EditorBase,
         runCode,
-        editorSettion,
         publishButton
     },
     computed: {

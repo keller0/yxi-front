@@ -18,7 +18,6 @@
                     </v-list>
                 </v-menu>
                 language. You can edit it.</h4>
-            <editorSettion v-show="false" class="headline"></editorSettion>
         </v-card-title>
         <v-spacer></v-spacer>
         <v-card-text>
@@ -32,7 +31,6 @@
 
 import runCode from '@/components/Editor/runCode'
 import newButton from '@/components/Button/new'
-import editorSettion from '@/components/Editor/editorSetting'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import { supportedLaguage } from '@/utils/languages'
 import EditorBase from '@/components/Editor/base'
@@ -41,8 +39,7 @@ export default {
     components: {
         EditorBase,
         runCode,
-        newButton,
-        editorSettion
+        newButton
     },
     computed: {
 
@@ -53,7 +50,7 @@ export default {
     },
     data() {
         return {
-            language: 'c',
+            language: 'python',
             supportedLaguage
         }
     },
