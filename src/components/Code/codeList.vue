@@ -32,6 +32,8 @@
 import newButton from '@/components/Button/new'
 import { getCodeList } from '@/api/code'
 import moment from 'moment-timezone'
+import editorStroe from '@/store/editor'
+
 export default {
     components: {
         newButton
@@ -49,12 +51,23 @@ export default {
         'type'
     ],
     created() {
+        switch (this.type) {
+            case 'public':
+                this.codes = editorStroe.state.codelist.pupblic
+                break
+            case 'popular':
+                this.codes = editorStroe.state.codelist.popular
+                break
+            default:
+                this.codes = []
+        }
         this.getCode()
     },
     watch: {
         '$route': 'getCode'
     },
     methods: {
+
         huTime(s) {
             var localTZ = moment.tz.guess()
             var t = moment.utc(s)
@@ -65,6 +78,11 @@ export default {
             try {
                 const res = await getCodeList(this.type, '0')
                 this.codes = res.codes
+                editorStroe.commit({
+                    type: 'updateList',
+                    codeType: this.type,
+                    list: this.codes
+                })
             } catch (error) {
                 this.error = error.message
                 console.error(error)

@@ -28,10 +28,6 @@ var state = {
             show: false
         }
     },
-    notify: {
-        show: false,
-        msg: ''
-    },
     editor: {
         config: {
             tabSize: 4,
@@ -56,10 +52,6 @@ var state = {
             updateat: '',
             username: ''
         }
-    },
-    codes: {
-        public: [],
-        top: []
     }
 }
 

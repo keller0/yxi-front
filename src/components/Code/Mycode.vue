@@ -37,6 +37,8 @@
 <script>
 import newButton from '@/components/Button/new'
 import { getOnesCodeList } from '@/api/code'
+import editorStroe from '@/store/editor'
+
 export default {
     components: {
         newButton
@@ -77,6 +79,11 @@ export default {
                 var userid = this.$store.state.user.id
                 const res = await getOnesCodeList(userid, token)
                 this.codes = res.codes
+                editorStroe.commit({
+                    type: 'updateList',
+                    codeType: 'mine',
+                    list: this.codes
+                })
             } catch (error) {
                 this.error = error.message
                 console.error(error)
