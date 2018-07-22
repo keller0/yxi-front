@@ -66,19 +66,22 @@ const actions = {
 
 const getters = {
     isInBL: (state) => (id) => {
-        var d = state.bufferlist.findIndex(code => {
-            code.id === id
-        })
-        return d !== -1
+        for (const c of state.bufferlist) {
+            if (c.id === id) {
+                return true
+            }
+        }
+        return false
     },
     currentBuffer: (state) => {
         var currentID = state.status.id
         var b = {}
-        state.bufferlist.map(buffer => {
-            if (buffer.id === currentID) {
-                b = buffer
+        for (const c of state.bufferlist) {
+            if (c.id === currentID) {
+                b = c
+                break
             }
-        })
+        }
         return b
     }
 }
