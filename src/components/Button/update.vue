@@ -30,6 +30,7 @@
 <script>
 import { updateCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
+import editorStroe from '@/store/editor'
 export default {
     data() {
         return {
@@ -41,7 +42,7 @@ export default {
     },
     computed: {
         editorBuffer() {
-            return this.$store.state.editor.buffer
+            return editorStroe.getters.currentBuffer
         }
     },
     props: {

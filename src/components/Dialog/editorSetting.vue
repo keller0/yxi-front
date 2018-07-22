@@ -55,6 +55,8 @@
 <script>
 import themes from '../Editor/theme'
 import { CodeMirrorMode, supportedLaguage } from '@/utils/languages'
+import editorStroe from '@/store/editor'
+
 export default {
     components: {
     },
@@ -88,7 +90,7 @@ export default {
         },
         globalBufferMode: {
             get: function() {
-                return this.$store.state.editor.buffer.lang
+                return editorStroe.getters.currentBuffer.lang
             },
             set: function(lang) {
                 var mime = CodeMirrorMode(lang)

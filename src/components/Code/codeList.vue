@@ -79,7 +79,7 @@ export default {
                 const res = await getCodeList(this.type, '0')
                 this.codes = res.codes
                 editorStroe.commit({
-                    type: 'updateList',
+                    type: 'updateCodeList',
                     codeType: this.type,
                     list: this.codes
                 })

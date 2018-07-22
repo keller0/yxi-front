@@ -35,10 +35,13 @@ const mutations = {
     updateCodeList(state, payload) {
         switch (payload.codeType) {
             case 'public':
-                state.codelist.pupblic = payload.list
+                state.codelist.public = payload.list
                 break
             case 'popular':
                 state.codelist.popular = payload.list
+                break
+            case 'mine':
+                state.codelist.mine = payload.list
                 break
             default:
                 return
@@ -57,6 +60,15 @@ const mutations = {
     updateNewBuffer(state, payload) {
         state.bufferlist[0] = payload.code
         state.status.id = 0
+    },
+    updateCurrentLikes(state, payload) {
+        var currentID = state.status.id
+        for (const c of state.bufferlist) {
+            if (c.id === currentID) {
+                c.likes += payload.number
+                break
+            }
+        }
     }
 }
 

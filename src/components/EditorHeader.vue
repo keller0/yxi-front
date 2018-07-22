@@ -29,7 +29,7 @@ import { likeCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
 import notifyStore from '@/store/notify'
 import notify from '@/components/Notify'
-
+import editorStroe from '@/store/editor'
 export default {
     name: 'Header',
     components: {
@@ -49,7 +49,7 @@ export default {
     },
     computed: {
         currentBuffer() {
-            return this.$store.state.editor.buffer
+            return editorStroe.getters.currentBuffer
         }
     },
     methods: {
@@ -78,10 +78,10 @@ export default {
         },
         async LikeCode() {
             try {
-                await likeCode(this.$store.state.editor.buffer.id, this.$store.state.user.token)
+                await likeCode(this.currentBuffer.id, this.$store.state.user.token)
                 this.likeResult = 'Like code succeed'
-                this.$store.commit({
-                    type: 'updateEditorBufferLikes',
+                editorStroe.commit({
+                    type: 'updateCurrentLikes',
                     number: 1
                 })
             } catch (error) {

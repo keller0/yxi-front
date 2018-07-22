@@ -38,19 +38,6 @@ var state = {
             line: true,
             mode: 'text/x-csrc',
             theme: 'blackboard'
-        },
-        buffer: {
-            content: '',
-            createat: '',
-            description: '',
-            filename: '',
-            id: 0,
-            lang: '',
-            likes: 0,
-            public: true,
-            title: '',
-            updateat: '',
-            username: ''
         }
     }
 }
@@ -64,18 +51,8 @@ const mutations = {
     updateEditorMode(state, payload) {
         state.editor.config.mode = payload.mime
     },
-    updateEditorBuffer(state, payload) {
-        state.editor.buffer = payload.code
-        // localStorage.setItem('editorBuffer', JSON.stringify(payload.code))
-    },
     updateEditorLM(state, payload) {
         state.editor.config.lineNumbers = payload.lm
-    },
-    updateEditorBufferContent(state, payload) {
-        state.editor.buffer.content = payload.content
-    },
-    updateEditorBufferLikes(state, payload) {
-        state.editor.buffer.likes += payload.number
     },
     userLogin(state, payload) {
         state.user.token = payload.token
@@ -110,10 +87,6 @@ const mutations = {
             default:
                 return
         }
-    },
-    taggleNotify(state, payload) {
-        state.notify.show = payload.show
-        state.notify.msg = payload.msg
     }
 }
 

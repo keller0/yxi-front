@@ -20,6 +20,7 @@
 import { likeCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
 import notifyStore from '@/store/notify'
+import editorStroe from '@/store/editor'
 
 export default {
     data() {
@@ -29,9 +30,6 @@ export default {
         }
     },
     computed: {
-        editorBuffer() {
-            return this.$store.state.editor.buffer
-        }
     },
     props: {
     },
@@ -39,10 +37,10 @@ export default {
         async LikeCode() {
             try {
                 this.statusUpload()
-                await likeCode(this.$store.state.editor.buffer.id, this.$store.state.user.token)
+                await likeCode(editorStroe.getters.currentBuffer.id, this.$store.state.user.token)
                 this.likeResult = 'Like code succeed'
-                this.$store.commit({
-                    type: 'updateEditorBufferLikes',
+                editorStroe.commit({
+                    type: 'updateCurrentLikes',
                     number: 1
                 })
             } catch (error) {

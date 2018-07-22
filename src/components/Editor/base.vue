@@ -7,6 +7,7 @@
 <script>
 
 import { codemirror } from 'vue-codemirror'
+import editorStroe from '@/store/editor'
 
 export default {
     name: 'EditorBase',
@@ -18,7 +19,7 @@ export default {
             return this.$store.state.editor.config
         },
         globalEditorBuffer() {
-            return this.$store.state.editor.buffer
+            return editorStroe.getters.currentBuffer
         }
     },
     created() {

@@ -79,6 +79,7 @@ import runCode from '@/components/Editor/runCode'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import publishButton from '@/components/Button/publish'
 import EditorBase from '@/components/Editor/base'
+import editorStroe from '@/store/editor'
 export default {
     components: {
         EditorBase,
@@ -87,7 +88,7 @@ export default {
     },
     computed: {
         editorBuffer() {
-            return this.$store.state.editor.buffer
+            return editorStroe.getters.currentBuffer
         },
         logined() {
             return this.$store.getters.isLogined
@@ -118,9 +119,10 @@ export default {
     },
     methods: {
         setEditorBuffer() {
-            this.$store.commit({
-                type: 'updateEditorBuffer',
+            editorStroe.commit({
+                type: 'updateNewBuffer',
                 'code': {
+                    id: 0,
                     content: SampleCode[this.language]['code'],
                     filename: SampleCode[this.language]['filename'],
                     lang: this.language,

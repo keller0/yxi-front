@@ -28,13 +28,14 @@
 import { codeRunResult } from '@/api/runCode'
 import { errorMsg } from '@/api/error'
 import editorSettion from '@/components/Button/editorSetting'
+import editorStroe from '@/store/editor'
 export default {
     components: {
         editorSettion
     },
     computed: {
         editorBuffer() {
-            return this.$store.state.editor.buffer
+            return editorStroe.getters.currentBuffer
         }
     },
     data() {

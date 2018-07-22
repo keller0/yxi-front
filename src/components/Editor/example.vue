@@ -34,6 +34,7 @@ import newButton from '@/components/Button/new'
 import { SampleCode, CodeMirrorMode } from '@/utils/languages'
 import { supportedLaguage } from '@/utils/languages'
 import EditorBase from '@/components/Editor/base'
+import editorStroe from '@/store/editor'
 
 export default {
     components: {
@@ -61,15 +62,17 @@ export default {
             this.setEditorMode()
         },
         setEditorBuffer() {
-            this.$store.commit({
-                type: 'updateEditorBuffer',
+            editorStroe.commit({
+                type: 'updateNewBuffer',
                 'code': {
+                    id: 0,
                     content: SampleCode[this.language]['code'],
                     filename: SampleCode[this.language]['filename'],
                     lang: this.language,
                     title: 'Untitiled',
                     description: ''
                 }
+
             })
         },
         setEditorMode() {

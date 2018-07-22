@@ -80,7 +80,7 @@ export default {
                 const res = await getOnesCodeList(userid, token)
                 this.codes = res.codes
                 editorStroe.commit({
-                    type: 'updateList',
+                    type: 'updateCodeList',
                     codeType: 'mine',
                     list: this.codes
                 })

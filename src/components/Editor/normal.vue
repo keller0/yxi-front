@@ -86,6 +86,7 @@ import likeButton from '@/components/Button/like'
 import updateButton from '@/components/Button/update'
 import { getCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
+import editorStroe from '@/store/editor'
 
 export default {
     components: {
@@ -96,11 +97,11 @@ export default {
     },
     computed: {
         editorBuffer() {
-            return this.$store.state.editor.buffer
+            return editorStroe.getters.currentBuffer
         },
         isMyCode() {
             return this.$store.getters.isLogined &&
-            this.$store.state.editor.buffer.username === this.$store.state.user.name
+            editorStroe.getters.currentBuffer.username === this.$store.state.user.name
         }
     },
     props: [
@@ -121,7 +122,17 @@ export default {
 
     },
     created() {
-        this.getCodeContent('/')
+        var idInt = parseInt(this.$route.params.id)
+        if (editorStroe.getters.isInBL(idInt)) {
+            editorStroe.commit({
+                type: 'switchBuffer',
+                id: idInt
+            })
+            this.isAnonymous = this.editorBuffer.username === 'anonymous'
+            this.isPublic = this.editorBuffer.public
+        } else {
+            this.getCodeContent('/')
+        }
     },
     watch: {
         '$route': 'getCodeContent'
@@ -132,9 +143,8 @@ export default {
             try {
                 var token = this.$store.state.user.token
                 const resp = await getCode(this.$route.params.id, part, token)
-                // update store status
-                this.$store.commit({
-                    type: 'updateEditorBuffer',
+                editorStroe.commit({
+                    type: 'addAndOpen',
                     code: resp.code
                 })
                 this.isAnonymous = this.editorBuffer.username === 'anonymous'
