@@ -62,12 +62,18 @@ export default {
                 this.codes = []
         }
         this.getCode()
+        this.updateBackurl()
     },
     watch: {
-        '$route': 'getCode'
+        '$route': ['getCode', 'updateBackurl']
     },
     methods: {
-
+        updateBackurl() {
+            this.$store.commit({
+                type: 'changeURL',
+                url: this.$route.path
+            })
+        },
         huTime(s) {
             var localTZ = moment.tz.guess()
             var t = moment.utc(s)

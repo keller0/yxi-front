@@ -57,9 +57,11 @@ export default {
     },
     methods: {
         closeCode() {
-            console.log(this.$router)
-
-            this.$router.go(-1)
+            if (this.$store.state.backurl === '') {
+                this.$router.push('/popular')
+            } else {
+                this.$router.push(this.$store.state.backurl)
+            }
         },
         loadUserInfo() {
             const info = localStorage.getItem('userinfo')

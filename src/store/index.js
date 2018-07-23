@@ -27,11 +27,14 @@ var state = {
         editorSetting: {
             show: false
         }
-    }
+    },
+    backurl: ''
 }
 
 const mutations = {
-
+    changeURL(state, payload) {
+        state.backurl = payload.url
+    },
     userLogin(state, payload) {
         state.user.token = payload.token
         state.user.id = payload.id

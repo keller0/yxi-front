@@ -65,11 +65,18 @@ export default {
     },
     created() {
         this.getCode()
+        this.updateBackurl()
     },
     watch: {
-        '$route': 'getCode'
+        '$route': ['getCode', 'updateBackurl']
     },
     methods: {
+        updateBackurl() {
+            this.$store.commit({
+                type: 'changeURL',
+                url: this.$route.path
+            })
+        },
         openCode(id) {
             this.$router.push('/code/' + id)
         },
