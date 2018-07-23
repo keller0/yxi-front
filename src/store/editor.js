@@ -24,21 +24,20 @@ var state = {
         saved: false,
         isNew: false
     },
-    bufferlist: [
-        {
-            content: '',
-            createat: '',
-            description: '',
-            filename: '',
-            id: 0,
-            lang: '',
-            likes: 0,
-            public: true,
-            title: '',
-            updateat: '',
-            username: ''
-        }
-    ]
+    bufferlist: [],
+    newBuffer: {
+        content: '',
+        createat: '',
+        description: '',
+        filename: '',
+        id: 0,
+        lang: '',
+        likes: 0,
+        public: true,
+        title: '',
+        updateat: '',
+        username: ''
+    }
 }
 
 const mutations = {
@@ -74,13 +73,15 @@ const mutations = {
     addAndOpen(state, payload) {
         state.bufferlist.push(payload.code)
         state.status.id = payload.code.id
+        state.status.isNew = false
     },
     switchBuffer(state, payload) {
         state.status.id = payload.id
+        state.status.isNew = false
     },
     updateNewBuffer(state, payload) {
-        state.bufferlist[0] = payload.code
-        state.status.id = 0
+        state.newBuffer = payload.code
+        state.status.isNew = true
     },
     updateCurrentLikes(state, payload) {
         var currentID = state.status.id

@@ -76,7 +76,7 @@
 <script>
 
 import runCode from '@/components/Editor/runCode'
-import { SampleCode, CodeMirrorMode } from '@/utils/languages'
+import { SampleCode } from '@/utils/languages'
 import publishButton from '@/components/Button/publish'
 import EditorBase from '@/components/Editor/base'
 import editorStroe from '@/store/editor'
@@ -88,15 +88,16 @@ export default {
     },
     computed: {
         editorBuffer() {
+            if (editorStroe.state.status.isNew === true) {
+                return editorStroe.state.newBuffer
+            }
             return editorStroe.getters.currentBuffer
         },
         logined() {
             return this.$store.getters.isLogined
         }
     },
-    props: [
-
-    ],
+    props: [],
     data() {
         return {
             language: this.$route.params.language,
@@ -109,9 +110,7 @@ export default {
         }
     },
     created() {
-        // create a new buffer so we need set something
         this.setEditorBuffer()
-        this.setEditorMode()
         this.setSwitchs()
     },
     watch: {
@@ -121,22 +120,13 @@ export default {
         setEditorBuffer() {
             editorStroe.commit({
                 type: 'updateNewBuffer',
-                'code': {
-                    id: 0,
+                code: {
                     content: SampleCode[this.language]['code'],
                     filename: SampleCode[this.language]['filename'],
                     lang: this.language,
                     title: 'Untitiled',
                     description: ''
                 }
-
-            })
-        },
-        setEditorMode() {
-            var mime = CodeMirrorMode(this.language)
-            editorStroe.commit({
-                type: 'updateMode',
-                mime: mime
             })
         },
         setSwitchs() {

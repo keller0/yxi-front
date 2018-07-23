@@ -19,6 +19,9 @@ export default {
             return editorStroe.state.config
         },
         globalEditorBuffer() {
+            if (editorStroe.state.status.isNew === true) {
+                return editorStroe.state.newBuffer
+            }
             return editorStroe.getters.currentBuffer
         }
     },

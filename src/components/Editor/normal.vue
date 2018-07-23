@@ -97,6 +97,9 @@ export default {
     },
     computed: {
         editorBuffer() {
+            if (editorStroe.state.status.isNew === true) {
+                return editorStroe.state.newBuffer
+            }
             return editorStroe.getters.currentBuffer
         },
         isMyCode() {

@@ -31,7 +31,7 @@
 
 import runCode from '@/components/Editor/runCode'
 import newButton from '@/components/Button/new'
-import { SampleCode, CodeMirrorMode } from '@/utils/languages'
+import { SampleCode } from '@/utils/languages'
 import { supportedLaguage } from '@/utils/languages'
 import EditorBase from '@/components/Editor/base'
 import editorStroe from '@/store/editor'
@@ -47,7 +47,6 @@ export default {
     },
     created() {
         this.setEditorBuffer()
-        this.setEditorMode()
     },
     data() {
         return {
@@ -59,27 +58,17 @@ export default {
         changeLanguage(lang) {
             this.language = lang
             this.setEditorBuffer()
-            this.setEditorMode()
         },
         setEditorBuffer() {
             editorStroe.commit({
                 type: 'updateNewBuffer',
-                'code': {
-                    id: 0,
+                code: {
                     content: SampleCode[this.language]['code'],
                     filename: SampleCode[this.language]['filename'],
                     lang: this.language,
                     title: 'Untitiled',
                     description: ''
                 }
-
-            })
-        },
-        setEditorMode() {
-            var mime = CodeMirrorMode(this.language)
-            editorStroe.commit({
-                type: 'updateMode',
-                mime: mime
             })
         }
     }

@@ -49,17 +49,17 @@ export default {
     },
     computed: {
         currentBuffer() {
+            if (editorStroe.state.status.isNew === true) {
+                return editorStroe.state.newBuffer
+            }
             return editorStroe.getters.currentBuffer
         }
     },
     methods: {
         closeCode() {
-            try {
-                this.$router.go(-1)
-            } catch (error) {
-                console.log(error)
-                this.$router.push('public')
-            }
+            console.log(this.$router)
+
+            this.$router.go(-1)
         },
         loadUserInfo() {
             const info = localStorage.getItem('userinfo')

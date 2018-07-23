@@ -90,6 +90,9 @@ export default {
         },
         globalBufferMode: {
             get: function() {
+                if (editorStroe.state.status.isNew === true) {
+                    return editorStroe.state.newBuffer.lang
+                }
                 return editorStroe.getters.currentBuffer.lang
             },
             set: function(lang) {
