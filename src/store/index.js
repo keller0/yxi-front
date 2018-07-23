@@ -27,33 +27,11 @@ var state = {
         editorSetting: {
             show: false
         }
-    },
-    editor: {
-        config: {
-            tabSize: 4,
-            indentUnit: 4,
-            lineNumbers: true,
-            indentWithTabs: true,
-            smartIndent: true,
-            line: true,
-            mode: 'text/x-csrc',
-            theme: 'blackboard'
-        }
     }
 }
 
 const mutations = {
-    updateEditorTheme(state, t) {
-        import(`codemirror/theme/${t}.css`)
-        state.editor.config.theme = t
-        localStorage.setItem('editorTheme', t)
-    },
-    updateEditorMode(state, payload) {
-        state.editor.config.mode = payload.mime
-    },
-    updateEditorLM(state, payload) {
-        state.editor.config.lineNumbers = payload.lm
-    },
+
     userLogin(state, payload) {
         state.user.token = payload.token
         state.user.id = payload.id

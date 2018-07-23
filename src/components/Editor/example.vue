@@ -77,8 +77,8 @@ export default {
         },
         setEditorMode() {
             var mime = CodeMirrorMode(this.language)
-            this.$store.commit({
-                type: 'updateEditorMode',
+            editorStroe.commit({
+                type: 'updateMode',
                 mime: mime
             })
         }

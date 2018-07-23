@@ -4,6 +4,16 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 var state = {
+    config: {
+        tabSize: 4,
+        indentUnit: 4,
+        lineNumbers: true,
+        indentWithTabs: true,
+        smartIndent: true,
+        line: true,
+        mode: 'text/x-csrc',
+        theme: 'blackboard'
+    },
     codelist: {
         public: [],
         popular: [],
@@ -32,6 +42,17 @@ var state = {
 }
 
 const mutations = {
+    updateTheme(state, t) {
+        import(`codemirror/theme/${t}.css`)
+        state.config.theme = t
+        localStorage.setItem('editorTheme', t)
+    },
+    updateMode(state, payload) {
+        state.config.mode = payload.mime
+    },
+    updateLM(state, payload) {
+        state.config.lineNumbers = payload.lm
+    },
     updateCodeList(state, payload) {
         switch (payload.codeType) {
             case 'public':

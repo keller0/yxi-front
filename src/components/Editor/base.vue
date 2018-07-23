@@ -16,7 +16,7 @@ export default {
     },
     computed: {
         globalEditorConfig() {
-            return this.$store.state.editor.config
+            return editorStroe.state.config
         },
         globalEditorBuffer() {
             return editorStroe.getters.currentBuffer

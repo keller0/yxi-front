@@ -65,7 +65,7 @@ export default {
         if (theme == null) {
             theme = 'blackboard'
         }
-        this.$store.commit('updateEditorTheme', theme)
+        editorStroe.commit('updateTheme', theme)
     },
     computed: {
         openDialog: {
@@ -82,10 +82,10 @@ export default {
         },
         globalEditorTheme: {
             get: function() {
-                return this.$store.state.editor.config.theme
+                return editorStroe.state.config.theme
             },
             set: function(theme) {
-                this.$store.commit('updateEditorTheme', theme)
+                editorStroe.commit('updateTheme', theme)
             }
         },
         globalBufferMode: {
@@ -94,8 +94,8 @@ export default {
             },
             set: function(lang) {
                 var mime = CodeMirrorMode(lang)
-                this.$store.commit({
-                    type: 'updateEditorMode',
+                editorStroe.commit({
+                    type: 'updateMode',
                     mime: mime
                 })
             }
@@ -103,11 +103,11 @@ export default {
         },
         globalBufferLM: {
             get: function() {
-                return this.$store.state.editor.config.lineNumbers
+                return editorStroe.state.config.lineNumbers
             },
             set: function(t) {
-                this.$store.commit({
-                    type: 'updateEditorLM',
+                editorStroe.commit({
+                    type: 'updateLM',
                     lm: t
                 })
             }
