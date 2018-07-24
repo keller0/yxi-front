@@ -15,11 +15,46 @@
             </v-btn>
         </v-card-actions>
         <v-slide-y-transition>
-                <v-card-text v-show="rshow">
-                <div>
-                    <pre class="code-result">{{ result }}</pre>
-                </div>
-            </v-card-text>
+            <div v-show="rshow">
+                <v-tabs
+                  left
+                  v-model="tabs"
+                >
+                    <v-tab
+                      :key="'stdin'"
+                    >
+                      stdin
+                    </v-tab>
+                    <v-tab
+                      :key="'result'"
+                    >
+                      result
+                    </v-tab>
+              </v-tabs>
+              <v-tabs-items v-model="tabs">
+                  <v-tab-item
+                    :key="'stdin'"
+                  >
+                      <v-card>
+                          <v-card-text>
+                          <v-text-field
+                          v-model="stdin"
+                          multi-line
+                          ></v-text-field>
+                          </v-card-text>
+                      </v-card>
+                  </v-tab-item>
+                  <v-tab-item
+                    :key="'result'"
+                  >
+                      <v-card>
+                          <v-card-text>
+                          <pre class="code-result">{{ result }}</pre>
+                          </v-card-text>
+                      </v-card>
+                  </v-tab-item>
+              </v-tabs-items>
+              </div>
         </v-slide-y-transition>
     </div>
 </template>
@@ -43,6 +78,8 @@ export default {
     },
     data() {
         return {
+            stdin: '',
+            tabs: null,
             rshow: false,
             error: '',
             result: 'nothing...',
@@ -62,7 +99,7 @@ export default {
                             name: this.editorBuffer.filename
                         }
                     ],
-                    stdin: '',
+                    stdin: this.stdin,
                     argument: {
                         compile: [],
                         run: []
@@ -88,6 +125,7 @@ export default {
             this.loading = true
         },
         statusStopRun() {
+            this.tabs = '1'
             this.runBar = false
             this.pecBar = 100
             this.rshow = true
