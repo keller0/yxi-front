@@ -35,6 +35,7 @@ import editorStroe from '@/store/editor'
 export default {
     data() {
         return {
+            published: false,
             loading: false,
             notifyDialog: false,
             saveResult: '',
@@ -55,6 +56,11 @@ export default {
     },
     methods: {
         async saveCodeAno() {
+            if (this.published) {
+                this.saveResult = 'Already Uploaded'
+                this.statusUploadDone()
+                return
+            }
             try {
                 this.statusUpload()
                 var data = {
@@ -71,6 +77,7 @@ export default {
                 }
                 await createCode(data, token)
                 this.saveResult = 'Upload succeed'
+                this.published = true
             } catch (error) {
                 this.saveError = errorMsg[error.response.data.errNumber]
             } finally {
