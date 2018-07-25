@@ -68,10 +68,17 @@ export default {
                 }
                 if (this.anonymous) {
                     data.userid = 0
+                    data.username = 'anonymous'
+                } else {
+                    data.username = this.$store.state.user.name
                 }
                 var token = this.$store.state.user.token
                 await updateCode(data, token)
                 this.saveResult = 'Update succeed'
+                editorStroe.commit({
+                    type: 'updateCBuffer',
+                    code: data
+                })
             } catch (error) {
                 this.saveError = errorMsg[error.response.data.errNumber]
             } finally {

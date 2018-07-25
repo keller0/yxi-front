@@ -91,6 +91,20 @@ const mutations = {
                 break
             }
         }
+    },
+    updateCBuffer(state, payload) {
+        var currentID = state.status.id
+        for (const c of state.bufferlist) {
+            if (c.id === currentID) {
+                c.title = payload.code.title
+                c.description = payload.code.description
+                c.filename = payload.code.filename
+                c.content = payload.code.content
+                c.public = payload.code.public
+                c.username = payload.code.username
+                break
+            }
+        }
     }
 }
 
