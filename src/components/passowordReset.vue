@@ -13,14 +13,19 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md12>
                 <v-form v-model="valid">
+                  <v-text-field v-show="false"></v-text-field>
                   <v-text-field
                     v-model="email"
                     :rules="emailRules"
                     label="Your Email"
                     single-line
-                    solo
                     required
                   ></v-text-field>
+                    <v-btn
+                      flat block color="primary"
+                      @click="sendMail"
+                      :loading="loading"
+                    >Send password reset email</v-btn>
                 </v-form>
               </v-flex>
             </v-layout>
@@ -29,13 +34,6 @@
               {{errMsg}}
           </v-alert>
         </v-card-text>
-        <v-card-actions>
-          <v-btn
-          flat block color="primary"
-          @click="sendMail"
-          :loading="loading"
-          >Send password reset email</v-btn>
-        </v-card-actions>
       </v-card>
       <v-card v-if="done">
          <v-card-title primary-title>
