@@ -67,6 +67,13 @@ const mutations = {
                 return
         }
     },
+    removeCodeFromMine(state, payload) {
+        for (var i = state.codelist.mine.length - 1; i >= 0; i--) {
+            if (state.codelist.mine[i].id === payload.id) {
+                state.codelist.mine.splice(i, 1)
+            }
+        }
+    },
     add2BufferList(state, payload) {
 
     },

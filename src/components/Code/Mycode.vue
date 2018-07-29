@@ -36,7 +36,7 @@
 
 <script>
 import newButton from '@/components/Button/new'
-import { getOnesCodeList } from '@/api/code'
+import { getOnesCodeList, deleteCode } from '@/api/code'
 import editorStroe from '@/store/editor'
 
 export default {
@@ -99,7 +99,30 @@ export default {
             }
         },
         doAction(action, id) {
-            console.log(action, id)
+            switch (action) {
+                case 'edit':
+                    this.$router.push('/code/' + id)
+                    return
+                case 'delete':
+                    this.delete(id)
+                    return
+                default:
+                    return
+            }
+        },
+        async delete(id) {
+            var sure = confirm('Are you sure?')
+            if (sure) {
+                try {
+                    await deleteCode(id, this.$store.state.user.token)
+                    editorStroe.commit({
+                        type: 'removeCodeFromMine',
+                        id: id
+                    })
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }
     }
 }

@@ -69,6 +69,16 @@ function likeCode(codeid, token) {
     })
 }
 
+function deleteCode(codeid, token) {
+    return apiService({
+        url: 'code/' + codeid,
+        method: 'DELETE',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+}
+
 export {
     getCodeList,
     getOnesCodeList,
@@ -76,5 +86,6 @@ export {
     getCode,
     createCode,
     likeCode,
+    deleteCode,
     updateCode
 }
