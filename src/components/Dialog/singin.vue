@@ -8,14 +8,16 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm12 md12>
-                      <v-text-field v-model="lname" label="username or email" required></v-text-field>
+                      Username or Email
+                      <v-text-field v-model="lname" required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12>
-                      <v-text-field v-model="lpass" label="Password" type="password" required></v-text-field>
+                      Password <span class="blue--text" style="cursor:pointer" @click="passwordReset">forgot?</span>
+                      <v-text-field v-model="lpass" type="password" required></v-text-field>
                     </v-flex>
                   </v-layout>
                 </v-container>
-                <v-alert :value="errMsg != ''" outline color="error" icon="warning">
+                <v-alert :value="errMsg != ''" outline color="error" icon="warning" dismissible @click="errMsg=''">
                     {{errMsg}}
                 </v-alert>
             </v-card-text>
@@ -58,6 +60,10 @@ export default {
         }
     },
     methods: {
+        passwordReset() {
+            this.openDialog = false
+            this.$router.push('/password_reset')
+        },
         async login() {
             this.loading = true
             this.errMsg = ''

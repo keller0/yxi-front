@@ -27,4 +27,19 @@ function userRegister(email, name, pass) {
         }
     })
 }
-export { userLogin, userRegister }
+function resetPassEmail(email) {
+    return apiService({
+        url: 'account/password/email',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            email: email
+        }
+    })
+}
+export { userLogin,
+    userRegister,
+    resetPassEmail
+}
