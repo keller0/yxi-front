@@ -5,7 +5,8 @@ import Home from '@/pages/Home'
 import Sample from '@/pages/Sample'
 import Code from '@/pages/Code'
 import Help from '@/pages/Help'
-import PasswordReset from '@/components/passowordReset'
+import PasswordReset from '@/components/account/passwordReset'
+import reset from '@/components/account/reset'
 import Mycode from '@/components/Code/Mycode'
 import codeList from '@/components/Code/codeList'
 
@@ -25,6 +26,9 @@ const routerMap = [
         children: [
             { path: '/help', component: Help },
             { path: '/password_reset', component: PasswordReset },
+            { path: '/password_new',
+                component: reset,
+                props: (route) => ({ email: route.query.email, token: route.query.token }) },
             { path: '/public', component: codeList, props: { type: 'public' }},
             { path: '/popular', component: codeList, props: { type: 'popular' }},
             { path: '/mine', component: Mycode }

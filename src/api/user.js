@@ -39,7 +39,23 @@ function resetPassEmail(email) {
         }
     })
 }
+// update password use email and token
+function resetPass(email, pass, token) {
+    return apiService({
+        url: 'account/password',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            email: email,
+            pass: pass,
+            token: token
+        }
+    })
+}
 export { userLogin,
     userRegister,
-    resetPassEmail
+    resetPassEmail,
+    resetPass
 }
