@@ -14,8 +14,6 @@
                 <v-btn flat @click="closeCode()"><v-icon left dark>close</v-icon><span class="hidden-md-and-down">Close</span></v-btn>
             </v-toolbar-items>
         </v-toolbar>
-        <singupDialog></singupDialog>
-        <singinDialog></singinDialog>
         <notify></notify>
     </div>
 
@@ -23,8 +21,6 @@
 
 <script>
 
-import singupDialog from '@/components/Dialog/singup'
-import singinDialog from '@/components/Dialog/singin'
 import { likeCode } from '@/api/code'
 import { errorMsg } from '@/api/error'
 import notifyStore from '@/store/notify'
@@ -33,8 +29,6 @@ import editorStroe from '@/store/editor'
 export default {
     name: 'Header',
     components: {
-        singupDialog,
-        singinDialog,
         notify
     },
     props: {

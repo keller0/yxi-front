@@ -13,7 +13,7 @@ function userLogin(name, pass) {
     })
 }
 
-function userRegister(email, name, pass) {
+function userRegister(email, name) {
     return apiService({
         url: 'user',
         method: 'POST',
@@ -22,8 +22,7 @@ function userRegister(email, name, pass) {
         },
         data: {
             email: email,
-            user: name,
-            password: pass
+            user: name
         }
     })
 }
@@ -54,8 +53,25 @@ function resetPass(email, pass, token) {
         }
     })
 }
+// update password use email and token
+function registerComplete(email, pass, token, user) {
+    return apiService({
+        url: 'account/complete',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            email: email,
+            pass: pass,
+            token: token,
+            user: user
+        }
+    })
+}
 export { userLogin,
     userRegister,
+    registerComplete,
     resetPassEmail,
     resetPass
 }

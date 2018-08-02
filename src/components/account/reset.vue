@@ -17,11 +17,6 @@
                   <v-flex xs12 sm12 md12>
                       <v-text-field v-model="password" :rules="passwordRules" label="Password" type="password" required></v-text-field>
                   </v-flex>
-                  <v-btn
-                    flat block color="primary"
-                    @click="updatePass"
-                    :loading="loading"
-                  >Update password</v-btn>
                 </v-form>
               </v-flex>
             </v-layout>
@@ -30,6 +25,13 @@
               {{errMsg}}
           </v-alert>
         </v-card-text>
+        <v-card-actions>
+            <v-btn
+              flat block color="primary"
+              @click="updatePass"
+              :loading="loading"
+            >Update password</v-btn>
+        </v-card-actions>
       </v-card>
       <v-card v-if="done">
          <v-card-title primary-title>
@@ -70,7 +72,6 @@ export default {
         errMsg: ''
     }),
     created() {
-        console.log(this.token)
     },
     methods: {
         async updatePass() {

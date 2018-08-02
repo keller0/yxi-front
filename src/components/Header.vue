@@ -16,7 +16,7 @@
                 <v-btn slot="activator" flat v-if="!logined">Sign In/Up</v-btn>
                 <v-list  class="text-xs-center" v-if="!logined">
                     <v-list-tile @click="openDialog('singin')">Sign In</v-list-tile>
-                    <v-list-tile @click="openDialog('singup')">Sign Up</v-list-tile>
+                    <v-list-tile @click="goPage('/singup')">Sign Up</v-list-tile>
                      <v-list-tile @click="goPage('/help')">Help</v-list-tile>
                 </v-list>
                 <v-btn slot="activator" flat v-if="logined">{{loginedUser}}</v-btn>
@@ -27,7 +27,6 @@
                 </v-list>
               </v-menu>
             </v-toolbar-items>
-          <singupDialog></singupDialog>
           <singinDialog></singinDialog>
 
         </v-toolbar>
@@ -36,13 +35,11 @@
 
 <script>
 
-import singupDialog from '@/components/Dialog/singup'
 import singinDialog from '@/components/Dialog/singin'
 
 export default {
     name: 'Header',
     components: {
-        singupDialog,
         singinDialog
     },
     props: {
