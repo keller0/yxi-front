@@ -19,7 +19,9 @@ import 'codemirror/mode/ruby/ruby.js'
 import 'codemirror/mode/haskell/haskell.js'
 import 'codemirror/mode/rust/rust.js'
 
+import shortkey from 'vue-shortkey'
 Vue.use(Vuetify)
+Vue.use(shortkey)
 router.afterEach(function(to) {
     if (window.ga) {
         window.ga('set', 'page', to.fullPath)

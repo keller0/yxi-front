@@ -11,7 +11,7 @@
             <v-spacer hidden-xs-only></v-spacer>
             <v-toolbar-items >
                 <v-btn flat @click="LikeCode()" v-if="currentBuffer.id"><v-icon left dark>favorite</v-icon><span class="hidden-md-and-down">{{currentBuffer.likes}}</span></v-btn>
-                <v-btn flat @click="closeCode()"><v-icon left dark>close</v-icon><span class="hidden-md-and-down">Close</span></v-btn>
+                <v-btn flat v-shortkey.once="['esc']" @shortkey="closeCode()" @click="closeCode()"><v-icon left dark>close</v-icon><span class="hidden-md-and-down">Close</span></v-btn>
             </v-toolbar-items>
         </v-toolbar>
         <notify></notify>
