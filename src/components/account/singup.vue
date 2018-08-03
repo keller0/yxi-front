@@ -13,7 +13,7 @@
                   <v-text-field v-model="rname" :rules="nameRules" label="Chose a username" required></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm12 md12>
-                  <v-text-field v-model="remail" :rules="emailRules" label="Email" type="email" required></v-text-field>
+                  <v-text-field v-model="remail" :rules="emailRules" label="Email" type="email" required @keyup.enter="register"></v-text-field>
                 </v-flex>
               </v-layout>
               </v-form>
