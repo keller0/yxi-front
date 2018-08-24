@@ -105,7 +105,18 @@ export default {
                         run: []
                     }
                 }
-                const res = await codeRunResult('/run/' + this.editorBuffer.lang, data)
+                var varlanguageName = this.editorBuffer.lang
+                switch (varlanguageName) {
+                    case 'python3.5':
+                        varlanguageName = 'python' + '/3.5'
+                        break
+                    case 'python2.7':
+                        varlanguageName = 'python' + '/2.7'
+                        break
+                    default:
+                        break
+                }
+                const res = await codeRunResult('/run/' + varlanguageName, data)
                 if (res.userResult != null) {
                     this.result += res.userResult.stdout
                     this.result += res.userResult.stderr

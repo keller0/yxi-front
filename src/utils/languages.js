@@ -7,7 +7,8 @@ const supportedLaguage = [
     'java',
     'perl',
     'php',
-    'python',
+    'python3.5',
+    'python2.7',
     'ruby',
     'rust'
 ]
@@ -41,9 +42,13 @@ const SampleCode = {
         'filename': 'main.php',
         'code': '<?php\n    echo"Hello, World!";'
     },
-    'python': {
+    'python3.5': {
         'filename': 'main.py',
         'code': '#!/usr/bin/python\n\nprint(\'Hello, World!\')'
+    },
+    'python2.7': {
+        'filename': 'main.py',
+        'code': '#!/usr/bin/python\n\nprint \'Hello, World!\''
     },
     'perl': {
         'filename': 'Hi.pl',
@@ -74,6 +79,10 @@ function CodeMirrorMode(language) {
             return 'text/x-objectivec'
         case 'rust':
             return 'text/x-rustsrc'
+        case 'python3.5':
+            return 'text/x-python'
+        case 'python2.7':
+            return 'text/x-python'
         default:
             return 'text/x-' + language
     }
