@@ -50,7 +50,7 @@ export default {
     },
     data() {
         return {
-            language: 'python',
+            language: 'python3.5',
             supportedLaguage
         }
     },
