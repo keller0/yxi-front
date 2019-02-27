@@ -1,7 +1,6 @@
-# Frontend for [yxi.io](https://yxi.io)
+# Old frontend for [yxi.io](https://yxi.io)
+# For current codebase please check https://github.com/keller0/yxi.io
 
-## What's yxi.io
-  yxi let you create and run code snppets.
 ## Build Setup
 
 ``` bash
@@ -17,4 +16,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-## For backend pleace check [keller0/yxi-back](https://github.com/keller0/yxi-back)
