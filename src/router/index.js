@@ -9,15 +9,10 @@ Vue.use(Router)
 
 const routerMap = [
     {
-        path: '/',
-        component: Home
+        path: '/', component: Home
     },
     {
-        path: '/',
-        component: Sample,
-        children: [
-            { path: '/help', component: Help }
-        ]
+        path: '/help', component: Help
     }
 
 ]

@@ -1,6 +1,45 @@
 <template>
+    <div>
+        <v-toolbar
+            dense
+            fixed
+            app>
+            <v-toolbar-title class="">
+                <!-- an icon ? -->
+                <span class="title" style="cursor: pointer;">YXI</span>
+            </v-toolbar-title>
+            <v-spacer hidden-xs-only></v-spacer>
+            <v-toolbar-items >
+                <v-menu offset-y>
+                <v-list  class="text-xs-center" >
+                     <v-list-tile >Help</v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-toolbar-items>
 
-    <codemirror v-model="globalEditorBuffer.content" :options="globalEditorConfig" ></codemirror>
+        </v-toolbar>
+
+        <codemirror v-model="globalEditorBuffer.content" :options="globalEditorConfig" ></codemirror>
+
+        <v-footer class="pa-3" height="auto">
+            <v-layout row wrap justify-center>
+            <v-btn flat >
+                Home
+            </v-btn>
+            <v-btn flat>
+                Help
+            </v-btn>
+            <a href="https://github.com/keller0/yxi-front" target="_blank">
+                <v-btn flat>
+                    Github
+                </v-btn>
+            </a>
+            <v-btn flat disabled>
+                &copy; {{ new Date().getFullYear() }} yxi.io
+            </v-btn>
+            </v-layout>
+        </v-footer>
+    </div>
     
 </template>
 

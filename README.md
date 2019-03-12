@@ -1,5 +1,4 @@
-# Old frontend for [yxi.io](https://yxi.io)
-# For current codebase please check https://github.com/keller0/yxi.io
+# frontend for [yxi.io](https://yxi.io)
 
 ## Build Setup
 
