@@ -40,16 +40,16 @@
                     <option value="c">c-gcc6.4</option>
                     <option value="c">c-gcc5.5</option>
 
-                    <option value="cpp">c-gcc8.3</option>
-                    <option value="cpp">c-gcc7.4</option>
-                    <option value="cpp">c-gcc6.4</option>
-                    <option value="cpp">c-gcc5.5</option>
+                    <option value="cpp">cpp-gcc8.3</option>
+                    <option value="cpp">cpp-gcc7.4</option>
+                    <option value="cpp">cpp-gcc6.4</option>
+                    <option value="cpp">cpp-gcc5.5</option>
 
                     <option value="go">go-1.12</option>
                     <option value="go">go-1.11</option>
 
-                    <option value="python">python3.7</option>
-                    <option value="python">python2.7</option>
+                    <option value="python3">python3.7</option>
+                    <option value="python2">python2.7</option>
 
                     <option value="php">php-7.2.5</option>
 
@@ -57,7 +57,7 @@
                     <option value="java">java-8</option>
 
                     <option value="perl">perl-5.28</option>
-                    <option value="perl">perl6</option>
+                    <option value="perl6">perl6</option>
 
                     <option value="ruby">ruby-2.6</option>
                     <option value="rust">rust</option>
@@ -168,8 +168,14 @@ function changeTheme(theme) {
 }
 
 function modeAndURL(mode) {
+    var editorMode = mode;
+    if(mode === "python2" || mode === "python3") {
+        editorMode = "python";
+    } else if (mode === "perl6") {
+        editorMode = "perl"
+    }
     return {
-        modeId: mode,
+        modeId: editorMode,
         sampleURL: 'samples/sample.' + mode + '.txt'
     };
 }
