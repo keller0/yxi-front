@@ -1,82 +1,38 @@
 <?php
-// The next line contains a syntax error:
-if () {
-	return "The parser recovers from this type of syntax error";
-}
-?>
-<html>
-<head>
-	<title>Example page</title>
-</head>
+	/* CONFIG FROM URL STRING, DEFAULT TO 99 BOTTLES OF BEER ON THE WALL*/
+	if($_REQUEST['bottleNumber']) { $bottleNumber = $_REQUEST['bottleNumber']; } else { $bottleNumber =
+99; }
+	if($_REQUEST['fluid']) { $fluid = $_REQUEST['fluid']; } else { $fluid = 'beer'; }
+	if($_REQUEST['location']) { $location = $_REQUEST['location']; } else { $location = 'wall'; }
 
-<body>
+	/* CREATE LYRICS */
+	for($i = $bottleNumber; $i >= 0; $i--) {
 
-<script type="text/javascript">
-	// Some PHP embedded inside JS
-	// Generated <?=date('l, F jS, Y')?>
-	
-	var server_token = <?=rand(5, 10000)?>
-	if (typeof server_token === 'number') {
-		alert('token: ' + server_token);
-	}
-</script>
+		/* SET DEFAULTS */
+		$bottleCount = $i;
+		$bottle = 'bottles';
+		$action = 'Take one down and pass it around';
+		$remainingBottles = $i-1;
 
-<div>
-Hello
-<? if (isset($user)) { ?>
-	<b><?=$user?></b>
-<? } else { ?>
-	<i>guest</i>
-<? } ?>
-!
-</div>
-
-<?php
-
-	/* Example PHP file
-	multiline comment
-	*/
-
-	$cards = array("ah", "ac", "ad", "as",
-		"2h", "2c", "2d", "2s",
-		"3h", "3c", "3d", "3s",
-		"4h", "4c", "4d", "4s",
-		"5h", "5c", "5d", "5s",
-		"6h", "6c", "6d", "6s",
-		"7h", "7c", "7d", "7s",
-		"8h", "8c", "8d", "8s",
-		"9h", "9c", "9d", "9s",
-		"th", "tc", "td", "ts",
-		"jh", "jc", "jd", "js",
-		"qh", "qc", "qd", "qs",
-		"kh", "kc", "kd", "ks");
-
-	srand(time());
-
-	for($i = 0; $i < 52; $i++) {
-		$count = count($cards);
-		$random = (rand()%$count);
-
-		if($cards[$random] == "") {
-			$i--;
-		} else {
-			$deck[] = $cards[$random];
-			$cards[$random] = "";
+		/* HANDLE EXCEPTIONS */
+		if($i == 0) {
+			$bottleCount = 'no more';
+			$action = 'Go to the store and buy some more';
+			$remainingBottles = $bottleNumber;
 		}
+		if($i == 1) {
+			$bottle = 'bottle';
+			$action = 'Take it down and pass it around';
+			$remainingBottles = 'no more';
+		}
+
+		/* BUILD LYRICS */
+		$lyrics .= ucfirst($bottleCount).' '.$bottle.' of '.$fluid.' on the '.$location.',
+'.$bottleCount.' '.$bottle.' of '.$fluid.'.<br>'."\n";
+		$lyrics .= $action.', '.$remainingBottles.' bottles of '.$fluid.' on the '.$location.'.<p
+\>'."\n\n";
 	}
 
-	srand(time());
-	$starting_point = (rand()%51);
-	print("Starting point for cut cards is: $starting_point<p>");
-
-	// display shuffled cards (EXAMPLE ONLY)
-	for ($index = 0; $index < 52; $index++) {
-		if ($starting_point == 52) { $starting_point = 0; }
-		print("Uncut Point: <strong>$deck[$index]</strong> ");
-		print("Starting Point: <strong>$deck[$starting_point]</strong><br>");
-		$starting_point++;
-	}
+	/* OUTPUT TO PAGE */
+	echo $lyrics;
 ?>
-
-</body>
-</html>

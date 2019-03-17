@@ -16,6 +16,7 @@
 .try .editor .editor-frame .progress .bar{width:100%;background-color:#4bb1cf; text-align: center;}
 .try .editor .editor-frame .alert,.try .editor .editor-frame #editor .alert{margin:18% auto 0;width:30%;text-align:center;color:#b94a48;background-color:#f2dede;border-color:#eed3d7}
 @media (max-width:740px){.try {width: 100%;} .try .editor .editor-frame, #editor{height: 500px;}}
+.failed{color: red}
     </style>
 	<link data-name="vs/editor/editor.main" rel="stylesheet" href="node_modules/monaco-editor/min/vs/editor/editor.main.css">
 </head>
@@ -48,8 +49,8 @@
                     <option value="go">go-1.12</option>
                     <option value="go">go-1.11</option>
 
-                    <option value="python3">python3.7</option>
-                    <option value="python2">python2.7</option>
+                    <!-- <option value="python3">python3.7</option>
+                    <option value="python2">python2.7</option> -->
 
                     <option value="php">php-7.2.5</option>
 
@@ -57,7 +58,7 @@
                     <option value="java">java-8</option>
 
                     <option value="perl">perl-5.28</option>
-                    <option value="perl6">perl6</option>
+                    <!-- <option value="perl6">perl6</option> -->
 
                     <option value="ruby">ruby-2.6</option>
                     <option value="rust">rust</option>
@@ -89,6 +90,22 @@
 "use strict";
 
 var editor = null;
+var APIURL = "r.yxi.io";
+// var APIURL = "http://localhost:8090";
+const sampleName = {
+    'bash': 'run.sh',
+    'c': 'main.c',
+    'cpp': 'main.cpp',
+    'go':  'main.go',
+    'java': 'Hi.java',
+    'php': 'main.php',
+    'python3': 'main.py',
+    'python2': 'main.py',
+    'perl': 'Hi.pl',
+    'perl6' : 'main.p6',
+    'ruby': 'Hi.rb',
+    'rust': 'Hi.rs'
+}
 
 $(document).ready(function() {
     require(['vs/editor/editor.main'], function () {
@@ -97,7 +114,6 @@ $(document).ready(function() {
         loadSample(modeAndURL($(".language-picker")[0].value));
         
         $(".language-picker").change(function() {
-            // console.log(this.value)
             loadSample(modeAndURL(this.value));
         });
 
@@ -181,23 +197,53 @@ function modeAndURL(mode) {
 }
 
 function runCode() {
+    $("#result").removeClass("failed");
+    $("#result").val("");
+    $("#btnRun").prop('disabled', true).text("Running...");
     var language = $(".language-picker option:selected").text();
-    console.log(language);
-    var url = "r.yxi.io/v1/" + language.replace("-", "/");
-    console.log(url);
-    // todo
+    var apiurl = APIURL + "/v1/" + language.replace("-", "/");
+    var filename = sampleName[language.split("-")[0]];
+    // console.log(filename);
+    // console.log(apiurl);
+    var codeContent = editor.getValue();
+    // console.log(codeContent)
+    var codedata = {
+        files: [
+            {
+                content: codeContent,
+                name: filename
+            }
+        ],
+        stdin: "",
+        argument: {
+            compile: [],
+            run: []
+        }
+    }
+    $.ajax({
+        url: apiurl,
+        type: "POST",
+        contentType: "application/json", // send as JSON
+        data: JSON.stringify(codedata),
+        complete: function() {
+            $("#btnRun").prop('disabled', false).text("Run");
+        },
+        success: function(res) {
+            if(res.userResult.exiterror === ""){
+                $("#result").val(res.userResult.stdout);
+            } else {
+                $("#result").val(res.userResult.stdout + res.userResult.stderr);
+            }
+        },
 
-    // $.ajax({
-    //     type: 'POST',
-    //     url: url,
-    //     dataType: 'json',
-    //     error: function () {
-            
-    //     }
-    // }).done(function(data) {
-        
-    // });
+        error: function() {
+            $("#result").addClass("failed");
+            $("#result").val("Request error : " + res.taskError);
+        },
+    });
 }
+
+
 
 function downloadCode() {
     // maybe change filename
