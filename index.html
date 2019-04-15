@@ -24,6 +24,51 @@
     <div class="try">
         <div class="container">
             <div class="editor">
+                <div id="menubar">
+                    <label class="" for="language">Language</label>
+                    <select class="language-picker" id="language">
+                        <option value="shell">bash-4.4</option>
+                        <option value="c">c-gcc8.3</option>
+                        <option value="c">c-gcc7.4</option>
+                        <option value="c">c-gcc6.4</option>
+                        <option value="c">c-gcc5.5</option>
+
+                        <option value="cpp">cpp-gcc8.3</option>
+                        <option value="cpp">cpp-gcc7.4</option>
+                        <option value="cpp">cpp-gcc6.4</option>
+                        <option value="cpp">cpp-gcc5.5</option>
+
+                        <option value="go">go-1.12</option>
+                        <option value="go">go-1.11</option>
+
+                        <!-- <option value="python3">python3.7</option>
+                        <option value="python2">python2.7</option> -->
+
+                        <option value="php">php-7.2.5</option>
+
+                        <option value="java">java-13</option>
+                        <option value="java">java-8</option>
+
+                        <option value="perl">perl-5.28</option>
+                        <!-- <option value="perl6">perl6</option> -->
+
+                        <option value="ruby">ruby-2.6</option>
+                        <option value="rust">rust</option>
+
+                    </select>
+
+                    <label class="" for="theme">Theme</label>
+                    <select class="theme-picker" id="theme">
+                        <option>Visual Studio</option>
+                        <option>Visual Studio Dark</option>
+                        <option>High Contrast Dark</option>
+                    </select>
+                
+                    <label class="control-label">Options</label>
+                    <button id="btnDownload">Download</button>
+                    <button id="btnRun">Run</button>
+                </div>
+
                 <div class="editor-frame">
                     <div class="loading editor" style="display: none;">
                         <div class="progress">
@@ -33,49 +78,6 @@
                     <div id="editor"></div>
                 </div>
 
-                <label class="" for="language">Language</label>
-                <select class="language-picker" id="language">
-                    <option value="shell">bash-4.4</option>
-                    <option value="c">c-gcc8.3</option>
-                    <option value="c">c-gcc7.4</option>
-                    <option value="c">c-gcc6.4</option>
-                    <option value="c">c-gcc5.5</option>
-
-                    <option value="cpp">cpp-gcc8.3</option>
-                    <option value="cpp">cpp-gcc7.4</option>
-                    <option value="cpp">cpp-gcc6.4</option>
-                    <option value="cpp">cpp-gcc5.5</option>
-
-                    <option value="go">go-1.12</option>
-                    <option value="go">go-1.11</option>
-
-                    <!-- <option value="python3">python3.7</option>
-                    <option value="python2">python2.7</option> -->
-
-                    <option value="php">php-7.2.5</option>
-
-                    <option value="java">java-13</option>
-                    <option value="java">java-8</option>
-
-                    <option value="perl">perl-5.28</option>
-                    <!-- <option value="perl6">perl6</option> -->
-
-                    <option value="ruby">ruby-2.6</option>
-                    <option value="rust">rust</option>
-
-                </select>
-            
-                <label class="" for="theme">Theme</label>
-                <select class="theme-picker" id="theme">
-                    <option>Visual Studio</option>
-                    <option>Visual Studio Dark</option>
-                    <option>High Contrast Dark</option>
-                </select>
-            
-                <label class="control-label">Options</label>
-                <button id="btnDownload">Download</button>
-                <button id="btnRun">Run</button>
-                
                 <textarea id="result"></textarea>
             </div>
         </div>
@@ -90,6 +92,7 @@
 "use strict";
 
 var editor = null;
+var minHeight = 600;
 var APIURL = "r.yxi.io";
 // var APIURL = "http://localhost:8090";
 const sampleName = {
@@ -123,14 +126,22 @@ $(document).ready(function() {
         $("#btnRun").click(runCode);
         $("#btnDownload").click(downloadCode);
     });
-    
+    $("#menubar").height(30);
+    initLayout();
     window.onresize = function () {
+        initLayout()
         if (editor) {
             editor.layout();
         }
     };
 });
-
+function initLayout() {
+    var wheight = $(window).height()
+    wheight = wheight < minHeight ? minHeight : wheight;
+    $(".editor-frame").height(wheight - 200);
+    $("#editor").height(wheight - 200);
+    $("#result").height(120);
+}
 function xhr(url, cb) {
     $.ajax({
         type: 'GET',
@@ -203,10 +214,7 @@ function runCode() {
     var language = $(".language-picker option:selected").text();
     var apiurl = APIURL + "/v1/" + language.replace("-", "/");
     var filename = sampleName[language.split("-")[0]];
-    // console.log(filename);
-    // console.log(apiurl);
     var codeContent = editor.getValue();
-    // console.log(codeContent)
     var codedata = {
         files: [
             {
