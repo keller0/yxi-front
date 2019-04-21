@@ -1,22 +1,275 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href='https://fonts.loli.net/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <title>yxi.io</title>
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120543764-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || []
-function gtag() { dataLayer.push(arguments) }
-    gtag('js', new Date())
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>YXI code runner</title>
+    <style>
+.try {width: 90%; margin: auto;}
+.try .editor.row .control-label{display:inline-block;position:relative;top:-4px;margin-right:4px}
+.try .editor .editor-frame{position:relative}
+.try .editor .editor-frame, #editor{height:777px;margin-bottom:10px;border:1px solid rgb(77, 77, 77)}
+#result {height:222px; width: 100%;margin-top:10px;border:1px solid rgb(77, 77, 77)}
+.try .editor .editor-frame .loading{position:absolute;height:100%;width:100%;background-color:rgba(255,255,255,.5);margin:0 auto;display:none;z-index:100}
+.try .editor .editor-frame .progress{width:50%;margin:15% auto 0}
+.try .editor .editor-frame .progress .bar{width:100%;background-color:#4bb1cf; text-align: center;}
+.try .editor .editor-frame .alert,.try .editor .editor-frame #editor .alert{margin:18% auto 0;width:30%;text-align:center;color:#b94a48;background-color:#f2dede;border-color:#eed3d7}
+@media (max-width:740px){.try {width: 100%;} .try .editor .editor-frame, #editor{height: 500px;}}
+.failed{color: red}
+    </style>
+	<link data-name="vs/editor/editor.main" rel="stylesheet" href="node_modules/monaco-editor/min/vs/editor/editor.main.css">
+</head>
+<body>
+    <div class="try">
+        <div class="container">
+            <div class="editor">
+                <div id="menubar">
+                    <label class="" for="language">Language</label>
+                    <select class="language-picker" id="language">
+                        <option value="shell">bash-4.4</option>
+                        <option value="c">c-gcc8.3</option>
+                        <option value="c">c-gcc7.4</option>
+                        <option value="c">c-gcc6.4</option>
+                        <option value="c">c-gcc5.5</option>
 
-gtag('config', 'UA-120543764-1')
-  </script>
+                        <option value="cpp">cpp-gcc8.3</option>
+                        <option value="cpp">cpp-gcc7.4</option>
+                        <option value="cpp">cpp-gcc6.4</option>
+                        <option value="cpp">cpp-gcc5.5</option>
 
+                        <option value="go">go-1.12</option>
+                        <option value="go">go-1.11</option>
+
+                        <!-- <option value="python3">python3.7</option>
+                        <option value="python2">python2.7</option> -->
+
+                        <option value="php">php-7.2.5</option>
+
+                        <option value="java">java-13</option>
+                        <option value="java">java-8</option>
+
+                        <option value="perl">perl-5.28</option>
+                        <!-- <option value="perl6">perl6</option> -->
+
+                        <option value="ruby">ruby-2.6</option>
+                        <option value="rust">rust</option>
+
+                    </select>
+
+                    <label class="" for="theme">Theme</label>
+                    <select class="theme-picker" id="theme">
+                        <option>Visual Studio</option>
+                        <option>Visual Studio Dark</option>
+                        <option>High Contrast Dark</option>
+                    </select>
+                
+                    <label class="control-label">Options</label>
+                    <button id="btnDownload">Download</button>
+                    <button id="btnRun">Run</button>
+                </div>
+
+                <div class="editor-frame">
+                    <div class="loading editor" style="display: none;">
+                        <div class="progress">
+                                <p class="bar">Loading...</p>
+                        </div>
+                    </div>
+                    <div id="editor"></div>
+                </div>
+
+                <textarea id="result"></textarea>
+            </div>
+        </div>
+    </div>
+    <script src="lib/jquery-1.9.1.min.js"></script>
+    <script>var require = { paths: { 'vs': 'node_modules/monaco-editor/min/vs' } };</script>
+    <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script src="node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+    <script src="node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
+    <script>/// <reference path="../../release/monaco.d.ts" />
+
+"use strict";
+
+var editor = null;
+var minHeight = 600;
+var APIURL = "r.yxi.io";
+// var APIURL = "http://localhost:8090";
+const sampleName = {
+    'bash': 'run.sh',
+    'c': 'main.c',
+    'cpp': 'main.cpp',
+    'go':  'main.go',
+    'java': 'Hi.java',
+    'php': 'main.php',
+    'python3': 'main.py',
+    'python2': 'main.py',
+    'perl': 'Hi.pl',
+    'perl6' : 'main.p6',
+    'ruby': 'Hi.rb',
+    'rust': 'Hi.rs'
+}
+
+$(document).ready(function() {
+    require(['vs/editor/editor.main'], function () {
+
+        $(".language-picker")[0].selectedIndex = 0;
+        loadSample(modeAndURL($(".language-picker")[0].value));
+        
+        $(".language-picker").change(function() {
+            loadSample(modeAndURL(this.value));
+        });
+
+        $(".theme-picker").change(function() {
+            changeTheme(this.selectedIndex);
+        });
+        $("#btnRun").click(runCode);
+        $("#btnDownload").click(downloadCode);
+    });
+    $("#menubar").height(30);
+    initLayout();
+    window.onresize = function () {
+        initLayout()
+        if (editor) {
+            editor.layout();
+        }
+    };
+});
+function initLayout() {
+    var wheight = $(window).height()
+    wheight = wheight < minHeight ? minHeight : wheight;
+    $(".editor-frame").height(wheight - 200);
+    $("#editor").height(wheight - 200);
+    $("#result").height(120);
+}
+function xhr(url, cb) {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'text',
+        error: function () {
+            cb(this, null);
+        }
+    }).done(function(data) {
+        cb(null, data);
+    });
+}
+
+function loadSample(mode) {
+    $('.loading.editor').show();
+    xhr(mode.sampleURL, function(err, data) {
+        if (err) {
+            if (editor) {
+                if (editor.getModel()) {
+                    editor.getModel().dispose();
+                }
+                editor.dispose();
+                editor = null;
+            }
+            $('.loading.editor').fadeOut({ duration: 200 });
+            $('#editor').empty();
+            $('#editor').append('<p class="alert alert-error">Failed to load ' + mode.modeId + ' sample</p>');
+            return;
+        }
+
+        if (!editor) {
+            $('#editor').empty();
+            editor = monaco.editor.create(document.getElementById('editor'), {
+                model: null,
+            });
+        }
+
+        var oldModel = editor.getModel();
+        var newModel = monaco.editor.createModel(data, mode.modeId);
+        editor.setModel(newModel);
+        if (oldModel) {
+            oldModel.dispose();
+        }
+        $('.loading.editor').fadeOut({ duration: 300 });
+    })
+}
+
+function changeTheme(theme) {
+    var newTheme = (theme === 1 ? 'vs-dark' : ( theme === 0 ? 'vs' : 'hc-black' ));
+    monaco.editor.setTheme(newTheme);
+}
+
+function modeAndURL(mode) {
+    var editorMode = mode;
+    if(mode === "python2" || mode === "python3") {
+        editorMode = "python";
+    } else if (mode === "perl6") {
+        editorMode = "perl"
+    }
+    return {
+        modeId: editorMode,
+        sampleURL: 'samples/sample.' + mode + '.txt'
+    };
+}
+
+function runCode() {
+    $("#result").removeClass("failed");
+    $("#result").val("");
+    $("#btnRun").prop('disabled', true).text("Running...");
+    var language = $(".language-picker option:selected").text();
+    var apiurl = APIURL + "/v1/" + language.replace("-", "/");
+    var filename = sampleName[language.split("-")[0]];
+    var codeContent = editor.getValue();
+    var codedata = {
+        files: [
+            {
+                content: codeContent,
+                name: filename
+            }
+        ],
+        stdin: "",
+        argument: {
+            compile: [],
+            run: []
+        }
+    }
+    $.ajax({
+        url: apiurl,
+        type: "POST",
+        contentType: "application/json", // send as JSON
+        data: JSON.stringify(codedata),
+        complete: function() {
+            $("#btnRun").prop('disabled', false).text("Run");
+        },
+        success: function(res) {
+            if(res.userResult.exiterror === ""){
+                $("#result").val(res.userResult.stdout);
+            } else {
+                $("#result").val(res.userResult.stdout + res.userResult.stderr);
+            }
+        },
+
+        error: function() {
+            $("#result").addClass("failed");
+            $("#result").val("Request error : " + res.taskError);
+        },
+    });
+}
+
+
+
+function downloadCode() {
+    // maybe change filename
+    var filename = 'example.txt';
+    var text = editor.getValue();
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    }
+    else {
+        pom.click();
+    }
+}
+    </script>
+</body>
 </html>
