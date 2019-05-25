@@ -133,14 +133,26 @@ const sampleName = {
 }
 
 $(document).ready(function() {
-	$(".language-picker")[0].selectedIndex = 0;
-	loadSample(modeAndURL($(".language-picker")[0].value));
-	
-	$(".language-picker").change(function() {
+
+    let language_picker = $("#language");
+    let lindex = localStorage.getItem("language_index")
+
+    language_picker[0].selectedIndex = lindex != null ? lindex : 0;
+    loadSample(modeAndURL(language_picker[0].value));
+
+	language_picker.change(function() {
+        let index = language_picker[0].selectedIndex;
+        localStorage.setItem("language_index", index)
+
 		loadSample(modeAndURL(this.value));
 	});
 
-	$(".theme-picker").change(function() {
+    let tindex = localStorage.getItem("theme_index")
+    if(tindex != null) {
+        changeTheme(tindex);
+    }
+
+	$("#theme").change(function() {
 		changeTheme(this.selectedIndex);
 	});
 	$("#btnRun").click(runCode);
@@ -212,6 +224,7 @@ function loadSample(mode) {
 }
 
 function changeTheme(theme) {
+    localStorage.setItem("theme_index", theme)
     var newTheme = (theme === 1 ? 'vs-dark' : ( theme === 0 ? 'vs' : 'hc-black' ));
     monaco.editor.setTheme(newTheme);
 }
