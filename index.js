@@ -110,7 +110,7 @@ self.MonacoEnvironment = {
 		// }
 		return './editor.worker.bundle.js';
 	}
-}
+};
 
 
 let editor = null;
@@ -130,14 +130,14 @@ const sampleName = {
     'perl6' : 'main.p6',
     'ruby': 'Hi.rb',
     'rust': 'Hi.rs'
-}
+};
 
 $(document).ready(function() {
 
     let language_picker = $("#language");
-    let lindex = localStorage.getItem("language_index")
+    let l_index = localStorage.getItem("language_index")
 
-    language_picker[0].selectedIndex = lindex != null ? lindex : 0;
+    language_picker[0].selectedIndex = l_index != null ? l_index : 0;
     loadSample(modeAndURL(language_picker[0].value));
 
 	language_picker.change(function() {
@@ -147,9 +147,9 @@ $(document).ready(function() {
 		loadSample(modeAndURL(this.value));
 	});
 
-    let tindex = localStorage.getItem("theme_index")
-    if(tindex != null) {
-        changeTheme(tindex);
+    let t_index = localStorage.getItem("theme_index")
+    if(t_index != null) {
+        changeTheme(t_index);
     }
 
 	$("#theme").change(function() {
@@ -161,7 +161,7 @@ $(document).ready(function() {
     $("#menubar").height(30);
     initLayout();
     window.onresize = function () {
-        initLayout()
+        initLayout();
         if (editor) {
             editor.layout();
         }
@@ -169,10 +169,10 @@ $(document).ready(function() {
 });
 
 function initLayout() {
-    var wheight = $(window).height()
-    wheight = wheight < minHeight ? minHeight : wheight;
-    $(".editor-frame").height(wheight - 200);
-    $("#editor").height(wheight - 200);
+    let w_height = $(window).height()
+    w_height = w_height < minHeight ? minHeight : w_height;
+    $(".editor-frame").height(w_height - 200);
+    $("#editor").height(w_height - 200);
     $("#result").height(120);
 }
 
@@ -246,11 +246,11 @@ function runCode() {
     $("#result").removeClass("failed");
     $("#result").val("");
     $("#btnRun").prop('disabled', true).text("Running...");
-    var language = $(".language-picker option:selected").text();
-    var apiurl = APIURL + "/v1/" + language.replace("-", "/");
-    var filename = sampleName[language.split("-")[0]];
-    var codeContent = editor.getValue();
-    var codedata = {
+    let language = $(".language-picker option:selected").text();
+    let apiurl = APIURL + "/v1/" + language.replace("-", "/");
+    let filename = sampleName[language.split("-")[0]];
+    let codeContent = editor.getValue();
+    let codedata = {
         files: [
             {
                 content: codeContent,
@@ -262,8 +262,8 @@ function runCode() {
             compile: [],
             run: []
         }
-    }
-    debugger
+    };
+
     $.ajax({
         url: apiurl,
         timeout : 10000,
@@ -295,14 +295,14 @@ function runCode() {
 
 function downloadCode() {
     // maybe change filename
-    var filename = 'example.txt';
-    var text = editor.getValue();
-    var pom = document.createElement('a');
+    let filename = 'example.txt';
+    let text = editor.getValue();
+    let pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
 
     if (document.createEvent) {
-        var event = document.createEvent('MouseEvents');
+        let event = document.createEvent('MouseEvents');
         event.initEvent('click', true, true);
         pom.dispatchEvent(event);
     }
