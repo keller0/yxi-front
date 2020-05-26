@@ -115,8 +115,8 @@ self.MonacoEnvironment = {
 
 let editor = null;
 let minHeight = 600;
-let APIURL = "https://r.yxi.io";
-// var APIURL = "http://localhost:8090";
+const API_URL = "https://r.yxi.io";
+// const API_URL = "http://localhost:8090";
 const sampleName = {
     'bash': 'run.sh',
     'c': 'main.c',
@@ -135,19 +135,19 @@ const sampleName = {
 $(document).ready(function() {
 
     let language_picker = $("#language");
-    let l_index = localStorage.getItem("language_index")
+    let l_index = localStorage.getItem("language_index");
 
     language_picker[0].selectedIndex = l_index != null ? l_index : 0;
     loadSample(modeAndURL(language_picker[0].value));
 
 	language_picker.change(function() {
         let index = language_picker[0].selectedIndex;
-        localStorage.setItem("language_index", index)
+        localStorage.setItem("language_index", index);
 
 		loadSample(modeAndURL(this.value));
 	});
 
-    let t_index = localStorage.getItem("theme_index")
+    let t_index = localStorage.getItem("theme_index");
     if(t_index != null) {
         changeTheme(t_index);
     }
@@ -169,7 +169,7 @@ $(document).ready(function() {
 });
 
 function initLayout() {
-    let w_height = $(window).height()
+    let w_height = $(window).height();
     w_height = w_height < minHeight ? minHeight : w_height;
     $(".editor-frame").height(w_height - 200);
     $("#editor").height(w_height - 200);
@@ -201,8 +201,7 @@ function loadSample(mode) {
                 editor = null;
             }
             $('.loading.editor').fadeOut({ duration: 200 });
-            $('#editor').empty();
-            $('#editor').append('<p class="alert alert-error">Failed to load ' + mode.modeId + ' sample</p>');
+            $('#editor').empty().append('<p class="alert alert-error">Failed to load ' + mode.modeId + ' sample</p>');
             return;
         }
 
@@ -213,8 +212,8 @@ function loadSample(mode) {
             });
         }
 
-        var oldModel = editor.getModel();
-        var newModel = monaco.editor.createModel(data, mode.modeId);
+        let oldModel = editor.getModel();
+        let newModel = monaco.editor.createModel(data, mode.modeId);
         editor.setModel(newModel);
         if (oldModel) {
             oldModel.dispose();
@@ -224,13 +223,13 @@ function loadSample(mode) {
 }
 
 function changeTheme(theme) {
-    localStorage.setItem("theme_index", theme)
-    var newTheme = (theme === 1 ? 'vs-dark' : ( theme === 0 ? 'vs' : 'hc-black' ));
+    localStorage.setItem("theme_index", theme);
+    let newTheme = (theme === 1 ? 'vs-dark' : ( theme === 0 ? 'vs' : 'hc-black' ));
     monaco.editor.setTheme(newTheme);
 }
 
 function modeAndURL(mode) {
-    var editorMode = mode;
+    let editorMode = mode;
     if(mode === "python2" || mode === "python3") {
         editorMode = "python";
     } else if (mode === "perl6") {
@@ -243,11 +242,11 @@ function modeAndURL(mode) {
 }
 
 function runCode() {
-    $("#result").removeClass("failed");
-    $("#result").val("");
+    $("#result").removeClass("failed").val("");
+
     $("#btnRun").prop('disabled', true).text("Running...");
     let language = $(".language-picker option:selected").text();
-    let apiurl = APIURL + "/v1/" + language.replace("-", "/");
+    let apiurl = API_URL + "/v1/" + language.replace("-", "/");
     let filename = sampleName[language.split("-")[0]];
     let codeContent = editor.getValue();
     let codedata = {
@@ -272,19 +271,20 @@ function runCode() {
         data: JSON.stringify(codedata)
     }).done(function(res) {
         
-        if(res.userResult.exiterror === ""){
+        if(res.userResult.exitError === ""){
             $("#result").val(res.userResult.stdout);
         } else {
             $("#result").val(res.userResult.stdout + res.userResult.stderr);
         }
 
     }).fail(function(jqXHR, textStatus, errorThrown){
-        $("#result").addClass("failed");
+        let res = $("#result");
+        res.addClass("failed");
         if(textStatus === 'timeout')
-        {     
-            $("#result").val("time out");
+        {
+            res.val("time out");
         } else {
-            $("#result").val("Request error : " + errorThrown);
+            res.val("Request error : " + errorThrown);
         }
     }).always(function() {
         $("#btnRun").prop('disabled', false).text("Run");
