@@ -171,9 +171,10 @@ $(document).ready(function() {
 function initLayout() {
     let w_height = $(window).height();
     w_height = w_height < minHeight ? minHeight : w_height;
-    $(".editor-frame").height(w_height - 200);
-    $("#editor").height(w_height - 200);
-    $("#result").height(120);
+
+    $(".editor-frame").height(w_height * 0.6);
+    $("#editor").height(w_height * 0.6);
+    $("#result").height(w_height * 0.3);
 }
 
 function xhr(url, cb) {
