@@ -1,48 +1,17 @@
 
 import $ from "jquery"
-// (1) Desired editor features:
+
+import GoldenLayout from 'golden-layout'
+import 'golden-layout/src/css/goldenlayout-base.css'
+import 'golden-layout/src/css/goldenlayout-light-theme.css'
+
 import 'monaco-editor/esm/vs/editor/browser/controller/coreCommands.js';
-// import 'monaco-editor/esm/vs/editor/browser/widget/codeEditorWidget.js';
-// import 'monaco-editor/esm/vs/editor/browser/widget/diffEditorWidget.js';
-// import 'monaco-editor/esm/vs/editor/browser/widget/diffNavigator.js';
 import 'monaco-editor/esm/vs/editor/contrib/bracketMatching/bracketMatching.js';
-// import 'monaco-editor/esm/vs/editor/contrib/caretOperations/caretOperations.js';
-// import 'monaco-editor/esm/vs/editor/contrib/caretOperations/transpose.js';
 import 'monaco-editor/esm/vs/editor/contrib/clipboard/clipboard.js';
-// import 'monaco-editor/esm/vs/editor/contrib/codelens/codelensController.js';
-// import 'monaco-editor/esm/vs/editor/contrib/colorPicker/colorDetector.js';
 import 'monaco-editor/esm/vs/editor/contrib/comment/comment.js';
-// import 'monaco-editor/esm/vs/editor/contrib/contextmenu/contextmenu.js';
-// import 'monaco-editor/esm/vs/editor/contrib/cursorUndo/cursorUndo.js';
-// import 'monaco-editor/esm/vs/editor/contrib/dnd/dnd.js';
 import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 import 'monaco-editor/esm/vs/editor/contrib/folding/folding.js';
-// import 'monaco-editor/esm/vs/editor/contrib/format/formatActions.js';
-// import 'monaco-editor/esm/vs/editor/contrib/goToDeclaration/goToDeclarationCommands.js';
-// import 'monaco-editor/esm/vs/editor/contrib/goToDeclaration/goToDeclarationMouse.js';
-// import 'monaco-editor/esm/vs/editor/contrib/gotoError/gotoError.js';
 import 'monaco-editor/esm/vs/editor/contrib/hover/hover.js';
-// import 'monaco-editor/esm/vs/editor/contrib/inPlaceReplace/inPlaceReplace.js';
-// import 'monaco-editor/esm/vs/editor/contrib/linesOperations/linesOperations.js';
-// import 'monaco-editor/esm/vs/editor/contrib/links/links.js';
-// import 'monaco-editor/esm/vs/editor/contrib/multicursor/multicursor.js';
-// import 'monaco-editor/esm/vs/editor/contrib/parameterHints/parameterHints.js';
-// import 'monaco-editor/esm/vs/editor/contrib/quickFix/quickFixCommands.js';
-// import 'monaco-editor/esm/vs/editor/contrib/referenceSearch/referenceSearch.js';
-// import 'monaco-editor/esm/vs/editor/contrib/rename/rename.js';
-// import 'monaco-editor/esm/vs/editor/contrib/smartSelect/smartSelect.js';
-// import 'monaco-editor/esm/vs/editor/contrib/snippet/snippetController2.js';
-// import 'monaco-editor/esm/vs/editor/contrib/suggest/suggestController.js';
-// import 'monaco-editor/esm/vs/editor/contrib/toggleTabFocusMode/toggleTabFocusMode.js';
-// import 'monaco-editor/esm/vs/editor/contrib/wordHighlighter/wordHighlighter.js';
-// import 'monaco-editor/esm/vs/editor/contrib/wordOperations/wordOperations.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/iPadShowKeyboard/iPadShowKeyboard.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/quickOpen/quickOutline.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/quickOpen/gotoLine.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/quickOpen/quickCommand.js';
-// import 'monaco-editor/esm/vs/editor/standalone/browser/toggleHighContrast/toggleHighContrast.js';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
 
 // (2) Desired languages:
@@ -95,44 +64,75 @@ import 'monaco-editor/esm/vs/basic-languages/shell/shell.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/perl/perl.contribution.js';
 
 self.MonacoEnvironment = {
-	getWorkerUrl: function (moduleId, label) {
-		// if (label === 'json') {
-		// 	return './json.worker.bundle.js';
-		// }
-		// if (label === 'css') {
-		// 	return './css.worker.bundle.js';
-		// }
-		// if (label === 'html') {
-		// 	return './html.worker.bundle.js';
-		// }
-		// if (label === 'typescript' || label === 'javascript') {
-		// 	return './ts.worker.bundle.js';
-		// }
-		return './editor.worker.bundle.js';
-	}
+    getWorkerUrl: function (moduleId, label) {
+        // if (label === 'json') {
+        // 	return './json.worker.bundle.js';
+        // }
+        // if (label === 'css') {
+        // 	return './css.worker.bundle.js';
+        // }
+        // if (label === 'html') {
+        // 	return './html.worker.bundle.js';
+        // }
+        // if (label === 'typescript' || label === 'javascript') {
+        // 	return './ts.worker.bundle.js';
+        // }
+        return './editor.worker.bundle.js';
+    }
 };
 
 
 let editor = null;
-let minHeight = 600;
 const API_URL = "https://r.yxi.io";
 // const API_URL = "http://localhost:8090";
 const sampleName = {
     'bash': 'run.sh',
     'c': 'main.c',
     'cpp': 'main.cpp',
-    'go':  'main.go',
+    'go': 'main.go',
     'java': 'Hi.java',
     'php': 'main.php',
     'python3': 'main.py',
     'python2': 'main.py',
     'perl': 'Hi.pl',
-    'perl6' : 'main.p6',
+    'perl6': 'main.p6',
     'ruby': 'Hi.rb',
     'rust': 'Hi.rs'
 };
 
-$(document).ready(function() {
+
+
+$(document).ready(function () {
+
+
+    var config = {
+        content: [{
+            type: 'row',
+            content: [
+                {
+                    type: 'component',
+                    componentName: 'editor',
+                    componentState: { text: 'Component 1' }
+                },
+                {
+                    type: 'component',
+                    componentName: 'result',
+                    componentState: { text: 'Component 2' }
+                }
+            ]
+        }]
+    };
+    var myLayout = new GoldenLayout(config);
+
+    myLayout.registerComponent('editor', function (container, state) {
+        container.getElement().html('<div class="try"> <div class="container"><div class="editor"><div class="editor-frame"><div class="loading editor" style="display: none;"><div class="progress"><p class="bar">Loading...</p> </div></div><div id="editor"></div></div></div></div></div>');
+    });
+    myLayout.registerComponent('result', function (container, state) {
+        container.getElement().html('<textarea id="result"></textarea>');
+    });
+
+
+    myLayout.init();
 
     let language_picker = $("#language");
     let l_index = localStorage.getItem("language_index");
@@ -140,42 +140,45 @@ $(document).ready(function() {
     language_picker[0].selectedIndex = l_index != null ? l_index : 0;
     loadSample(modeAndURL(language_picker[0].value));
 
-	language_picker.change(function() {
+    language_picker.change(function () {
         let index = language_picker[0].selectedIndex;
         localStorage.setItem("language_index", index);
 
-		loadSample(modeAndURL(this.value));
-	});
+        loadSample(modeAndURL(this.value));
+    });
 
     let t_index = localStorage.getItem("theme_index");
-    if(t_index != null) {
+    if (t_index != null) {
         changeTheme(t_index);
     }
 
-	$("#theme").change(function() {
-		changeTheme(this.selectedIndex);
-	});
-	$("#btnRun").click(runCode);
-	$("#btnDownload").click(downloadCode);
-   
-    $("#menubar").height(30);
-    initLayout();
-    window.onresize = function () {
-        initLayout();
+    $("#theme").change(function () {
+        changeTheme(this.selectedIndex);
+    });
+    $("#btnRun").click(runCode);
+    $("#btnDownload").click(downloadCode);
+
+    // initLayout();
+    // window.onresize = function () {
+    //     initLayout();
+    //     if (editor) {
+    //         editor.layout();
+    //     }
+    // };
+
+    myLayout.on('stateChanged', function () {
+        console.log(myLayout);
         if (editor) {
             editor.layout();
         }
-    };
+    })
 });
 
-function initLayout() {
-    let w_height = $(window).height();
-    w_height = w_height < minHeight ? minHeight : w_height;
-
-    $(".editor-frame").height(w_height * 0.6);
-    $("#editor").height(w_height * 0.6);
-    $("#result").height(w_height * 0.3);
-}
+// function initLayout() {
+//     $(".editor-frame").height("100%");
+//     $("#editor").height("100%");
+//     $("#result").height("100%");
+// }
 
 function xhr(url, cb) {
     $.ajax({
@@ -185,14 +188,14 @@ function xhr(url, cb) {
         error: function () {
             cb(this, null);
         }
-    }).done(function(data) {
+    }).done(function (data) {
         cb(null, data);
     });
 }
 
 function loadSample(mode) {
     $('.loading.editor').show();
-    xhr(mode.sampleURL, function(err, data) {
+    xhr(mode.sampleURL, function (err, data) {
         if (err) {
             if (editor) {
                 if (editor.getModel()) {
@@ -225,13 +228,13 @@ function loadSample(mode) {
 
 function changeTheme(theme) {
     localStorage.setItem("theme_index", theme);
-    let newTheme = (theme === 1 ? 'vs-dark' : ( theme === 0 ? 'vs' : 'hc-black' ));
+    let newTheme = (theme === 1 ? 'vs-dark' : (theme === 0 ? 'vs' : 'hc-black'));
     monaco.editor.setTheme(newTheme);
 }
 
 function modeAndURL(mode) {
     let editorMode = mode;
-    if(mode === "python2" || mode === "python3") {
+    if (mode === "python2" || mode === "python3") {
         editorMode = "python";
     } else if (mode === "perl6") {
         editorMode = "perl"
@@ -266,28 +269,27 @@ function runCode() {
 
     $.ajax({
         url: apiurl,
-        timeout : 10000,
+        timeout: 10000,
         type: "POST",
         contentType: "application/json", // send as JSON
         data: JSON.stringify(codedata)
-    }).done(function(res) {
-        
-        if(res.userResult.exitError === ""){
+    }).done(function (res) {
+
+        if (res.userResult.exitError === "") {
             $("#result").val(res.userResult.stdout);
         } else {
             $("#result").val(res.userResult.stdout + res.userResult.stderr);
         }
 
-    }).fail(function(jqXHR, textStatus, errorThrown){
+    }).fail(function (jqXHR, textStatus, errorThrown) {
         let res = $("#result");
         res.addClass("failed");
-        if(textStatus === 'timeout')
-        {
+        if (textStatus === 'timeout') {
             res.val("time out");
         } else {
             res.val("Request error : " + errorThrown);
         }
-    }).always(function() {
+    }).always(function () {
         $("#btnRun").prop('disabled', false).text("Run");
     });
 }
