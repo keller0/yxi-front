@@ -106,17 +106,18 @@ $(document).ready(function () {
 
 
     var config = {
+        settings: { showPopoutIcon: false },
         content: [{
             type: 'row',
             content: [
                 {
                     type: 'component',
-                    componentName: 'editor',
+                    componentName: 'Editor',
                     componentState: { text: 'Component 1' }
                 },
                 {
                     type: 'component',
-                    componentName: 'result',
+                    componentName: 'Result',
                     componentState: { text: 'Component 2' }
                 }
             ]
@@ -124,10 +125,10 @@ $(document).ready(function () {
     };
     var myLayout = new GoldenLayout(config);
 
-    myLayout.registerComponent('editor', function (container, state) {
+    myLayout.registerComponent('Editor', function (container, state) {
         container.getElement().html('<div class="try"> <div class="container"><div class="editor"><div class="editor-frame"><div class="loading editor" style="display: none;"><div class="progress"><p class="bar">Loading...</p> </div></div><div id="editor"></div></div></div></div></div>');
     });
-    myLayout.registerComponent('result', function (container, state) {
+    myLayout.registerComponent('Result', function (container, state) {
         container.getElement().html('<textarea id="result"></textarea>');
     });
 
@@ -147,38 +148,25 @@ $(document).ready(function () {
         loadSample(modeAndURL(this.value));
     });
 
-    let t_index = localStorage.getItem("theme_index");
-    if (t_index != null) {
-        changeTheme(t_index);
-    }
+    let s_theme = localStorage.getItem("selected_theme");
+    s_theme = s_theme ? s_theme : "vs";
+    changeTheme(s_theme);
+    $("#theme").val(s_theme);
+
 
     $("#theme").change(function () {
-        changeTheme(this.selectedIndex);
+        changeTheme(this.value);
     });
     $("#btnRun").click(runCode);
     $("#btnDownload").click(downloadCode);
 
-    // initLayout();
-    // window.onresize = function () {
-    //     initLayout();
-    //     if (editor) {
-    //         editor.layout();
-    //     }
-    // };
 
     myLayout.on('stateChanged', function () {
-        console.log(myLayout);
         if (editor) {
             editor.layout();
         }
     })
 });
-
-// function initLayout() {
-//     $(".editor-frame").height("100%");
-//     $("#editor").height("100%");
-//     $("#result").height("100%");
-// }
 
 function xhr(url, cb) {
     $.ajax({
@@ -227,9 +215,8 @@ function loadSample(mode) {
 }
 
 function changeTheme(theme) {
-    localStorage.setItem("theme_index", theme);
-    let newTheme = (theme === 1 ? 'vs-dark' : (theme === 0 ? 'vs' : 'hc-black'));
-    monaco.editor.setTheme(newTheme);
+    localStorage.setItem("selected_theme", theme);
+    monaco.editor.setTheme(theme);
 }
 
 function modeAndURL(mode) {
