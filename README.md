@@ -26,5 +26,5 @@ Get backend source code at [Src](https://github.com/keller0/scr).
 
 This project has been supported by  [JetBrains](https://www.jetbrains.com/) with their free licenses.
 
-[![JetBrains](jetbrains.svg)](https://www.jetbrains.com/)
+[![JetBrains](dist/imgs/jetbrains.svg)](https://www.jetbrains.com/)
 
